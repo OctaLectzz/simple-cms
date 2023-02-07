@@ -26,7 +26,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'id_google',
-        'email_verified_at'
+        'email_verified_at',
+        'images'
     ];
 
     protected $attributes = [

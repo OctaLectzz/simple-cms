@@ -52,8 +52,8 @@
 
                             <div class="col-md-6">
                                 <select class="form-control @error('jenis_kelamin') is-invalid @enderror" aria-label="Default select example" name="jenis_kelamin" value="{{ old('jenis_kelamin', Auth::User()->jenis_kelamin) }}" required autocomplete="jenis_kelamin" autofocus>
-                                    <option value="{{ old('jenis_kelamin', Auth::User()->jenis_kelamin) }}" name="jenis_kelamin">Laki-Laki</option>
-                                    <option value="{{ old('jenis_kelamin', Auth::User()->jenis_kelamin) }}" name="jenis_kelamin">Perempuan</option>
+                                    <option value="Laki-Laki">Laki-Laki</option>
+                                    <option value="Perempuan">Perempuan</option>
                                 </select>
 
                                 @error('jenis_kelamin')
@@ -89,7 +89,7 @@
                                 <div class="input-group mb-3">
                                     <div class="mb-3">
                                         <label for="formFile" class="form-label">Silahkan Upload Foto Anda</label>
-                                        <input name="images" class="form-control" type="file" id="formFile">
+                                        <input name="images" class="form-control @error('images') is-invalid @enderror" value="{{ old('images', Auth::User()->images) }}" type="file" id="formFile">
                                     </div>
                                 </div>
                                 @error('images')

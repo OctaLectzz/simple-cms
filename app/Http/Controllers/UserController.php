@@ -5,21 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Routing\Controller;
 
 class UserController extends Controller
 {
     public function edit()
     {
         $users = Auth::user();
-
-        session::flash('username', $users->name);
-        session::flash('tanggal_lahir', $users->tanggal_lahir);
-        session::flash('jenis_kelamin', $users->jenis_kelamin);
-        session::flash('alamat', $users->alamat);
-
-        return view('profile.user', ['users' => $users]);
+        return view('profile.user');
     }
 
     public function update(Request $request, User $name)
@@ -30,27 +22,37 @@ class UserController extends Controller
             [
                 'name' => 'string',
                 'tanggal_lahir' => 'date',
-                'jenis_kelamin' => 'string',
+                'jenis_kelamin' => 'required',
                 'alamat' => 'string',
+                'images' => 'Required'
             ]
         );
-
-
+          
         // Request Images //
-        if ($request->file('images')) {
-            $extension = $request->file('images')->getClientOriginalExtension();
-            $newImagesName = $request->name . '-' . now()->timestamp . '.' . $extension;
-            $request->file('images')->storeAs('images', $newImagesName);
-        }
-            
-            
+        $filename = $request->images->getClientOriginalName();
+        $request->images->storeAs('images', $filename);
+
+        // if ($request->file('images')) {
+        //     $extension = $request->file('images')->getClientOriginalName();
+        //     $newImagesName = $request->name . '-' . now()->timestamp . '.' . $extension;
+        //     $request->file('images')->storeAs('public', $newImagesName);
+
+        //     $data = array_merge($data, [
+        //         'images' => $newImagesName
+        //     ]);
+        // }
+
+
+
+
         $data = [
+            'images' => $filename,
             'name' => $request->name,
             'tanggal_lahir' => $request->tanggal_lahir,
-            'jenis kelamin' => $request->jenis_kelamin,
+            'jenis_kelamin' => $request->jenis_kelamin,
             'alamat' => $request->alamat,
-            'images' => $request->images
         ];
+
 
         $users = Auth::user();
         $findUser = User::find($users->id);
