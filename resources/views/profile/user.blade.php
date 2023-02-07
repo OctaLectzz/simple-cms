@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Edit Profile') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="/profile/edit" accept-charset="UTF-8" enctype="multipart/form-data">
+                    <form  action="/profile/edit" method="POST" enctype="multipart/form-data">
 
                         @method('put')
                         @csrf
@@ -79,6 +79,27 @@
                                 @enderror
                             </div>
                         </div>
+
+
+                        {{-- images --}}
+                        <div class="row mb-3">
+                            <label for="images" class="col-md-4 col-form-label text-md-end">{{ __('images') }}</label>
+
+                            <div class="col-md-6">
+                                <div class="input-group mb-3">
+                                    <div class="mb-3">
+                                        <label for="formFile" class="form-label">Silahkan Upload Foto Anda</label>
+                                        <input name="images" class="form-control" type="file" id="formFile">
+                                    </div>
+                                </div>
+                                @error('images')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
 
 
                         {{-- Save --}}
