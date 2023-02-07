@@ -9,6 +9,12 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    {{-- Bootstrap --}}
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/cover/">
+
+    {{-- My CSS --}}
+    <link rel="stylesheet" href="css/style.css">
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
