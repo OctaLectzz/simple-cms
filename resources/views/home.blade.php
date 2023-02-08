@@ -4,12 +4,22 @@
 
 <div class="container">
     <div class="row">
+
+
         <div class="header"></div>
         <div class="card mb-3">
+            
+            {{-- Edit Profile --}}
+            <div class="position-absolute mt-3 ms-3">
+                <a href="{{ route('my.profile.index') }}" class="btn btn-large btn-success rounded-5"><i class="bi bi-pencil"></i></a>
+            </div>
+
+            {{-- Profile Photo --}}
             <div class="profile d-flex justify-content-center">
                 <img src="{{ asset('storage/images/' . Auth::user()->images) }}" alt="Profile" width="200px" height="200px" class="rounded rounded-circle img-thumbnail">
             </div>
-            <div class="card-body">
+            
+            <div class="card-text pb-3">
                 <p class=" fs-4 text-center card-text"><small class="text-muted">{{ Auth::user()->role }}</small></p>
                 <h1 class="card-text text-center"><b>{{ Auth::user()->name }}</b></h1>
                 <p class="card-text fs-2 text-center"><small class="text-muted">{{ Auth::user()->email }}</small></p>
