@@ -16,7 +16,11 @@
 
             {{-- Profile Photo --}}
             <div class="profile d-flex justify-content-center">
-                <img src="{{ asset('storage/images/' . Auth::user()->images) }}" alt="Profile" width="200px" height="200px" class="rounded rounded-circle img-thumbnail">
+                @if (auth()->user()->images)
+                    <img src="{{ asset('storage/images/' . Auth::user()->images) }}" class="img-circle elevation-2 img-thumbnail" alt="User Image" width="200" height="200">
+                @else
+                    <img src="{{ asset('vendor/admin-lte/img/user1-128x128.jpg') }}" class="img-circle elevation-2 img-thumbnail" alt="User Image" width="200" height="200">
+                @endif
             </div>
             
             <div class="card-text pb-3">

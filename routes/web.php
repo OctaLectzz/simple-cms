@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\MyProfileController;
+use App\Http\Controllers\AllUsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,22 +17,29 @@ use App\Http\Controllers\MyProfileController;
 |
 */
 
+// First //
 Route::get('/', function () {
-    return view('first');
-});
+    return view('welcome');
+})->middleware('guest');
 
+
+
+// Home //
 Auth::routes(['verify' =>true]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/profile/edit', [UserController::class, 'edit']);
-
-Route::put('/profile/edit', [UserController::class, 'update']);
 
 
-
-
+// Profile //
 Route::prefix('my-profile')->middleware(['auth', 'verified'])->group(function() {
     Route::get('/', [MyProfileController::class, 'index'])->name('my.profile.index');
     Route::put('/', [MyProfileController::class, 'update'])->name('my.profile.update');
 });
+
+
+
+// All Users //
+Route::get('users', [AllUsersController::class, 'index'])->middleware('auth')->name('users');
+
+Route::delete('/users/{id}', [AllUsersController::class, 'destroy']);

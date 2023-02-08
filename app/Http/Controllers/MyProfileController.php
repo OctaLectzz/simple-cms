@@ -32,8 +32,8 @@ class MyProfileController extends Controller
         );
           
         // Request Images //
-        $images = $request->images->getClientOriginalName();
-        $request->images->storeAs('images', $images);
+        $filename = $request->images->getClientOriginalName();
+        $request->images->storeAs('images', $filename);
 
         // if ($request->file('images')) {
         //     $extension = $request->file('images')->getClientOriginalName();
@@ -49,7 +49,7 @@ class MyProfileController extends Controller
 
 
         $data = [
-            'images' => $images,
+            'images' => $filename,
             'name' => $request->name,
             'tanggal_lahir' => $request->tanggal_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
