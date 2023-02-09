@@ -8,14 +8,15 @@
             <h1><b>ALL USERS :</b></h1>
         </div>
 
+        {{-- Alert --}}
         @if (session()->has('success'))
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
             <button  type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
 
-        <div class="table-responsive col-lg-10">
+        <div class="table-responsive">
             <table class="table table-striped table-sm">
               <thead>
                 <tr>
@@ -29,7 +30,7 @@
               <tbody>
                 @foreach ($users as $user)
                 <tr>
-                    <td class="text-center">{{ $user->id }}</td>
+                    <td class="text-center">{{ $loop->iteration }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->jenis_kelamin }}</td>
                     <td>{{ $user->tanggal_lahir }}</td>

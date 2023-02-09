@@ -42,7 +42,7 @@
                 {{-- All User --}}
                <li class="nav-item">
                     <a href="{{ route('users') }}" class="nav-link">
-                        <i class="nav-icon bi bi-people-fill"></i>
+                        <i class="nav-icon fa fa-users"></i>
                         <p>
                             User Info
                         </p>
