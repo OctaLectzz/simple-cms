@@ -19,7 +19,7 @@
                 @if (auth()->user()->images)
                     <img src="{{ asset('storage/images/' . Auth::user()->images) }}" class="img-circle elevation-2 img-thumbnail" alt="User Image" width="200" height="200">
                 @else
-                    <img src="{{ asset('vendor/admin-lte/img/user1-128x128.jpg') }}" class="img-circle elevation-2 img-thumbnail" alt="User Image" width="200" height="200">
+                    <img src="{{ asset('vendor/admin-lte/img/user-profile-default.jpg') }}" class="img-circle elevation-2 img-thumbnail" alt="User Image" width="200" height="200">
                 @endif
             </div>
             

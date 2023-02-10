@@ -3,7 +3,7 @@
     <a href="{{ route('home') }}" class="brand-link">
         <img src="{{ asset('vendor/admin-lte/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
             style="opacity: .8">
-        <span class="brand-text font-weight-light fs-6">Dashboard</span>
+        <span class="brand-text font-weight-light fs-5">Dashboard</span>
     </a>
 
     <!-- Sidebar -->
@@ -52,7 +52,7 @@
                 {{-- Datatable User --}}
                 <li class="nav-item">
                     <a href="{{ route('user.index') }}" class="nav-link">
-                        <i class="nav-icon fa fa-user"></i>
+                        <i class="nav-icon fa fa-users"></i>
                         <p>
                             Users List
                         </p>
