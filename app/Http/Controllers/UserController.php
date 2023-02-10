@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
@@ -12,9 +10,9 @@ class UserController extends Controller
     {
         return datatables()
             ->eloquent(User::query()->latest())
-            ->addColumn('action', function () {
+            ->addColumn('action', function ($user) {
                 return '
-                    <form action="/users/{{ $user->id }}" method="POST">
+                    <form action="' . route('user.destroy', $user->id) . '" method="POST">
                         <input type="hidden" name="_token" value="'. @csrf_token() .'">
                         <input type="hidden" name="_method" value="DELETE">
                         <button class="btn btn-sm btn-danger mr-2">
@@ -38,16 +36,10 @@ class UserController extends Controller
 
 
     
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        $item = User::findOrFail($id);
-        $path = public_path('storage/public/' . $item->images);
-        if(File::exists($path))
-        {
-            File::delete();
-        }
-        $item->delete();
+        $user->delete();
 
-        return redirect('/user')->with('success', 'User has been Deleted!');
+        return redirect()->back();
     }
 }

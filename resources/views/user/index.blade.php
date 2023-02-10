@@ -56,5 +56,17 @@
             });
         });
 
+        // function destroy(route) 
+        // {
+        //     $.ajax({
+        //         url: route,
+        //         type: 'POST',
+        //         data: {
+        //             "_METHOD": "DELETE",
+        //             "_token": $('meta[name="csrf-token"].attr('content')'),
+        //         },
+        //     })
+        // }
+
     </script>
 @endpush

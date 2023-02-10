@@ -52,6 +52,6 @@ Route::prefix('user')->middleware(['auth', 'verified'])->group(function() {
     Route::controller(UserController::class)->group(function () {
         Route::get('/list',  'list')->name('user.list');
         Route::get('/',  'index')->name('user.index');
-        Route::delete('/users/{id}', 'destroy');
+        Route::delete('/{user}', 'destroy')->name('user.destroy');
     });
 });
