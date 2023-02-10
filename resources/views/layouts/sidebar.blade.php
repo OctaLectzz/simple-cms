@@ -39,12 +39,22 @@
                     </a>
                 </li>
 
-                {{-- All User --}}
-               <li class="nav-item">
+                {{-- All User
+                <li class="nav-item">
                     <a href="{{ route('users') }}" class="nav-link">
                         <i class="nav-icon fa fa-users"></i>
                         <p>
-                            User Info
+                            Users Info
+                        </p>
+                    </a>
+                </li> --}}
+
+                {{-- Datatable User --}}
+                <li class="nav-item">
+                    <a href="{{ route('user.index') }}" class="nav-link">
+                        <i class="nav-icon fa fa-user"></i>
+                        <p>
+                            Users List
                         </p>
                     </a>
                 </li>

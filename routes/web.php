@@ -3,8 +3,9 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\MyProfileController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\AllUsersController;
+use App\Http\Controllers\MyProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,3 +44,14 @@ Route::prefix('my-profile')->middleware(['auth', 'verified'])->group(function() 
 Route::get('users', [AllUsersController::class, 'index'])->middleware('auth')->name('users');
 
 Route::delete('/users/{id}', [AllUsersController::class, 'destroy']);
+
+
+
+// Datatable //
+Route::prefix('user')->middleware(['auth', 'verified'])->group(function() {
+    Route::controller(UserController::class)->group(function () {
+        Route::get('/list',  'list')->name('user.list');
+        Route::get('/',  'index')->name('user.index');
+        Route::delete('/users/{id}', 'destroy');
+    });
+});
