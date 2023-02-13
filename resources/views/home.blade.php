@@ -7,8 +7,14 @@
 
 
         <div class="header">
+            @if (auth()->user()->status == 'Active')
             <p class="text-white mt-2 mx-1">Status : <b class="text-success fw-bold mt-2">{{ Auth::user()->status }}</b></p>
+            @else
+            <p class="text-white mt-2 mx-1">Status : <b class="text-danger fw-bold mt-2">{{ Auth::user()->status }}</b></p>
+            @endif
         </div>
+
+
         <div class="card mb-3">
             
             {{-- Edit Profile --}}

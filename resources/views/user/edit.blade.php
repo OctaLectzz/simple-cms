@@ -149,7 +149,7 @@
                                         <option
                                             {{ $user->status === "Inactive" ? 'selected' : '' }}
                                             value="Inactive"
-                                        >Inactive</option>
+                                        >Block</option>
                                     </select>
 
                                     @error('status')

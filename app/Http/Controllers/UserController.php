@@ -37,7 +37,7 @@ class UserController extends Controller
             })
             ->addColumn('status', function ($user) {
                 return $user->status == 'Active'
-                ? '<p class="badge badge-pill badge-success">Active</p>' : '<p class="badge badge-pill badge-danger">Inactive</p>' ;
+                ? '<div class="text-center"><p class="p-2 px-3 fs-6 badge badge-pill badge-success">Active</p></div>' : '<div class="text-center"><p class="p-2 px-3 badge badge-pill badge-danger">Blocked</p></div>' ;
             })
             ->addIndexColumn()
             ->escapeColumns(['action'])
