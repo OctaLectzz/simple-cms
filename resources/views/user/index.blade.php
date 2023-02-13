@@ -32,7 +32,7 @@
                                 <th>Nama</th>
                                 <th>Email</th>
                                 <th class="text-center">Status</th>
-                                <th width="10%">Aksi</th>
+                                <th width="10%" class="text-center">Aksi</th>
                             </tr>
                         </thead>
                     </table>
@@ -49,9 +49,10 @@
     <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('vendor/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script>
+        let dataTable;
 
         $(document).ready(function () {
-            let dataTable = $('table').DataTable({
+            dataTable = $('table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('user.list') }}",
@@ -66,7 +67,23 @@
                 ],
             });
         });
+        
+        function destroy(event) {
+            event.preventDefault();
 
+            $.ajax({
+                url: event.target.action,
+                type: event.target.method,
+                data: {
+                    "_method": "DELETE",
+                    "_token": $('meta[name="csrf-token"]').attr('content'),
+                },
+                success: function(dataTable) {
+                    dataTable.ajax.reload();
+                }
+            });
+        };
+        
         // function destroy(route) 
         // {
         //     $.ajax({
@@ -74,7 +91,7 @@
         //         type: 'POST',
         //         data: {
         //             "_METHOD": "DELETE",
-        //             "_token": $('meta[name="csrf-token"].attr('content')'),
+        //             "_token": $('meta[name="csrf-token"]').attr('content'),
         //         },
         //         success: function(dataTable) {
         //             dataTable.ajax.reload();

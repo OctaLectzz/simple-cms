@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -15,9 +16,9 @@ class UserController extends Controller
             ->addColumn('action', function ($user) {
                 return '
                     <div class="d-flex">
-                        <form action="' . route('user.destroy', $user->id) . '" method="POST">
+                        <form onsubmit="destroy(\'event\')" action="' . route('user.destroy', $user->id) . '" method="POST">
                         <input type="hidden" name="_token" value="'. @csrf_token() .'" enctype="multipart/form-data">
-                        <a href="' . route('my.profile.index') . '" class="btn btn-sm btn-warning rounded"><i class="fa fa-edit"></i></a>
+                        <a href="' . route('user.edit', $user->id) . '" class="reload btn btn-sm btn-warning rounded"><i class="fa fa-edit"></i></a>
                         <input type="hidden" name="_method" value="DELETE">
                             <button class="btn btn-sm btn-danger mr-2">
                                 <i class="fa fa-trash"></i>
@@ -36,7 +37,7 @@ class UserController extends Controller
             })
             ->addColumn('status', function ($user) {
                 return $user->status == 'Active'
-                ? '<p class="text-success fw-bold text-center">Active</p>' : '<p class="text-danger fw-bold text-center">Inactive</p>' ;
+                ? '<p class="badge badge-pill badge-success">Active</p>' : '<p class="badge badge-pill badge-danger">Inactive</p>' ;
             })
             ->addIndexColumn()
             ->escapeColumns(['action'])
@@ -51,6 +52,37 @@ class UserController extends Controller
     }
 
 
+
+    public function edit($id) 
+    {
+        $user = User::find($id);
+        return view('user.edit', compact('user'));
+    }
+
+    public function update(Request $request, User $user)
+    {
+
+        // Validate Request //
+        $request->validate(
+            [
+                'name' => 'required|string',
+            ]
+        );
+
+        $data = [
+            'name' => $request->name,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'alamat' => $request->alamat,
+            'status' => $request->status
+        ];
+
+
+        $findUser = User::find($user->id);
+        $findUser->update($data);
+
+        return redirect('/user')->with('success', 'User Updated Successfully!');
+    }
     
     public function destroy(User $user)
     {

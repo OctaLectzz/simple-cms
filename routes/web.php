@@ -51,6 +51,8 @@ Route::delete('/users/{id}', [AllUsersController::class, 'destroy']);
 Route::prefix('user')->middleware(['auth', 'verified', 'superAdmin'])->group(function() {
     Route::controller(UserController::class)->group(function () {
         Route::get('/list',  'list')->name('user.list');
+        Route::get('/{user}', 'edit')->name('user.edit');
+        Route::put('/{user}', 'update')->name('user.update');
         Route::get('/',  'index')->name('user.index');
         Route::delete('/{user}', 'destroy')->name('user.destroy');
     });

@@ -6,7 +6,9 @@
     <div class="row">
 
 
-        <div class="header"></div>
+        <div class="header">
+            <p class="text-white mt-2 mx-1">Status : <b class="text-success fw-bold mt-2">{{ Auth::user()->status }}</b></p>
+        </div>
         <div class="card mb-3">
             
             {{-- Edit Profile --}}

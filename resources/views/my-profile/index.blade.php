@@ -92,7 +92,7 @@
                                         >Perempuan</option>
                                     </select>
 
-                                    @error('gender')
+                                    @error('jenis_kelamin')
                                         <span
                                             class="invalid-feedback"
                                             role="alert"

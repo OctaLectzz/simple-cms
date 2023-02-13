@@ -5,10 +5,10 @@
         <div class="row justify-content-center">
             <div class="col">
                 <div class="card">
-                    <div class="card-header">{{ __('Editt Profile') }}</div>
+                    <div class="card-header">{{ __('Edit Profile') }}</div>
                     <div class="card-body">
                         <form
-                            action="{{ route('my.profile.update') }}"
+                            action=""
                             method="POST"
                             enctype="multipart/form-data"
                         >
@@ -28,7 +28,7 @@
                                         type="text"
                                         class="form-control @error('name') is-invalid @enderror"
                                         name="name"
-                                        value="{{ old('name', auth()->user()->name) }}"
+                                        value="{{ $user->name }}"
                                     >
 
                                     @error('name')
@@ -55,7 +55,7 @@
                                         type="date"
                                         class="form-control @error('tanggal_lahir') is-invalid @enderror"
                                         name="tanggal_lahir"
-                                        value="{{ old('tanggal_lahir', auth()->user()->tanggal_lahir) }}"
+                                        value="{{ $user->tanggal_lahir }}"
                                     >
 
                                     @error('tanggal_lahir')
@@ -83,16 +83,16 @@
                                         name="jenis_kelamin"
                                     >
                                         <option
-                                            {{ old('jenis_kelamin', auth()->user()->jenis_kelamin) === "Laki-Laki" ? 'selected' : '' }}
+                                            {{ $user->jenis_kelamin === "Laki-Laki" ? 'selected' : '' }}
                                             value="Laki-Laki"
                                         >Laki-Laki</option>
                                         <option
-                                            {{ old('jenis_kelamin', auth()->user()->jenis_kelamin) === "Perempuan" ? 'selected' : '' }}
+                                            {{ $user->jenis_kelamin === "Perempuan" ? 'selected' : '' }}
                                             value="Perempuan"
                                         >Perempuan</option>
                                     </select>
 
-                                    @error('gender')
+                                    @error('jenis_kelamin')
                                         <span
                                             class="invalid-feedback"
                                             role="alert"
@@ -116,7 +116,7 @@
                                         type="text"
                                         class="form-control @error('alamat') is-invalid @enderror"
                                         name="alamat"
-                                    >{{ old('alamat', auth()->user()->alamat) }}</textarea>
+                                    >{{ $user->alamat }}</textarea>
 
                                     @error('alamat')
                                         <span
@@ -132,7 +132,7 @@
                             {{-- Status --}}
                             <div class="row mb-3">
                                 <label
-                                    for="jenis_kelamin"
+                                    for="status"
                                     class="col-md-4 col-form-label text-md-end"
                                 >{{ __('Status') }}</label>
 
@@ -143,53 +143,16 @@
                                         name="status"
                                     >
                                         <option
-                                            {{ old('status', auth()->user()->status) === "Active" ? 'selected' : '' }}
+                                            {{ $user->status === "Active" ? 'selected' : '' }}
                                             value="Active"
                                         >Active</option>
                                         <option
-                                            {{ old('status', auth()->user()->status) === "Inactive" ? 'selected' : '' }}
+                                            {{ $user->status === "Inactive" ? 'selected' : '' }}
                                             value="Inactive"
                                         >Inactive</option>
                                     </select>
 
-                                    @error('gender')
-                                        <span
-                                            class="invalid-feedback"
-                                            role="alert"
-                                        >
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            {{-- images --}}
-                            <div class="row mb-3">
-                                <label
-                                    for="images"
-                                    class="col-md-4 col-form-label text-md-end"
-                                >{{ __('Foto') }}</label>
-                                <div class="col-md-6">
-                                    <div class="input-group mb-3">
-                                        <div>
-                                            {{-- @if (auth()->user()->images)
-                                                <img src="{{ Storage::url(auth()->user()->photo) }}" class="img-fluid mb-3 rounded">
-                                            @endif --}}
-                                            <input
-                                                name="images"
-                                                class="form-control @error('images') is-invalid @enderror"
-                                                value="{{ old('images', auth()->user()->images) }}"
-                                                type="file"
-                                                accept="image/*"
-                                                id="formFile"
-                                            >
-                                            <small
-                                                for="formFile"
-                                                class="form-label"
-                                            >Silahkan Upload Foto Anda</small>
-                                        </div>
-                                    </div>
-                                    @error('images')
+                                    @error('status')
                                         <span
                                             class="invalid-feedback"
                                             role="alert"
@@ -207,7 +170,7 @@
                                         type="submit"
                                         class="btn btn-dark"
                                     >
-                                        {{ __('Save') }}
+                                        {{ __('Update') }}
                                     </button>
                                 </div>
                             </div>
