@@ -28,7 +28,7 @@ Route::get('/', function () {
 // Home //
 Auth::routes(['verify' =>true]);
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->middleware('userStatus')->name('home');
 
 
 
@@ -48,7 +48,7 @@ Route::delete('/users/{id}', [AllUsersController::class, 'destroy']);
 
 
 // Datatable //
-Route::prefix('user')->middleware(['auth', 'verified'])->group(function() {
+Route::prefix('user')->middleware(['auth', 'verified', 'superAdmin'])->group(function() {
     Route::controller(UserController::class)->group(function () {
         Route::get('/list',  'list')->name('user.list');
         Route::get('/',  'index')->name('user.index');

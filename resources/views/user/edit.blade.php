@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col">
                 <div class="card">
-                    <div class="card-header">{{ __('Edit Profile') }}</div>
+                    <div class="card-header">{{ __('Editt Profile') }}</div>
                     <div class="card-body">
                         <form
                             action="{{ route('my.profile.update') }}"

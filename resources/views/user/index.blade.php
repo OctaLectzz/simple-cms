@@ -24,13 +24,14 @@
                 @endif
 
                 <div class="card-body">
-                    <table class="table">
+                    <table class="table" onsubmit="return confirm('Are You Sure?')">
                         <thead class="table table-dark table-hover">
                             <tr>
                                 <th>No</th>
+                                <th>Foto Profil</th>
                                 <th>Nama</th>
-                                <th>Jenis Kelamin</th>
-                                <th>Tanggal Lahir</th>
+                                <th>Email</th>
+                                <th class="text-center">Status</th>
                                 <th width="10%">Aksi</th>
                             </tr>
                         </thead>
@@ -50,17 +51,18 @@
     <script>
 
         $(document).ready(function () {
-            $('table').DataTable({
+            let dataTable = $('table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('user.list') }}",
                 order: [],
                 columns: [
-                    { data: 'DT_RowIndex', sortable: true, searchable: false },
+                    { data: 'DT_RowIndex', sortable: false, searchable: false },
+                    { data: 'images', sortable: false, searchable: false },
                     { data: 'name' },
-                    { data: 'jenis_kelamin' },
-                    { data: 'tanggal_lahir' },
-                    { data: 'action', sortable: false,},
+                    { data: 'email' },
+                    { data: 'status' },
+                    { data: 'action', sortable: false },
                 ],
             });
         });
@@ -74,8 +76,11 @@
         //             "_METHOD": "DELETE",
         //             "_token": $('meta[name="csrf-token"].attr('content')'),
         //         },
-        //     })
-        // }
+        //         success: function(dataTable) {
+        //             dataTable.ajax.reload();
+        //         }
+        //     });
+        // };
 
     </script>
 @endpush

@@ -33,6 +33,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $attributes = [
         'role' => 'Admin',
         'images' => '',
+        'status' => 'Active'
        
     ];
 

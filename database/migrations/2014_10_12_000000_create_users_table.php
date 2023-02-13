@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('tanggal_lahir')->nullable();
             $table->enum('jenis_kelamin', ['Laki-Laki', 'Perempuan'])->nullable();
             $table->string('alamat')->nullable();
+            $table->enum('status', ['Active', 'Inactive']);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('id_google')->nullable();
             $table->rememberToken();

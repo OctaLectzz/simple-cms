@@ -14,7 +14,7 @@
                 @if (auth()->user()->images)
                     <img src="{{ asset('storage/images/' . Auth::user()->images) }}" class="img-circle elevation-2" alt="User Image">
                 @else
-                    <img src="{{ asset('vendor/admin-lte/img/user1-128x128.jpg') }}" class="img-circle elevation-2" alt="User Image">
+                    <img src="{{ asset('vendor/admin-lte/img/user-profile-default.jpg') }}" class="img-circle elevation-2" alt="User Image">
                 @endif
             </div>
             <div class="info">
@@ -31,7 +31,7 @@
 
                {{-- Home --}}
                <li class="nav-item">
-                    <a href="{{ route('home') }}" class="nav-link">
+                    <a href="{{ route('home') }}" class="nav-link {{ Request::is('home') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-home"></i>
                         <p>
                             Home
@@ -50,14 +50,17 @@
                 </li> --}}
 
                 {{-- Datatable User --}}
+                @if (Auth()->user()->role == "superAdmin")
                 <li class="nav-item">
-                    <a href="{{ route('user.index') }}" class="nav-link">
+                    <a href="{{ route('user.index') }}" class="nav-link {{ Request::is('user') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-users"></i>
                         <p>
                             Users List
                         </p>
                     </a>
                 </li>
+                @endif
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

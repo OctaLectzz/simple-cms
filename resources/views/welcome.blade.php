@@ -85,6 +85,15 @@
   <body class="d-flex h-100 text-center text-light bg-dark">
     
 <div class="container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+  {{-- Alert --}}
+  @if (session()->has('success'))
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      {{ session('success') }}
+      <button  type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  @endif
+
   <header class="mb-auto">
     <div>
       <h3 class="float-md-start mb-0">Octa Project</h3>
