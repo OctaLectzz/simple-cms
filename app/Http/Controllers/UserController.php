@@ -12,7 +12,7 @@ class UserController extends Controller
     public function list()
     {
         return datatables()
-            ->eloquent(User::query()->latest())
+            ->eloquent(User::query()->where('role', '!=', 'superAdmin')->latest())
             ->addColumn('action', function ($user) {
                 return '
                     <div class="d-flex">
@@ -65,7 +65,7 @@ class UserController extends Controller
         // Validate Request //
         $request->validate(
             [
-                'images' => 'required|file|max:2048',
+                'images' => 'required|image|max:2048',
                 'name' => 'required|string',
             ]
         );
@@ -74,6 +74,11 @@ class UserController extends Controller
         $filename = $request->images->getClientOriginalName();
         $request->images->storeAs('images', $filename);
 
+        // if ($request->images) {
+        //     return ' <img src="' . asset('storage/images/' . $user->images) . '" class="img-circle elevation-2 img-thumbnail" alt="User Image" width="50" height="50"> ';
+        // } else {
+        //     return '<img src="' . asset('vendor/admin-lte/img/user-profile-default.jpg') . '" class="img-circle elevation-2 img-thumbnail" alt="User Image" width="50" height="50"> ';
+        // }
 
     
 
