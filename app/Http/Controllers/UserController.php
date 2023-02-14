@@ -35,7 +35,7 @@ class UserController extends Controller
                         return '<img src="' . asset('vendor/admin-lte/img/user-profile-default.jpg') . '" class="img-circle elevation-2 img-thumbnail" alt="User Image" width="50" height="50"> ';
                 }
             })
-            ->addColumn('status', function ($user) {
+            ->editColumn('status', function ($user) {
                 return $user->status == 'Active'
                 ? '<div class="text-center"><p class="p-2 px-3 fs-6 badge badge-pill badge-success">Active</p></div>' : '<div class="text-center"><p class="p-2 px-3 badge badge-pill badge-danger">Blocked</p></div>' ;
             })
@@ -65,17 +65,28 @@ class UserController extends Controller
         // Validate Request //
         $request->validate(
             [
+                'images' => 'required|file|max:2048',
                 'name' => 'required|string',
             ]
         );
 
+        // Request Images //
+        $filename = $request->images->getClientOriginalName();
+        $request->images->storeAs('images', $filename);
+
+
+    
+
         $data = [
+            'images' => $filename,
             'name' => $request->name,
             'tanggal_lahir' => $request->tanggal_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
             'alamat' => $request->alamat,
             'status' => $request->status
         ];
+
+
 
 
         $findUser = User::find($user->id);
