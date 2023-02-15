@@ -39,17 +39,17 @@
                     </a>
                 </li>
 
-                {{-- All User
-                <li class="nav-item">
+                {{-- All Users --}}
+                {{-- <li class="nav-item">
                     <a href="{{ route('users') }}" class="nav-link">
                         <i class="nav-icon fa fa-users"></i>
                         <p>
                             Users Info
                         </p>
                     </a>
-                </li> --}}
+                </li>  --}}
 
-                {{-- Datatable User --}}
+                {{-- Datatable Users --}}
                 @if (Auth()->user()->role == "superAdmin")
                 <li class="nav-item">
                     <a href="{{ route('user.index') }}" class="nav-link {{ Request::is('user*') ? 'active' : '' }}">
@@ -60,6 +60,21 @@
                     </a>
                 </li>
                 @endif
+
+                {{-- Tags --}}
+                <li class="nav-item dropdown">
+                    <a href="{{ route('tag.index') }}" class="nav-link {{ Request::is('tag*') ? 'active' : '' }} dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="nav-icon fa fa-tags"></i>
+                        <p>
+                            Tags
+                        </p>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{{ route('tag.index') }}">List</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{{ route('tag.create') }}">Create</a></li>
+                      </ul>
+                </li>
 
             </ul>
         </nav>

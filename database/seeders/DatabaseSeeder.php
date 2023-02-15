@@ -3,9 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Tag;
 use App\Models\User;
-use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,6 +18,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
+        // My Profile //
         User::create([
             'images' => 'Benedetta Profile.jpg',
             'name' => 'Octavyan Putra Ramadhan',
@@ -29,7 +31,14 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now()
         ]);
 
+        // User Create //
         User::factory(100)->create();
+
+        // Tag Create //
+        // Tag::factory(100)->create();
+
+
+
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
