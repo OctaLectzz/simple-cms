@@ -6,6 +6,7 @@
     <div class="row">
 
 
+        {{-- Header --}}
         <div class="header">
             @if (auth()->user()->status == 'Active')
             <p class="text-white mt-2 mx-1">Status : <b class="text-success fw-bold mt-2">{{ Auth::user()->status }}</b></p>
@@ -17,7 +18,7 @@
 
         <div class="card mb-3">
             
-            {{-- Edit Profile --}}
+            {{-- Profile Edit --}}
             <div class="position-absolute mt-3 ms-3">
                 <a href="{{ route('my.profile.index') }}" class="btn btn-large btn-success rounded-5"><i class="bi bi-pencil"></i></a>
             </div>
@@ -31,6 +32,7 @@
                 @endif
             </div>
             
+            {{-- Profile Detail --}}
             <div class="card-text pb-3">
                 <p class=" fs-4 text-center card-text"><small class="text-muted">{{ Auth::user()->role }}</small></p>
                 <h1 class="card-text text-center"><b>{{ Auth::user()->name }}</b></h1>
@@ -38,7 +40,10 @@
                 <p class="card-text fs-4 text-muted mt-5">{{ Auth::user()->tanggal_lahir }} | {{ Auth::user()->jenis_kelamin }}</p>
                 <p class="card-text fs-3">{{ Auth::user()->alamat }}</p>
             </div>
+
         </div>
+
+        
     </div>
 </div>
 
@@ -79,7 +84,8 @@
                     {{ __('You are logged in!') }}
                 </div>
             </div>
-        </div> --}}
+        </div> 
     </div>
-</div>
+</div> --}}
+
 @endsection

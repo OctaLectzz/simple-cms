@@ -23,7 +23,7 @@ class MyProfileController extends Controller
         // Validate Request //
         $request->validate(
             [
-                'images' => 'required|file|max:2048',
+                'images' => 'image|max:2048',
                 'name' => 'required|string',
                 'tanggal_lahir' => 'required|date',
                 'jenis_kelamin' => 'required|string',
@@ -31,9 +31,23 @@ class MyProfileController extends Controller
             ]
         );
           
+
+
+        $data = [
+            'name' => $request->name,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'alamat' => $request->alamat,
+        ];
+
         // Request Images //
-        $filename = $request->images->getClientOriginalName();
-        $request->images->storeAs('images', $filename);
+        if ($request->hasFile('images')) {
+            $newImage = $request->images->getClientOriginalName();
+            $request->images->storeAs('images', $newImage);
+            $data = [
+                'images' => $newImage
+            ];
+        }
 
         // if ($request->file('images')) {
         //     $extension = $request->file('images')->getClientOriginalName();
@@ -45,16 +59,7 @@ class MyProfileController extends Controller
         //     ]);
         // }
 
-
-
-
-        $data = [
-            'images' => $filename,
-            'name' => $request->name,
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'alamat' => $request->alamat,
-        ];
+        
 
 
         $users = Auth::user();

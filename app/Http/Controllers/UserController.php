@@ -18,7 +18,7 @@ class UserController extends Controller
                     <div class="d-flex">
                         <form onsubmit="destroy(\'event\')" action="' . route('user.destroy', $user->id) . '" method="POST">
                         <input type="hidden" name="_token" value="'. @csrf_token() .'" enctype="multipart/form-data">
-                        <a href="' . route('user.edit', $user->id) . '" class="reload btn btn-sm btn-warning rounded"><i class="fa fa-edit"></i></a>
+                        <a href="' . route('user.edit', $user->id) . '" class="btn btn-sm btn-warning rounded"><i class="fa fa-edit"></i></a>
                         <input type="hidden" name="_method" value="DELETE">
                             <button class="btn btn-sm btn-danger mr-2">
                                 <i class="fa fa-trash"></i>
@@ -59,37 +59,36 @@ class UserController extends Controller
         return view('user.edit', compact('user'));
     }
 
+    
     public function update(Request $request, User $user)
     {
 
         // Validate Request //
         $request->validate(
             [
-                'images' => 'required|image|max:2048',
+                'images' => 'image|max:2048',
                 'name' => 'required|string',
             ]
         );
 
-        // Request Images //
-        $filename = $request->images->getClientOriginalName();
-        $request->images->storeAs('images', $filename);
 
-        // if ($request->images) {
-        //     return ' <img src="' . asset('storage/images/' . $user->images) . '" class="img-circle elevation-2 img-thumbnail" alt="User Image" width="50" height="50"> ';
-        // } else {
-        //     return '<img src="' . asset('vendor/admin-lte/img/user-profile-default.jpg') . '" class="img-circle elevation-2 img-thumbnail" alt="User Image" width="50" height="50"> ';
-        // }
-
-    
 
         $data = [
-            'images' => $filename,
             'name' => $request->name,
             'tanggal_lahir' => $request->tanggal_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
             'alamat' => $request->alamat,
             'status' => $request->status
         ];
+
+        // Request Images //
+        if ($request->hasFile('images')) {
+            $newImage = $request->images->getClientOriginalName();
+            $request->images->storeAs('images', $newImage);
+            $data = [
+                'images' => $newImage
+            ];
+        }
 
 
 
@@ -99,6 +98,7 @@ class UserController extends Controller
 
         return redirect('/user')->with('success', 'User Updated Successfully!');
     }
+
     
     public function destroy(User $user)
     {

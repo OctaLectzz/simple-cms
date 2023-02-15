@@ -9,10 +9,13 @@
 
 
 @section('content')
+
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <div class="container">
     <div class="row justify-content-center">
         <div class="col">
+
+
             <div class="card">
 
                 {{-- Alert --}}
@@ -23,6 +26,7 @@
                 </div>
                 @endif
 
+                {{-- Table --}}
                 <div class="card-body">
                     <table class="table" onsubmit="return confirm('Are You Sure?')">
                         <thead class="table table-dark table-hover">
@@ -37,10 +41,14 @@
                         </thead>
                     </table>
                 </div>
+
             </div>
+
+
         </div>
     </div>
 </div>
+
 @endsection
 
 
