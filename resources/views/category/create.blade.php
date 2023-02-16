@@ -8,10 +8,10 @@
 
 
                 <div class="card">
-                    <div class="card-header">{{ __('Edit Tag') }}</div>
+                    <div class="card-header">{{ __('Crate Category') }}</div>
                     <div class="card-body">
 
-                        <form action="" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('category.input') }}" method="POST" enctype="multipart/form-data">
                             @method('put')
                             @csrf
                             
@@ -24,7 +24,7 @@
                                         type="text"
                                         class="form-control @error('name') is-invalid @enderror"
                                         name="name"
-                                        value="{{ $tag->name }}"
+                                        value="{{ old('name') }}"
                                     >
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">

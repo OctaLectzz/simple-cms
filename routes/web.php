@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MyProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,7 +70,22 @@ Route::prefix('tag')->middleware(['auth', 'verified',])->group(function() {
         Route::get('/create', 'create')->name('tag.create');
         Route::put('/', 'store')->name('tag.input');
         Route::get('/{tag}', 'edit')->name('tag.edit');
-        Route::put('/{tag}', 'update')->name('user.update');
+        Route::put('/{tag}', 'update')->name('tag.update');
         Route::delete('/{tag}', 'destroy')->name('tag.destroy');
+    });
+});
+
+
+
+// Category //
+Route::prefix('category')->middleware(['auth', 'verified',])->group(function() {
+    Route::controller(CategoryController::class)->group(function () {
+        Route::get('/',  'index')->name('category.index');
+        Route::get('/category',  'list')->name('category.list');
+        Route::get('/create', 'create')->name('category.create');
+        Route::put('/', 'store')->name('category.input');
+        Route::get('/{category}', 'edit')->name('category.edit');
+        Route::put('/{category}', 'update')->name('category.update');
+        Route::delete('/{category}', 'destroy')->name('category.destroy');
     });
 });

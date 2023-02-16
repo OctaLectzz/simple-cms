@@ -8,7 +8,7 @@
 
 
                 <div class="card">
-                    <div class="card-header">{{ __('Edit Tag') }}</div>
+                    <div class="card-header">{{ __('Edit Category') }}</div>
                     <div class="card-body">
 
                         <form action="" method="POST" enctype="multipart/form-data">
@@ -24,7 +24,7 @@
                                         type="text"
                                         class="form-control @error('name') is-invalid @enderror"
                                         name="name"
-                                        value="{{ $tag->name }}"
+                                        value="{{ $category->name }}"
                                     >
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">

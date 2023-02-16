@@ -2,27 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tag;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
-class TagController extends Controller
+class CategoryController extends Controller
 {
     public function index()
     {
-        return view('tag.index');
+        return view('category.index');
     }
 
 
     public function list()
     {
         return datatables()
-            ->eloquent(Tag::query()->latest())
-            ->addColumn('action', function ($tag) {
+            ->eloquent(Category::query())
+            ->addColumn('action', function ($category) {
                 return '
                     <div class="d-flex">
-                        <form onsubmit="destroy(\'event\')" action="' . route('tag.destroy', $tag->id) . '" method="POST">
+                        <form onsubmit="destroy(\'event\')" action="' . route('category.destroy', $category->id) . '" method="POST">
                         <input type="hidden" name="_token" value="'. @csrf_token() .'" enctype="multipart/form-data">
-                        <a href="' . route('tag.edit', $tag->id) . '" class="btn btn-sm btn-warning rounded"><i class="fa fa-edit"></i></a>
+                        <a href="' . route('category.edit', $category->id) . '" class="btn btn-sm btn-warning rounded"><i class="fa fa-edit"></i></a>
                         <input type="hidden" name="_method" value="DELETE">
                             <button class="btn btn-sm btn-danger mr-2">
                                 <i class="fa fa-trash"></i>
@@ -32,6 +32,9 @@ class TagController extends Controller
                     </div>
                 ';
             })
+            ->editColumn('created_by', function ($category) {
+                return auth()->user()->name;
+            })
             ->addIndexColumn()
             ->escapeColumns(['action'])
             ->toJson();
@@ -40,7 +43,7 @@ class TagController extends Controller
 
     public function create()
     {
-        return view('tag.create');
+        return view('category.create');
     }
 
 
@@ -58,20 +61,20 @@ class TagController extends Controller
             'name' => $request->name
         ];
 
-        $tag = Tag::create($data);
+        $category = Category::create($data);
 
-        return redirect('/tag')->with('success', 'Tag Created Successfully!');
+        return redirect('/category')->with('success', 'category Created Successfully!');
     }
 
 
     public function edit($id) 
     {
-        $tag = Tag::find($id);
-        return view('tag.edit', compact('tag'));
+        $category = category::find($id);
+        return view('category.edit', compact('category'));
     }
 
     
-    public function update(Request $request, Tag $tag)
+    public function update(Request $request, Category $category)
     {
 
         // Validate Request //
@@ -86,17 +89,17 @@ class TagController extends Controller
         ];
 
 
-        $findTag = Tag::find($tag->id);
-        $findTag->update($data);
+        $findcategory = Category::find($category->id);
+        $findcategory->update($data);
 
-        return redirect('/tag')->with('success', 'Tag Updated Successfully!');
+        return redirect('/category')->with('success', 'Category Updated Successfully!');
     }
 
     
-    public function destroy(Tag $tag)
+    public function destroy(Category $category)
     {
-        $tag->delete();
+        $category->delete();
 
-        return redirect()->back()->with('success', 'Tag has been Deleted!');;
+        return redirect()->back()->with('success', 'Category has been Deleted!');;
     }
 }
