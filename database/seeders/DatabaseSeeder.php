@@ -18,24 +18,34 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
+        // $this->call(UserSeeder::class);
+
+
         // My Profile //
         User::create([
-            'images' => 'Benedetta Profile.jpg',
-            'name' => 'Octavyan Putra Ramadhan',
-            'email' => 'octavyan4@gmail.com',
-            'role' => 'superAdmin',
-            'jenis_kelamin' => 'Laki-Laki',
-            'tanggal_lahir' => '2006-10-04',
-            'alamat' => 'Jl.Seta No.32 Larangan RT4/RW4 Gayam Sukoharjo',
-            'password' => bcrypt('Lectzz0410'),
+            'images'            => 'Benedetta Profile.jpg',
+            'name'              => 'Octavyan Putra Ramadhan',
+            'email'             => 'octavyan4@gmail.com',
+            'role'              => 'superAdmin',
+            'jenis_kelamin'     => 'Laki-Laki',
+            'tanggal_lahir'     => '2006-10-04',
+            'alamat'            => 'Jl.Seta No.32 Larangan RT4/RW4 Gayam Sukoharjo',
+            'password'          => bcrypt('Lectzz0410'),
             'email_verified_at' => now()
         ]);
 
         // User Create //
         User::factory(100)->create();
 
+        // superAdmin's Role //
+        User::factory(1)->superAdmin()->create();
+
+        
         // Tag Create //
         // Tag::factory(100)->create();
+
+
+
 
 
 
@@ -44,5 +54,6 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
     }
 }

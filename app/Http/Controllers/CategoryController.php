@@ -13,14 +13,20 @@ class CategoryController extends Controller
     }
 
 
-    public function list()
+    public function list(Request $request)
     {
+
+        $category = Category::query()
+                        ->when(!$request->order, function ($query) {
+                            $query->latest();
+                        });
+
         return datatables()
-            ->eloquent(Category::query())
+            ->eloquent($category)
             ->addColumn('action', function ($category) {
                 return '
                     <div class="d-flex">
-                        <form onsubmit="destroy(\'event\')" action="' . route('category.destroy', $category->id) . '" method="POST">
+                        <form onsubmit="destroy(event)" action="' . route('category.destroy', $category->id) . '" method="POST">
                         <input type="hidden" name="_token" value="'. @csrf_token() .'" enctype="multipart/form-data">
                         <a href="' . route('category.edit', $category->id) . '" class="btn btn-sm btn-warning rounded"><i class="fa fa-edit"></i></a>
                         <input type="hidden" name="_method" value="DELETE">

@@ -28,18 +28,18 @@
 
                 {{-- Table --}}
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead class="table table-dark table-hover">
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama</th>
-                                    <th>Created By</th>
-                                    <th width="10%" class="text-center">Action</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
+                    <table class="table">
+                        <thead class="table table-dark table-hover">
+                            <tr>
+                                <th>No</th>
+                                <th>image</th>
+                                <th>title</th>
+                                <th>Content</th>
+                                <th>Created By</th>
+                                <th width="10%" class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                    </table>
                 </div>
 
             </div>
@@ -65,11 +65,13 @@
             userDatatable = $('table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('category.list') }}",
+                ajax: "{{ route('post.list') }}",
                 order: [],
                 columns: [
                     { data: 'DT_RowIndex', sortable: false, searchable: false },
-                    { data: 'name' },
+                    { data: 'images' },
+                    { data: 'title' },
+                    { data: 'content' },
                     { data: 'created_by' },
                     { data: 'action', sortable: false },
                 ],

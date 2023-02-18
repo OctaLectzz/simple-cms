@@ -28,6 +28,7 @@ class UserFactory extends Factory
         ];
     }
 
+
     /**
      * Indicate that the model's email address should be unverified.
      *
@@ -37,6 +38,19 @@ class UserFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
+        ]);
+    }
+    
+
+    /**
+     * Indicate that the model's role should be superAdmin.
+     *
+     * @return static
+     */
+    public function superAdmin()
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => 'superAdmin',
         ]);
     }
 }

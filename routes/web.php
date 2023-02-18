@@ -8,6 +8,7 @@ use App\Http\Controllers\MyProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,7 +50,7 @@ Route::delete('/users/{id}', [AllUsersController::class, 'destroy']);
 
 
 
-// Datatable //
+// User //
 Route::prefix('user')->middleware(['auth', 'verified', 'superAdmin'])->group(function() {
     Route::controller(UserController::class)->group(function () {
         Route::get('/',  'index')->name('user.index');
@@ -87,5 +88,20 @@ Route::prefix('category')->middleware(['auth', 'verified',])->group(function() {
         Route::get('/{category}', 'edit')->name('category.edit');
         Route::put('/{category}', 'update')->name('category.update');
         Route::delete('/{category}', 'destroy')->name('category.destroy');
+    });
+});
+
+
+
+// Post //
+Route::prefix('post')->middleware(['auth', 'verified',])->group(function() {
+    Route::controller(PostController::class)->group(function () {
+        Route::get('/',  'index')->name('post.index');
+        Route::get('/post',  'list')->name('post.list');
+        Route::get('/create', 'create')->name('post.create');
+        Route::put('/', 'store')->name('post.input');
+        Route::get('/{post}', 'edit')->name('post.edit');
+        Route::put('/{post}', 'update')->name('post.update');
+        Route::delete('/{post}', 'destroy')->name('post.destroy');
     });
 });

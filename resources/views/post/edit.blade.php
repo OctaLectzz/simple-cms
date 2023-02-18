@@ -1,0 +1,118 @@
+@extends('layouts.app')
+
+@section('content')
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col">
+
+
+                <div class="card">
+                    <div class="card-header">{{ __('Edit Post') }}</div>
+                    <div class="card-body">
+
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            @method('put')
+                            @csrf
+                            
+                            {{-- Title --}}
+                            <div class="row mb-3">
+                                <label for="title" class="col-md-4 col-form-label text-md-end">{{ __('Title') }}</label>
+                                <div class="col-md-6">
+                                    <input
+                                        id="title"
+                                        type="text"
+                                        class="form-control @error('title') is-invalid @enderror"
+                                        name="title"
+                                        value="{{ $post->title }}"
+                                        autocomplete="off"
+                                        autofocus
+                                    >
+                                    @error('title')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            {{-- Content --}}
+                            <div class="row mb-3">
+                                <label for="content" class="col-md-4 col-form-label text-md-end">{{ __('Content') }}</label>
+                                @error('content')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                <div class="col-md-6">
+                                    <input
+                                        id="content"
+                                        type="hidden"
+                                        class="form-control @error('content') is-invalid @enderror"
+                                        content="content"
+                                        autocomplete="off"
+                                        autofocus
+                                    >
+                                    <textarea id="summernote" input="content" name="content" value="{{ $post->content }}"></textarea>
+                                </div>
+                            </div>  
+
+                            {{-- Image --}}
+                            <div class="row mb-3">
+                                <label for="images" class="col-md-4 col-form-label text-md-end">{{ __('Foto') }}</label>
+                                <div class="col-md-6">
+                                    <div class="input-group mb-3">
+                                        <div>
+                                            {{-- @if (auth()->user()->images)
+                                                <img src="{{ Storage::url(auth()->user()->photo) }}" class="img-fluid mb-3 rounded">
+                                            @endif --}}
+                                            <input
+                                                name="images"
+                                                class="form-control @error('images') is-invalid @enderror"
+                                                value="{{ old('images', auth()->user()->images) }}"
+                                                type="file"
+                                                accept="images/*"
+                                                id="formFile"
+                                            >
+                                            <small for="formFile" class="form-label">{{ __('Silahkan Upload Foto Anda') }}</small>
+                                        </div>
+                                    </div>
+                                    @error('images')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            {{-- Save --}}
+                            <div class="row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-dark">
+                                        {{ __('Update') }}
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script>
+        $('#summernote').summernote({
+          placeholder: 'Content',
+          tabsize: 2,
+          height: 100
+        });
+    </script>
+
+@endsection

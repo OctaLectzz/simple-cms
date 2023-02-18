@@ -13,14 +13,20 @@ class TagController extends Controller
     }
 
 
-    public function list()
+    public function list(Request $request)
     {
+
+        $tag = Tag::query()
+                        ->when(!$request->order, function ($query) {
+                            $query->latest();
+                        });
+
         return datatables()
-            ->eloquent(Tag::query()->latest())
+            ->eloquent($tag)
             ->addColumn('action', function ($tag) {
                 return '
                     <div class="d-flex">
-                        <form onsubmit="destroy(\'event\')" action="' . route('tag.destroy', $tag->id) . '" method="POST">
+                        <form onsubmit="destroy(event)" action="' . route('tag.destroy', $tag->id) . '" method="POST">
                         <input type="hidden" name="_token" value="'. @csrf_token() .'" enctype="multipart/form-data">
                         <a href="' . route('tag.edit', $tag->id) . '" class="btn btn-sm btn-warning rounded"><i class="fa fa-edit"></i></a>
                         <input type="hidden" name="_method" value="DELETE">
@@ -31,6 +37,9 @@ class TagController extends Controller
                         </form>
                     </div>
                 ';
+            })
+            ->editColumn('created_by', function ($tag) {
+                return auth()->user()->name;
             })
             ->addIndexColumn()
             ->escapeColumns(['action'])
@@ -49,7 +58,7 @@ class TagController extends Controller
         // Validate Request //
         $request->validate(
             [
-                'name' => 'required|string',
+                'name' => 'required|string|max:255',
             ]
         );
 

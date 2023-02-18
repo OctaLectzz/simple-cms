@@ -20,7 +20,7 @@ class StatusUser
         if(Auth::user()->status != 'Active')
         {
             Auth::logout();
-            return redirect('/')->with('success', 'Akun anda telah diblokir!!!');
+            return redirect('/login')->with('warning', 'Akun anda telah diblokir!!!');
         }
 
         return $next($request);

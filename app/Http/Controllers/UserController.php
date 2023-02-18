@@ -16,13 +16,13 @@ class UserController extends Controller
             ->addColumn('action', function ($user) {
                 return '
                     <div class="d-flex">
-                        <form onsubmit="destroy(\'event\')" action="' . route('user.destroy', $user->id) . '" method="POST">
-                        <input type="hidden" name="_token" value="'. @csrf_token() .'" enctype="multipart/form-data">
-                        <a href="' . route('user.edit', $user->id) . '" class="btn btn-sm btn-warning rounded"><i class="fa fa-edit"></i></a>
-                        <input type="hidden" name="_method" value="DELETE">
-                            <button class="btn btn-sm btn-danger mr-2">
-                                <i class="fa fa-trash"></i>
-                            </button>
+                        <form onsubmit="destroy(event)" action="' . route('user.destroy', $user->id) . '" method="POST">
+                            <input type="hidden" name="_token" value="'. @csrf_token() .'" enctype="multipart/form-data">
+                            <a href="' . route('user.edit', $user->id) . '" class="btn btn-sm btn-warning rounded"><i class="fa fa-edit"></i></a>
+                            <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn btn-sm btn-danger mr-2">
+                                    <i class="fa fa-trash"></i>
+                                </button>
                             </td>
                         </form>
                     </div>
@@ -37,7 +37,8 @@ class UserController extends Controller
             })
             ->editColumn('status', function ($user) {
                 return $user->status == 'Active'
-                ? '<div class="text-center"><p class="p-2 px-3 fs-6 badge badge-pill badge-success">Active</p></div>' : '<div class="text-center"><p class="p-2 px-3 badge badge-pill badge-danger">Blocked</p></div>' ;
+                ? '<div class="text-center"><p class="p-2 px-3 fs-6 badge badge-success">Active</p></div>' 
+                : '<div class="text-center"><p class="p-2 px-3 badge badge-danger">Blocked</p></div>' ;
             })
             ->addIndexColumn()
             ->escapeColumns(['action'])

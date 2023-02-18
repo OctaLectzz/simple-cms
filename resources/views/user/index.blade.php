@@ -28,7 +28,7 @@
 
                 {{-- Table --}}
                 <div class="card-body">
-                    <table class="table" onsubmit="return confirm('Are You Sure?')">
+                    <table class="table">
                         <thead class="table table-dark table-hover">
                             <tr>
                                 <th>No</th>
@@ -49,6 +49,8 @@
     </div>
 </div>
 
+@include('includes.modal-delete')
+
 @endsection
 
 
@@ -57,10 +59,10 @@
     <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('vendor/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script>
-        let dataTable;
+        let userDatatable;
 
         $(document).ready(function () {
-            dataTable = $('table').DataTable({
+            userDatatable = $('table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('user.list') }}",
@@ -76,21 +78,21 @@
             });
         });
         
-        function destroy(event) {
-            event.preventDefault();
+        // function destroy(event) {
+        //     event.preventDefault();
 
-            $.ajax({
-                url: event.target.action,
-                type: event.target.method,
-                data: {
-                    "_method": "DELETE",
-                    "_token": $('meta[name="csrf-token"]').attr('content'),
-                },
-                success: function(dataTable) {
-                    dataTable.ajax.reload();
-                }
-            });
-        };
+        //     $.ajax({
+        //         url: event.target.action,
+        //         type: event.target.method,
+        //         data: {
+        //             "_method": "DELETE",
+        //             "_token": $('meta[name="csrf-token"]').attr('content'),
+        //         },
+        //         success: function(dataTable) {
+        //             dataTable.ajax.reload();
+        //         }
+        //     });
+        // };
         
         // function destroy(route) 
         // {
@@ -108,4 +110,5 @@
         // };
 
     </script>
+    <script src="{{ asset('js/user/delete.js') }}"></script>
 @endpush

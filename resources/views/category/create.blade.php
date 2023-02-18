@@ -25,6 +25,8 @@
                                         class="form-control @error('name') is-invalid @enderror"
                                         name="name"
                                         value="{{ old('name') }}"
+                                        autocomplete="off"
+                                        autofocus
                                     >
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
