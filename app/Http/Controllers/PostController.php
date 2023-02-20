@@ -38,11 +38,11 @@ class PostController extends Controller
                     </div>
                 ';
             })
-            ->addColumn('images', function ($post) {
-                if ($post->images) {
-                        return ' <img src="' . asset('storage/images/' . $post->images) . '" class="img-circle elevation-2 img-thumbnail" alt="User Image" width="50" height="50"> ';
+            ->addColumn('postImages', function ($post) {
+                if ($post->postImages) {
+                        return ' <img src="' . asset('storage/postImages/' . $post->postImages) . '" class="elevation-2" alt="User Image" width="60"> ';
                 } else {
-                        return '<img src="' . asset('vendor/admin-lte/img/user-profile-default.jpg') . '" class="img-circle elevation-2 img-thumbnail" alt="User Image" width="50" height="50"> ';
+                        return '<img src="' . asset('vendor/admin-lte/img/user-profile-default.jpg') . '" class="elevation-2" alt="User Image" width="60"> ';
                 }
             })
             ->editColumn('created_by', function ($post) {
@@ -63,27 +63,24 @@ class PostController extends Controller
     public function store(Request $request)
     {
         // Validate Request //
-        $request->validate(
+            $request->validate(
             [
                 'title' => 'required|string',
                 'content' => 'required',
-                'images' => 'image|max:2048'
+                'postImages' => 'required|image|file|max:2048'
             ]
         );
 
+        
+        // Request postImages //
+        $newPostImages = $request->postImages->getClientOriginalName();
+        $request->postImages->storeAs('postImages', $newPostImages);
         $data = [
-            'created_by' => auth()->user()->name,
             'title' => $request->title,
             'content' =>$request->content,
+            'created_by' => auth()->user()->name,
+            'postImages' => $newPostImages
         ];
-        // Request Images //
-        // if ($request->hasFile('images')) {
-        //     $newImage = $request->images->getClientOriginalName();
-        //     $request->images->storeAs('images', $newImage);
-        //     $data = [
-        //         'images' => $newImage
-        //     ];
-        // }
 
         $post = Post::create($data);
 
@@ -101,28 +98,27 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         // Validate Request //
-        $request->validate(
+        $validatedData = $request->validate(
             [
                 'title' => 'required|string',
                 'content' => 'required',
-                'images' => 'image|max:2048'
+                'postImages' => 'required|image|file|max:2048'
             ]
         );
 
-
+        
         $data = [
             'title' => $request->title,
             'content' =>$request->content,
             'created_by' => auth()->user()->name
         ];
-        // Request Images //
-        // if ($request->hasFile('images')) {
-        //     $newImage = $request->images->getClientOriginalName();
-        //     $request->images->storeAs('images', $newImage);
-        //     $data = [
-        //         'images' => $newImage
-        //     ];
-        // }
+        
+        // Request postImages //
+        $newPostImages = $request->postImages->getClientOriginalName();
+        $request->postImages->storeAs('postImages', $newPostImages);
+        $data = [
+            'postImages' => $newPostImages
+        ];
 
 
         $findPost = Post::find($post->id);

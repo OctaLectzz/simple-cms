@@ -62,19 +62,6 @@
                 @endif
 
                 {{-- Tags --}}
-                {{-- <li class="nav-item dropdown">
-                    <a href="{{ route('tag.index') }}" class="nav-link dropdown-toggle {{ Request::is('tag*') ? 'active' : '' }}" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="nav-icon fa fa-tags"></i>
-                        <p>
-                            Tags
-                        </p>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                        <li><a class="dropdown-item" href="{{ route('tag.index') }}">List</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{{ route('tag.create') }}">Create</a></li>
-                      </ul>
-                </li> --}}
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link {{ Request::is('tag*') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-tags"></i>
@@ -85,13 +72,13 @@
                     </a>
                     <ul class="nav nav-treeview ms-3">
                         <li class="nav-item">
-                            <a href="{{ route('tag.index') }}" class="nav-link">
+                            <a href="{{ route('tag.index') }}" class="nav-link {{ Request::is('tag') ? 'active' : '' }}">
                             <i class="fa fa-list nav-icon"></i>
                             <p>List</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('tag.create') }}" class="nav-link">
+                            <a href="{{ route('tag.create') }}" class="nav-link {{ Request::is('tag/create') ? 'active' : '' }}">
                             <i class="fa fa-file-signature nav-icon"></i>
                             <p>Create</p>
                             </a>
@@ -110,13 +97,13 @@
                     </a>
                     <ul class="nav nav-treeview ms-3">
                         <li class="nav-item">
-                            <a href="{{ route('category.index') }}" class="nav-link">
+                            <a href="{{ route('category.index') }}" class="nav-link {{ Request::is('category') ? 'active' : '' }}">
                             <i class="fa fa-list nav-icon"></i>
                             <p>List</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('category.create') }}" class="nav-link">
+                            <a href="{{ route('category.create') }}" class="nav-link {{ Request::is('category/create') ? 'active' : '' }}">
                             <i class="fa fa-file-signature nav-icon"></i>
                             <p>Create</p>
                             </a>

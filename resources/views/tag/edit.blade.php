@@ -36,6 +36,27 @@
                                 </div>
                             </div>
 
+                            {{-- Descrption --}}
+                            <div class="row mb-3">
+                                <label for="description" class="col-md-4 col-form-label text-md-end">{{ __('Description') }}</label>
+                                <div class="col-md-6">
+                                    <textarea 
+                                        class="form-control @error('description') is-invalid @enderror"
+                                        name="description"
+                                        id="floatingTextarea2 description" 
+                                        value="{{ old('description', $tag->description) }}"
+                                        placeholder="Leave a Description here" 
+                                        style="height: 100px"
+                                        autocomplete="off"
+                                    ></textarea>
+                                    @error('description')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
                             {{-- Save --}}
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">

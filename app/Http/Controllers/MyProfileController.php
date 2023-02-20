@@ -23,7 +23,7 @@ class MyProfileController extends Controller
         // Validate Request //
         $request->validate(
             [
-                'images' => 'image|max:2048',
+                'images' => 'image|file|max:2048',
                 'name' => 'required|string',
                 'tanggal_lahir' => 'required|date',
                 'jenis_kelamin' => 'required|string',

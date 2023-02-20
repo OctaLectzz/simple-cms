@@ -11,7 +11,7 @@
                     <div class="card-header">{{ __('Crate Tag') }}</div>
                     <div class="card-body">
 
-                        <form action="{{ route('tag.input') }}" method="POST" enctype="multipart/form-data">
+                        <form  onsubmit="submit(event)" action="{{ route('tag.input') }}" method="POST" enctype="multipart/form-data">
                             @method('put')
                             @csrf
                             
@@ -36,10 +36,31 @@
                                 </div>
                             </div>
 
+                            {{-- Descrption --}}
+                            <div class="row mb-3">
+                                <label for="description" class="col-md-4 col-form-label text-md-end">{{ __('Description') }}</label>
+                                <div class="col-md-6">
+                                    <textarea 
+                                        class="form-control @error('description') is-invalid @enderror"
+                                        name="description"
+                                        id="floatingTextarea2 description" 
+                                        value="{{ old('description') }}"
+                                        placeholder="Leave a Description here" 
+                                        style="height: 100px"
+                                        autocomplete="off"
+                                    ></textarea>
+                                    @error('description')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
                             {{-- Save --}}
-                            <div class="row mb-0">
+                            <div class="row mb-0" id="submit">
                                 <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-dark">
+                                    <button id="confirm" type="submit" class="btn btn-dark">
                                         {{ __('Create') }}
                                     </button>
                                 </div>
@@ -54,5 +75,10 @@
             </div>
         </div>
     </div>
+
+
+
+
+    <script src="{{ asset('js/submit.js') }}"></script>
 
 @endsection

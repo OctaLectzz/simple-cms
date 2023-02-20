@@ -110,5 +110,5 @@
         // };
 
     </script>
-    <script src="{{ asset('js/user/delete.js') }}"></script>
+    <script src="{{ asset('js/delete.js') }}"></script>
 @endpush

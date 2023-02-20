@@ -33,6 +33,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama</th>
+                                <th>Description</th>
                                 <th>Created By</th>
                                 <th width="10%" class="text-center">Action</th>
                             </tr>
@@ -68,43 +69,12 @@
                 columns: [
                     { data: 'DT_RowIndex', sortable: false, searchable: false },
                     { data: 'name' },
+                    { data: 'description' },
                     { data: 'created_by' },
                     { data: 'action', sortable: false },
                 ],
             });
         });
-        
-        // function destroy(event) {
-        //     event.preventDefault();
-
-        //     $.ajax({
-        //         url: event.target.action,
-        //         type: event.target.method,
-        //         data: {
-        //             "_method": "DELETE",
-        //             "_token": $('meta[name="csrf-token"]').attr('content'),
-        //         },
-        //         success: function(dataTable) {
-        //             dataTable.ajax.reload();
-        //         }
-        //     });
-        // };
-        
-        // function destroy(route) 
-        // {
-        //     $.ajax({
-        //         url: route,
-        //         type: 'POST',
-        //         data: {
-        //             "_METHOD": "DELETE",
-        //             "_token": $('meta[name="csrf-token"]').attr('content'),
-        //         },
-        //         success: function(dataTable) {
-        //             dataTable.ajax.reload();
-        //         }
-        //     });
-        // };
-
     </script>
-    <script src="{{ asset('js/user/delete.js') }}"></script>
+    <script src="{{ asset('js/delete.js') }}"></script>
 @endpush

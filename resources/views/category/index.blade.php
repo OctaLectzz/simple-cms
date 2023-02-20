@@ -34,6 +34,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
+                                    <th>Description</th>
                                     <th>Created By</th>
                                     <th width="10%" class="text-center">Action</th>
                                 </tr>
@@ -70,6 +71,7 @@
                 columns: [
                     { data: 'DT_RowIndex', sortable: false, searchable: false },
                     { data: 'name' },
+                    { data: 'description' },
                     { data: 'created_by' },
                     { data: 'action', sortable: false },
                 ],

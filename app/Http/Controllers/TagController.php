@@ -59,12 +59,14 @@ class TagController extends Controller
         $request->validate(
             [
                 'name' => 'required|string|max:255',
+                'description' => 'string|max:255',
             ]
         );
 
         $data = [
             'created_by' => auth()->user()->name,
-            'name' => $request->name
+            'name' => $request->name,
+            'description' => $request->description,
         ];
 
         $tag = Tag::create($data);
@@ -87,11 +89,13 @@ class TagController extends Controller
         $request->validate(
             [
                 'name' => 'required|string',
+                'description' => 'string',
             ]
         );
 
         $data = [
             'name' => $request->name,
+            'description' => $request->description,
         ];
 
 

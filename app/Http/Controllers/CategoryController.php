@@ -59,12 +59,14 @@ class CategoryController extends Controller
         $request->validate(
             [
                 'name' => 'required|string',
+                'description' => 'required|string',
             ]
         );
 
         $data = [
             'created_by' => auth()->user()->name,
-            'name' => $request->name
+            'name' => $request->name,
+            'description' => $request->description,
         ];
 
         $category = Category::create($data);
@@ -87,11 +89,13 @@ class CategoryController extends Controller
         $request->validate(
             [
                 'name' => 'required|string',
+                'description' => 'required|string',
             ]
         );
 
         $data = [
             'name' => $request->name,
+            'description' => $request->description,
         ];
 
 

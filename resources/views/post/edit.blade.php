@@ -49,35 +49,36 @@
                                         id="content"
                                         type="hidden"
                                         class="form-control @error('content') is-invalid @enderror"
+                                        value="{{ old('content', $post->content) }}"
                                         content="content"
                                         autocomplete="off"
                                         autofocus
                                     >
-                                    <textarea id="summernote" input="content" name="content" value="{{ $post->content }}"></textarea>
+                                    <textarea id="summernote" input="content" name="content">{{ old('content', $post->content) }}</textarea>
                                 </div>
                             </div>  
 
-                            {{-- Image --}}
+                            {{-- postImages --}}
                             <div class="row mb-3">
-                                <label for="images" class="col-md-4 col-form-label text-md-end">{{ __('Foto') }}</label>
+                                <label for="postImages" class="col-md-4 col-form-label text-md-end">{{ __('Foto') }}</label>
                                 <div class="col-md-6">
                                     <div class="input-group mb-3">
                                         <div>
-                                            {{-- @if (auth()->user()->images)
+                                            {{-- @if (auth()->user()->postImages)
                                                 <img src="{{ Storage::url(auth()->user()->photo) }}" class="img-fluid mb-3 rounded">
                                             @endif --}}
                                             <input
-                                                name="images"
-                                                class="form-control @error('images') is-invalid @enderror"
-                                                value="{{ old('images', auth()->user()->images) }}"
+                                                name="postImages"
+                                                class="form-control @error('postImages') is-invalid @enderror"
+                                                value="{{ old('postImages', auth()->user()->postImages) }}"
                                                 type="file"
-                                                accept="images/*"
+                                                accept="postImages/*"
                                                 id="formFile"
                                             >
                                             <small for="formFile" class="form-label">{{ __('Silahkan Upload Foto Anda') }}</small>
                                         </div>
                                     </div>
-                                    @error('images')
+                                    @error('postImages')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

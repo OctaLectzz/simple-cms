@@ -69,7 +69,7 @@
                 order: [],
                 columns: [
                     { data: 'DT_RowIndex', sortable: false, searchable: false },
-                    { data: 'images' },
+                    { data: 'postImages' },
                     { data: 'title' },
                     { data: 'content' },
                     { data: 'created_by' },
@@ -77,38 +77,6 @@
                 ],
             });
         });
-        
-        // function destroy(event) {
-        //     event.preventDefault();
-
-        //     $.ajax({
-        //         url: event.target.action,
-        //         type: event.target.method,
-        //         data: {
-        //             "_method": "DELETE",
-        //             "_token": $('meta[name="csrf-token"]').attr('content'),
-        //         },
-        //         success: function(dataTable) {
-        //             dataTable.ajax.reload();
-        //         }
-        //     });
-        // };
-        
-        // function destroy(route) 
-        // {
-        //     $.ajax({
-        //         url: route,
-        //         type: 'POST',
-        //         data: {
-        //             "_METHOD": "DELETE",
-        //             "_token": $('meta[name="csrf-token"]').attr('content'),
-        //         },
-        //         success: function(dataTable) {
-        //             dataTable.ajax.reload();
-        //         }
-        //     });
-        // };
-
     </script>
-    <script src="{{ asset('js/user/delete.js') }}"></script>
+    <script src="{{ asset('js/delete.js') }}"></script>
 @endpush

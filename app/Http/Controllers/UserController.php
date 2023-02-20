@@ -67,7 +67,7 @@ class UserController extends Controller
         // Validate Request //
         $request->validate(
             [
-                'images' => 'image|max:2048',
+                'images' => 'image|file|max:2048',
                 'name' => 'required|string',
             ]
         );

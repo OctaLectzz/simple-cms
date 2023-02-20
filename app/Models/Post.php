@@ -11,7 +11,7 @@ class Post extends Model
 
 
     protected $fillable = [
-        'images',
+        'postImages',
         'title',
         'content',
     ];
@@ -19,7 +19,7 @@ class Post extends Model
 
     protected $attributes =[
         'created_by' => '',
-        'images' => '',
+        'postImages' => '',
     ];
 
 
