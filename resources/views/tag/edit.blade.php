@@ -48,7 +48,7 @@
                                         placeholder="Leave a Description here" 
                                         style="height: 100px"
                                         autocomplete="off"
-                                    ></textarea>
+                                    >{{ old('description', $tag->description) }}</textarea>
                                     @error('description')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -61,7 +61,7 @@
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-dark">
-                                        {{ __('Create') }}
+                                        {{ __('Update') }}
                                     </button>
                                 </div>
                             </div>
@@ -75,5 +75,10 @@
             </div>
         </div>
     </div>
+
+
+
+
+    <script src="{{ asset('js/submit.js') }}"></script>
 
 @endsection

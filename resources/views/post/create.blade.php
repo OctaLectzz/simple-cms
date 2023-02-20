@@ -64,9 +64,6 @@
                                 <div class="col-md-6">
                                     <div class="input-group mb-3">
                                         <div>
-                                            {{-- @if (auth()->user()->postImages)
-                                                <img src="{{ Storage::url(auth()->user()->photo) }}" class="img-fluid mb-3 rounded">
-                                            @endif --}}
                                             <input
                                                 name="postImages"
                                                 class="form-control @error('postImages') is-invalid @enderror"
@@ -74,8 +71,9 @@
                                                 type="file"
                                                 accept="postImages/*"
                                                 id="formFile"
+                                                onchange="loadFile(event)"
                                             >
-                                            <small for="formFile" class="form-label">{{ __('Silahkan Upload Foto Anda') }}</small>
+                                            <img id="profile" class="mt-3" width="200">
                                         </div>
                                     </div>
                                     @error('postImages')
@@ -115,5 +113,7 @@
         height: 100
       });
     </script>
-
+    <script src="{{ asset('js/preview.js') }}"></script>
+    <script src="{{ asset('js/submit.js') }}"></script>
+    
 @endsection

@@ -97,7 +97,7 @@
                             </div>
 
                             {{-- Status --}}
-                            <div class="row mb-3">
+                            {{-- <div class="row mb-3">
                                 <label for="jenis_kelamin" class="col-md-4 col-form-label text-md-end">{{ __('Status') }}</label>
                                 <div class="col-md-6">
                                     <select
@@ -118,24 +118,27 @@
                                         </span>
                                     @enderror
                                 </div>
-                            </div>
-
+                            </div> --}}
+                            
                             {{-- images --}}
                             <div class="row mb-3">
-                                <label for="images" class="col-md-4 col-form-label text-md-end">{{ __('Foto') }}</label>
+                                <label for="images" class="col-md-4 col-form-label text-md-end">{{ __('Foto Profile') }}</label>
                                 <div class="col-md-6">
                                     <div class="input-group mb-3">
                                         <div>
-                                            {{-- @if (auth()->user()->images)
-                                                <img src="{{ Storage::url(auth()->user()->photo) }}" class="img-fluid mb-3 rounded">
-                                            @endif --}}
+                                            @if (auth()->user()->images)
+                                                <img id="profile" src="{{ 'storage/images/' . auth()->user()->images }}" class="mb-3 img-circle elevation-2" width="50" height="50">
+                                            @else
+                                                <img id="profile" src="{{ asset('vendor/admin-lte/img/user-profile-default.jpg') }}" class="mb-3 img-circle elevation-2" alt="User Image" width="50" height="50">
+                                            @endif
                                             <input
                                                 name="images"
                                                 class="form-control @error('images') is-invalid @enderror"
                                                 value="{{ old('images', auth()->user()->images) }}"
                                                 type="file"
-                                                accept="image/*"
+                                                accept="images/*"
                                                 id="formFile"
+                                                onchange="loadFile(event)"
                                             >
                                             <small for="formFile" class="form-label">{{ __('Silahkan Upload Foto Anda') }}</small>
                                         </div>
@@ -166,5 +169,11 @@
             </div>
         </div>
     </div>
+
+    
+
+
+    <script src="{{ asset('js/preview.js') }}"></script>
+    <script src="{{ asset('js/submit.js') }}"></script>
 
 @endsection

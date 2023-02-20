@@ -74,8 +74,9 @@
                                                 type="file"
                                                 accept="postImages/*"
                                                 id="formFile"
+                                                onchange="loadFile(event)"
                                             >
-                                            <small for="formFile" class="form-label">{{ __('Silahkan Upload Foto Anda') }}</small>
+                                            <img id="profile" class="mt-3" width="200">
                                         </div>
                                     </div>
                                     @error('postImages')
@@ -115,5 +116,7 @@
           height: 100
         });
     </script>
+    <script src="{{ asset('js/preview.js') }}"></script>
+    <script src="{{ asset('js/submit.js') }}"></script>
 
 @endsection

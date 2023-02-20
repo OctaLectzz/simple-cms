@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class PostController extends Controller
 {
@@ -116,9 +117,7 @@ class PostController extends Controller
         // Request postImages //
         $newPostImages = $request->postImages->getClientOriginalName();
         $request->postImages->storeAs('postImages', $newPostImages);
-        $data = [
-            'postImages' => $newPostImages
-        ];
+        $data['postImages'] = $newPostImages;
 
 
         $findPost = Post::find($post->id);
@@ -130,6 +129,11 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
+        $path = public_path('storage/postImages' . $post->postImages);
+        if (File::exists($path)) {
+            File::delete($path);
+        }
+
         $post->delete();
 
         return redirect()->back()->with('success', 'Post has been Deleted!');;

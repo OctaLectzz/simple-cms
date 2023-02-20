@@ -58,7 +58,7 @@
                             </div>
 
                             {{-- Save --}}
-                            <div class="row mb-0" id="submit">
+                            <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button id="confirm" type="submit" class="btn btn-dark">
                                         {{ __('Create') }}

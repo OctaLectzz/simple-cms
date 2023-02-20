@@ -77,38 +77,6 @@
                 ],
             });
         });
-        
-        // function destroy(event) {
-        //     event.preventDefault();
-
-        //     $.ajax({
-        //         url: event.target.action,
-        //         type: event.target.method,
-        //         data: {
-        //             "_method": "DELETE",
-        //             "_token": $('meta[name="csrf-token"]').attr('content'),
-        //         },
-        //         success: function(dataTable) {
-        //             dataTable.ajax.reload();
-        //         }
-        //     });
-        // };
-        
-        // function destroy(route) 
-        // {
-        //     $.ajax({
-        //         url: route,
-        //         type: 'POST',
-        //         data: {
-        //             "_METHOD": "DELETE",
-        //             "_token": $('meta[name="csrf-token"]').attr('content'),
-        //         },
-        //         success: function(dataTable) {
-        //             dataTable.ajax.reload();
-        //         }
-        //     });
-        // };
-
     </script>
     <script src="{{ asset('js/delete.js') }}"></script>
 @endpush

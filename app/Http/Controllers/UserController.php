@@ -30,9 +30,9 @@ class UserController extends Controller
             })
             ->addColumn('images', function ($user) {
                 if ($user->images) {
-                        return ' <img src="' . asset('storage/images/' . $user->images) . '" class="img-circle elevation-2 img-thumbnail" alt="User Image" width="50" height="50"> ';
+                        return ' <img src="' . asset('storage/images/' . $user->images) . '" class="img-circle elevation-2" alt="User Image" width="50" height="50"> ';
                 } else {
-                        return '<img src="' . asset('vendor/admin-lte/img/user-profile-default.jpg') . '" class="img-circle elevation-2 img-thumbnail" alt="User Image" width="50" height="50"> ';
+                        return '<img src="' . asset('vendor/admin-lte/img/user-profile-default.jpg') . '" class="img-circle elevation-2" alt="User Image" width="50" height="50"> ';
                 }
             })
             ->editColumn('status', function ($user) {
@@ -65,33 +65,24 @@ class UserController extends Controller
     {
 
         // Validate Request //
-        $request->validate(
+        $data = $request->validate(
             [
                 'images' => 'image|file|max:2048',
                 'name' => 'required|string',
+                'tanggal_lahir' => '',
+                'jenis_kelamin' => 'required',
+                'alamat' => '',
+                'status' => 'required'
             ]
         );
 
-
-
-        $data = [
-            'name' => $request->name,
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'alamat' => $request->alamat,
-            'status' => $request->status
-        ];
 
         // Request Images //
         if ($request->hasFile('images')) {
             $newImage = $request->images->getClientOriginalName();
             $request->images->storeAs('images', $newImage);
-            $data = [
-                'images' => $newImage
-            ];
+            $data['images'] = $newImage;
         }
-
-
 
 
         $findUser = User::find($user->id);

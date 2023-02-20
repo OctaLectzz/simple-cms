@@ -26,9 +26,9 @@
             {{-- Profile Photo --}}
             <div class="profile d-flex justify-content-center">
                 @if (auth()->user()->images)
-                    <img src="{{ asset('storage/images/' . Auth::user()->images) }}" class="img-circle elevation-2 img-thumbnail" alt="User Image" width="200" height="200">
+                    <img src="{{ asset('storage/images/' . auth()->user()->images) }}" class="img-circle elevation-2" alt="User Image" width="200" height="200">
                 @else
-                    <img src="{{ asset('vendor/admin-lte/img/user-profile-default.jpg') }}" class="img-circle elevation-2 img-thumbnail" alt="User Image" width="200" height="200">
+                    <img src="{{ asset('vendor/admin-lte/img/user-profile-default.jpg') }}" class="img-circle elevation-2" alt="User Image" width="200" height="200">
                 @endif
             </div>
             
