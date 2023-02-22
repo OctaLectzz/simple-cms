@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('postImages');
             $table->string('title');
+            $table->string('slug')->unique();
             $table->longText('content');
             $table->string('created_by');
             $table->timestamps();

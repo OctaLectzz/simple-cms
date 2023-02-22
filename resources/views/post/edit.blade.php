@@ -24,7 +24,7 @@
                                         type="text"
                                         class="form-control @error('title') is-invalid @enderror"
                                         name="title"
-                                        value="{{ $post->title }}"
+                                        value="{{ old('title', $post->title) }}"
                                         autocomplete="off"
                                         autofocus
                                     >
@@ -36,14 +36,30 @@
                                 </div>
                             </div>
 
-                            {{-- Content --}}
+                            {{-- Slug --}}
                             <div class="row mb-3">
-                                <label for="content" class="col-md-4 col-form-label text-md-end">{{ __('Content') }}</label>
-                                @error('content')
+                                <label for="slug" class="col-md-4 col-form-label text-md-end">{{ __('Slug') }}</label>
+                                <div class="col-md-6">
+                                    <input
+                                        id="slug"
+                                        type="text"
+                                        class="form-control @error('slug') is-invalid @enderror"
+                                        name="slug"
+                                        value="{{ old('slug', $post->slug) }}"
+                                        autocomplete="off"
+                                        readonly
+                                    >
+                                    @error('slug')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
+                                </div>
+                            </div>
+
+                            {{-- Content --}}
+                            <div class="row mb-3">
+                                <label for="content" class="col-md-4 col-form-label text-md-end">{{ __('Content') }}</label>
                                 <div class="col-md-6">
                                     <input
                                         id="content"
@@ -55,6 +71,11 @@
                                         autofocus
                                     >
                                     <textarea id="summernote" input="content" name="content">{{ old('content', $post->content) }}</textarea>
+                                    @error('content')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -77,9 +98,7 @@
                                         </div>
                                     @endforeach
                                     @error('categories')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                        <p class="text-danger d-flex fs-6 fw-bold">{{ $message }}</p>
                                     @enderror
                                 </div>
                             </div>
@@ -103,9 +122,7 @@
                                         </div>
                                     @endforeach
                                     @error('tags')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                        <p class="text-danger d-flex fs-6 fw-bold">{{ $message }}</p>
                                     @enderror
                                 </div>
                             </div>
@@ -114,20 +131,16 @@
                             <div class="row mb-3">
                                 <label for="postImages" class="col-md-4 col-form-label text-md-end">{{ __('Post Foto') }}</label>
                                 <div class="col-md-6">
-                                    <div class="input-group mb-3">
-                                        <div>
-                                            <input
-                                                name="postImages"
-                                                class="form-control @error('postImages') is-invalid @enderror"
-                                                value="{{ old('postImages', auth()->user()->postImages) }}"
-                                                type="file"
-                                                accept="postImages/*"
-                                                id="formFile"
-                                                onchange="loadFile(event)"
-                                            >
-                                            <img id="profile" src="{{ asset('storage/postImages/' . $post->postImages) }}" class="mt-3" width="200">
-                                        </div>
-                                    </div>
+                                    <input
+                                        name="postImages"
+                                        class="form-control @error('postImages') is-invalid @enderror"
+                                        value="{{ old('postImages', auth()->user()->postImages) }}"
+                                        type="file"
+                                        accept="postImages/*"
+                                        id="formFile"
+                                        onchange="loadFile(event)"
+                                    >
+                                    <img id="profile" src="{{ asset('storage/postImages/' . $post->postImages) }}" class="mt-3" width="200">
                                     @error('postImages')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -167,5 +180,6 @@
     </script>
     <script src="{{ asset('js/preview.js') }}"></script>
     <script src="{{ asset('js/submit.js') }}"></script>
+    <script src="{{ asset('js/slug.js') }}"></script>
 
 @endsection

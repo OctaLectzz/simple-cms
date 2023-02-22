@@ -91,6 +91,7 @@ Route::prefix('category')->middleware(['auth', 'verified',])->group(function() {
 
 
 // Post //
+Route::get('/post/checkSlug', [PostController::class, 'checkSlug'])->middleware('auth');
 Route::prefix('post')->middleware(['auth', 'verified',])->group(function() {
     Route::controller(PostController::class)->group(function () {
         Route::get('/',  'index')->name('post.index');

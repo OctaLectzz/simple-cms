@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Post extends Model
 {
-    use HasFactory;
+    use HasFactory, Sluggable;
 
 
     protected $guarded = [
@@ -36,5 +37,17 @@ class Post extends Model
     public function tag()
     {
         return $this->belongsToMany(Tag::class, "post_tag", "post_id", "tag_id");
+    }
+
+
+
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
     }
 }

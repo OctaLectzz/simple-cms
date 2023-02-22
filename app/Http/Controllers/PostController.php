@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use App\Models\Post;
 use App\Models\Category;
-use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class PostController extends Controller
 {
@@ -72,6 +73,7 @@ class PostController extends Controller
         $data = $request->validate(
             [
                 'title' => 'required|string',
+                'slug' => 'required|unique:posts',
                 'content' => 'required',
                 'categories' => 'required',
                 'tags' => 'required',
@@ -110,6 +112,7 @@ class PostController extends Controller
         $data = $request->validate(
             [
                 'title' => 'required|string',
+                'slug' => 'required|unique:posts',
                 'content' => 'required',
                 'categories' => 'required',
                 'tags' => 'required'
@@ -145,5 +148,12 @@ class PostController extends Controller
         $post->delete();
 
         return redirect()->back()->with('success', 'Post has been Deleted!');;
+    }
+
+
+    public function checkSlug(Request $request)
+    {
+        $slug = SlugService::createSlug(Post::class, 'slug', $request->title);
+        return response()->json(['slug' => $slug]);
     }
 }
