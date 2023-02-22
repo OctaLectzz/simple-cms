@@ -32,8 +32,8 @@
                         <thead class="table table-dark table-hover">
                             <tr>
                                 <th>No</th>
-                                <th>image</th>
-                                <th>title</th>
+                                <th>Title</th>
+                                <th>Slug</th>
                                 <th>Content</th>
                                 <th>Created By</th>
                                 <th width="10%" class="text-center">Action</th>
@@ -69,8 +69,8 @@
                 order: [],
                 columns: [
                     { data: 'DT_RowIndex', sortable: false, searchable: false },
-                    { data: 'postImages' },
                     { data: 'title' },
+                    { data: 'slug' },
                     { data: 'content' },
                     { data: 'created_by' },
                     { data: 'action', sortable: false },

@@ -42,13 +42,13 @@ class PostController extends Controller
                     </div>
                 ';
             })
-            ->addColumn('postImages', function ($post) {
-                if ($post->postImages) {
-                        return ' <img src="' . asset('storage/postImages/' . $post->postImages) . '" class="elevation-2" alt="User Image" width="60"> ';
-                } else {
-                        return '<img src="' . asset('vendor/admin-lte/img/user-profile-default.jpg') . '" class="elevation-2" alt="User Image" width="60"> ';
-                }
-            })
+            // ->addColumn('postImages', function ($post) {
+            //     if ($post->postImages) {
+            //             return ' <img src="' . asset('storage/postImages/' . $post->postImages) . '" class="elevation-2" alt="User Image" width="60"> ';
+            //     } else {
+            //             return '<img src="' . asset('vendor/admin-lte/img/user-profile-default.jpg') . '" class="elevation-2" alt="User Image" width="60"> ';
+            //     }
+            // })
             ->editColumn('created_by', function ($post) {
                 return auth()->user()->name;
             })
