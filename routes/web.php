@@ -2,13 +2,16 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AllUsersController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MyProfileController;
+use App\Http\Controllers\AllUsersController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,18 +24,18 @@ use App\Http\Controllers\PostController;
 |
 */
 
+
+
+
 // First //
 Route::get('/', function () {
     return view('welcome');
 })->middleware('guest');
 
 
-
 // Home //
 Auth::routes(['verify' =>true]);
-
 Route::get('/home', [HomeController::class, 'index'])->middleware('userStatus')->name('home');
-
 
 
 // Profile //
@@ -42,12 +45,9 @@ Route::prefix('my-profile')->middleware(['auth', 'verified'])->group(function() 
 });
 
 
-
 // All Users //
 Route::get('users', [AllUsersController::class, 'index'])->middleware('auth')->name('users');
-
 Route::delete('/users/{id}', [AllUsersController::class, 'destroy']);
-
 
 
 // User //
@@ -62,8 +62,7 @@ Route::prefix('user')->middleware(['auth', 'verified', 'superAdmin'])->group(fun
 });
 
 
-
-// Tags //
+// Tag //
 Route::prefix('tag')->middleware(['auth', 'verified',])->group(function() {
     Route::controller(TagController::class)->group(function () {
         Route::get('/',  'index')->name('tag.index');
@@ -75,7 +74,6 @@ Route::prefix('tag')->middleware(['auth', 'verified',])->group(function() {
         Route::delete('/{tag}', 'destroy')->name('tag.destroy');
     });
 });
-
 
 
 // Category //
@@ -90,7 +88,6 @@ Route::prefix('category')->middleware(['auth', 'verified',])->group(function() {
         Route::delete('/{category}', 'destroy')->name('category.destroy');
     });
 });
-
 
 
 // Post //

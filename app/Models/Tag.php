@@ -28,20 +28,10 @@ class Tag extends Model
     ];
 
 
-    public function scopeFilter($query, array $filters)
-    {
-        // User Search //
-        $query->when($filters['user'] ?? false, fn($query, $user) =>
-            $query->whereHas('user', fn($query)=>
-                $query->where('username', $user)
-            )
-        );
-    }
 
-
-    public function users()
+    public function posts()
     {
-        return $this->hasMany(User::class, 'created_by');
+        return $this->belongsToMany(Post::class, "post_tag", "tag_id", "post_id");
     }
 
 }

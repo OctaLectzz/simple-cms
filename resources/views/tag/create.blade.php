@@ -8,7 +8,7 @@
 
 
                 <div class="card">
-                    <div class="card-header">{{ __('Crate Tag') }}</div>
+                    <div class="card-header">{{ __('Create Tag') }}</div>
                     <div class="card-body">
 
                         <form  onsubmit="submit(event)" action="{{ route('tag.input') }}" method="POST" enctype="multipart/form-data">

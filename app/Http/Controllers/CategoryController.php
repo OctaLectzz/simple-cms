@@ -59,7 +59,7 @@ class CategoryController extends Controller
         $request->validate(
             [
                 'name' => 'required|string',
-                'description' => 'required|string',
+                'description' => 'max:255'
             ]
         );
 
@@ -89,7 +89,7 @@ class CategoryController extends Controller
         $request->validate(
             [
                 'name' => 'required|string',
-                'description' => 'required|string',
+                'description' => 'max:255'
             ]
         );
 

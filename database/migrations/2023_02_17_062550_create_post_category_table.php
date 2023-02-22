@@ -15,12 +15,10 @@ return new class extends Migration
     {
         Schema::create('post_category', function (Blueprint $table) {
             $table->unsignedBigInteger('post_id');
-
             $table->foreign('post_id')->references('id')->on('posts');
 
-            $table->unsignedBigInteger('categories_id');
-
-            $table->foreign('categories_id')->references('id')->on('categories');
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 

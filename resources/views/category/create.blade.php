@@ -8,7 +8,7 @@
 
 
                 <div class="card">
-                    <div class="card-header">{{ __('Crate Category') }}</div>
+                    <div class="card-header">{{ __('Create Category') }}</div>
                     <div class="card-body">
 
                         <form action="{{ route('category.input') }}" method="POST" enctype="multipart/form-data">

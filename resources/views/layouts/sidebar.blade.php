@@ -1,4 +1,5 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar sidebar-dark-warning elevation-4">
+
     <!-- Brand Logo -->
     <a href="{{ route('home') }}" class="brand-link">
         <img src="{{ asset('vendor/admin-lte/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
@@ -8,6 +9,7 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
+
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
@@ -25,9 +27,7 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-
+                <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 
                {{-- Home --}}
                <li class="nav-item">
@@ -49,7 +49,7 @@
                     </a>
                 </li>  --}}
 
-                {{-- Datatable Users --}}
+                {{-- Users --}}
                 @if (Auth()->user()->role == "superAdmin")
                 <li class="nav-item">
                     <a href="{{ route('user.index') }}" class="nav-link {{ Request::is('user*') ? 'active' : '' }}">
@@ -61,8 +61,8 @@
                 </li>
                 @endif
 
-                {{-- Tags --}}
-                <li class="nav-item has-treeview">
+                {{-- Tag --}}
+                <li class="nav-item has-treeview {{ Request::is('tag*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::is('tag*') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-tags"></i>
                         <p>
@@ -70,16 +70,16 @@
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview ms-3">
+                    <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('tag.index') }}" class="nav-link {{ Request::is('tag') ? 'active' : '' }}">
-                            <i class="fa fa-list nav-icon"></i>
+                            <i class="fa fa-list nav-icon ms-3"></i>
                             <p>List</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('tag.create') }}" class="nav-link {{ Request::is('tag/create') ? 'active' : '' }}">
-                            <i class="fa fa-file-signature nav-icon"></i>
+                            <i class="fa fa-file-signature nav-icon  ms-3"></i>
                             <p>Create</p>
                             </a>
                         </li>
@@ -87,24 +87,24 @@
                 </li>
 
                 {{-- Category --}}
-                <li class="nav-item has-treeview">
+                <li class="nav-item has-treeview {{ Request::is('category*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::is('category*') ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-newspaper"></i>
+                        <i class="nav-icon fa fa-layer-group"></i>
                         <p>
                             Categories
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview ms-3">
+                    <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('category.index') }}" class="nav-link {{ Request::is('category') ? 'active' : '' }}">
-                            <i class="fa fa-list nav-icon"></i>
+                            <i class="fa fa-list nav-icon ms-3"></i>
                             <p>List</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('category.create') }}" class="nav-link {{ Request::is('category/create') ? 'active' : '' }}">
-                            <i class="fa fa-file-signature nav-icon"></i>
+                            <i class="fa fa-file-signature nav-icon ms-3"></i>
                             <p>Create</p>
                             </a>
                         </li>
@@ -112,7 +112,7 @@
                 </li>
 
                 {{-- Post --}}
-                <li class="nav-item has-treeview">
+                <li class="nav-item has-treeview {{ Request::is('post*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::is('post*') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-newspaper"></i>
                         <p>
@@ -120,16 +120,16 @@
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview ms-3">
+                    <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('post.index') }}" class="nav-link">
-                            <i class="fa fa-list nav-icon"></i>
+                            <a href="{{ route('post.index') }}" class="nav-link {{ Request::is('post') ? 'active' : '' }}">
+                            <i class="fa fa-list nav-icon ms-3"></i>
                             <p>List</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('post.create') }}" class="nav-link">
-                            <i class="fa fa-file-signature nav-icon"></i>
+                            <a href="{{ route('post.create') }}" class="nav-link {{ Request::is('post/create') ? 'active' : '' }}">
+                            <i class="fa fa-file-signature nav-icon ms-3"></i>
                             <p>Create</p>
                             </a>
                         </li>
@@ -139,6 +139,8 @@
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
+
     </div>
     <!-- /.sidebar -->
+    
 </aside>

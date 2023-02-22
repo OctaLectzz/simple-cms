@@ -10,10 +10,8 @@ class Post extends Model
     use HasFactory;
 
 
-    protected $fillable = [
-        'postImages',
-        'title',
-        'content',
+    protected $guarded = [
+        'id'
     ];
 
 
@@ -27,4 +25,16 @@ class Post extends Model
         'created_at',
         'updated_at'
     ];
+
+
+
+
+    public function category()
+    {
+        return $this->belongsToMany(Category::class, "post_category", "post_id", "category_id");
+    }
+    public function tag()
+    {
+        return $this->belongsToMany(Tag::class, "post_tag", "post_id", "tag_id");
+    }
 }

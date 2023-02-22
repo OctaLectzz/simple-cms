@@ -26,15 +26,15 @@
             {{-- Profile Photo --}}
             <div class="profile d-flex justify-content-center">
                 @if (auth()->user()->images)
-                    <img src="{{ asset('storage/images/' . auth()->user()->images) }}" class="img-circle elevation-2" alt="User Image" width="200" height="200">
+                    <img src="{{ asset('storage/images/' . auth()->user()->images) }}" class="img-circle elevation-2" alt="User Image" width="200" height="200" style="border: 5px white solid">
                 @else
-                    <img src="{{ asset('vendor/admin-lte/img/user-profile-default.jpg') }}" class="img-circle elevation-2" alt="User Image" width="200" height="200">
+                    <img src="{{ asset('vendor/admin-lte/img/user-profile-default.jpg') }}" class="img-circle elevation-2" alt="User Image" width="200" height="200" style="border: 5px white solid">
                 @endif
             </div>
             
             {{-- Profile Detail --}}
             <div class="card-text pb-3">
-                <p class=" fs-4 text-center card-text"><small class="text-muted">{{ Auth::user()->role }}</small></p>
+                <p class="fs-4 text-center card-text"><small class="text-muted">{{ Auth::user()->role }}</small></p>
                 <h1 class="card-text text-center"><b>{{ Auth::user()->name }}</b></h1>
                 <p class="card-text fs-2 text-center"><small class="text-muted">{{ Auth::user()->email }}</small></p>
                 <p class="card-text fs-4 text-muted mt-5">{{ Auth::user()->tanggal_lahir }} | {{ Auth::user()->jenis_kelamin }}</p>

@@ -127,9 +127,9 @@
                                     <div class="input-group mb-3">
                                         <div>
                                             @if (auth()->user()->images)
-                                                <img id="profile" src="{{ 'storage/images/' . auth()->user()->images }}" class="mb-3 img-circle elevation-2" width="50" height="50">
+                                                <img id="profile" src="{{ 'storage/images/' . auth()->user()->images }}" class="mb-3 img-circle elevation-2" width="50" height="50"  style="border: 3px white solid">
                                             @else
-                                                <img id="profile" src="{{ asset('vendor/admin-lte/img/user-profile-default.jpg') }}" class="mb-3 img-circle elevation-2" alt="User Image" width="50" height="50">
+                                                <img id="profile" src="{{ asset('vendor/admin-lte/img/user-profile-default.jpg') }}" class="mb-3 img-circle elevation-2" alt="User Image" width="50" height="50"  style="border: 3px white solid">
                                             @endif
                                             <input
                                                 name="images"

@@ -59,7 +59,7 @@ class TagController extends Controller
         $request->validate(
             [
                 'name' => 'required|string|max:255',
-                'description' => 'string|max:255',
+                'description' => 'max:255'
             ]
         );
 
@@ -89,7 +89,7 @@ class TagController extends Controller
         $request->validate(
             [
                 'name' => 'required|string',
-                'description' => 'string',
+                'description' => 'max:255'
             ]
         );
 

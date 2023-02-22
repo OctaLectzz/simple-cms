@@ -1,11 +1,9 @@
 @extends('layouts.app')
 
 
-
 @push('styles')
 <link rel="stylesheet" href="{{ asset('vendor/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
 @endpush
-
 
 
 @section('content')
@@ -15,9 +13,7 @@
     <div class="row justify-content-center">
         <div class="col">
 
-
             <div class="card">
-
                 {{-- Alert --}}
                 @if (session()->has('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -41,9 +37,7 @@
                         </thead>
                     </table>
                 </div>
-
             </div>
-
 
         </div>
     </div>

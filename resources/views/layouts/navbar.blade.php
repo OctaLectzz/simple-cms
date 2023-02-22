@@ -28,7 +28,25 @@
             </a>
 
 
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <div class="dropdown-menu dropdown-menu-end animate-menu slideIn-menu" aria-labelledby="navbarDropdown">
+
+                {{-- Profile --}}
+                <a href="{{ route('home') }}" class="d-block text-dark text-decoration-none fw-bold fs-6">
+                    <div class="card m-2 pt-2">
+                        <div class="justify-content-center d-flex mb-2">
+                            <div class="image">
+                                @if (auth()->user()->images)
+                                    <img src="{{ asset('storage/images/' . Auth::user()->images) }}" class="img-circle elevation-2" alt="User Image" width="40" height="40">
+                                @else
+                                    <img src="{{ asset('vendor/admin-lte/img/user-profile-default.jpg') }}" class="img-circle elevation-2" alt="User Image" width="40" height="40">
+                                @endif
+                            </div>
+                        </div>
+                        <div class="info px-2">
+                            <p class="text-center d-block text-dark text-decoration-none fw-bold fs-6">{{ Auth()->user()->name }}</p>
+                        </div>
+                    </div>
+                </a>
 
                 {{-- Edit Profile --}}
                 <a class="dropdown-item" href="{{ route('my.profile.index') }}">

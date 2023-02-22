@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -57,33 +59,35 @@ class PostController extends Controller
 
     public function create()
     {
-        return view('post.create');
+        return view('post.create', [
+            'categories' => Category::all(),
+            'tags' => Tag::all()
+        ]);
     }
 
 
     public function store(Request $request)
     {
         // Validate Request //
-            $request->validate(
+        $data = $request->validate(
             [
                 'title' => 'required|string',
                 'content' => 'required',
+                'categories' => 'required',
+                'tags' => 'required',
                 'postImages' => 'required|image|file|max:2048'
-            ]
-        );
+            ]);
+            $data['created_by'] = auth()->user()->name;
 
         
         // Request postImages //
         $newPostImages = $request->postImages->getClientOriginalName();
         $request->postImages->storeAs('postImages', $newPostImages);
-        $data = [
-            'title' => $request->title,
-            'content' =>$request->content,
-            'created_by' => auth()->user()->name,
-            'postImages' => $newPostImages
-        ];
+        $data['postImages'] = $newPostImages;
 
         $post = Post::create($data);
+        $post->category()->attach($request->categories);
+        $post->tag()->attach($request->tags);
 
         return redirect('/post')->with('success', 'Post Created Successfully!');;
     }
@@ -92,36 +96,37 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
-        return view('post.edit', compact('post'));
+        return view('post.edit', compact('post'), [
+            'post' => $post,
+            'categories' => Category::all(),
+            'tags' => Tag::all()
+        ]);
     }
 
 
     public function update(Request $request, Post $post)
     {
-        // Validate Request //
-        $validatedData = $request->validate(
+        // Validate Request Data //
+        $data = $request->validate(
             [
                 'title' => 'required|string',
                 'content' => 'required',
-                'postImages' => 'required|image|file|max:2048'
-            ]
-        );
-
-        
-        $data = [
-            'title' => $request->title,
-            'content' =>$request->content,
-            'created_by' => auth()->user()->name
-        ];
+                'categories' => 'required',
+                'tags' => 'required'
+            ]);
+            $data['created_by'] = auth()->user()->name;
         
         // Request postImages //
-        $newPostImages = $request->postImages->getClientOriginalName();
-        $request->postImages->storeAs('postImages', $newPostImages);
-        $data['postImages'] = $newPostImages;
+        if ($request->hasFile('postImages')) {
+            $newPostImages = $request->postImages->getClientOriginalName();
+            $request->postImages->storeAs('postImages', $newPostImages);
+            $data['postImages'] = $newPostImages;
+        }
 
 
-        $findPost = Post::find($post->id);
-        $findPost->update($data);
+        $post->category()->sync($request->categories);
+        $post->tag()->sync($request->tags);
+        $post->update($data);
 
         return redirect('/post')->with('success', 'Post Updated Successfully!');
     }
@@ -133,6 +138,9 @@ class PostController extends Controller
         if (File::exists($path)) {
             File::delete($path);
         }
+
+        $post->category()->detach();
+        $post->tag()->detach();
 
         $post->delete();
 

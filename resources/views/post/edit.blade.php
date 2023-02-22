@@ -56,17 +56,66 @@
                                     >
                                     <textarea id="summernote" input="content" name="content">{{ old('content', $post->content) }}</textarea>
                                 </div>
-                            </div>  
+                            </div>
+
+                            {{-- Category --}}
+                            <div class="row mb-3">
+                                <label for="category" class="col-md-4 col-form-label text-md-end">{{ __('Category') }}</label>
+                                <div class="col-md-6">
+                                    @foreach ($categories as $category)
+                                        <div class="btn-group form-check-inline" role="group" aria-label="Basic checkbox toggle button group">
+                                            <input 
+                                                type="checkbox" 
+                                                name="categories[]" 
+                                                class="btn-check" 
+                                                id="categories_{{ $category->id }}" 
+                                                value="{{ old('category', $category->id) }}" 
+                                                {{ in_array($category->id, $post->category->pluck('id')->toArray()) ? 'checked' : '' }}
+                                                autocomplete="off" 
+                                            >
+                                            <label class="btn btn-sm btn-outline-dark me-1" for="categories_{{ $category->id }}">{{ $category->name }}</label>
+                                        </div>
+                                    @endforeach
+                                    @error('categories')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            {{-- Tag --}}
+                            <div class="row mb-3">
+                                <label for="tag" class="col-md-4 col-form-label text-md-end">{{ __('Tags') }}</label>
+                                <div class="col-md-6">
+                                    @foreach ($tags as $tag)
+                                        <div class="form-check form-check-inline">
+                                            <input 
+                                                class="form-check-input" 
+                                                type="checkbox" 
+                                                name="tags[]" 
+                                                id="tag_{{ $tag->id }}" 
+                                                value="{{ $tag->id }}" 
+                                                name="tag" 
+                                                {{ in_array($tag->id, $post->tag->pluck('id')->toArray()) ? 'checked' : '' }}
+                                            >
+                                            <label class="form-check-label" for="tag_{{ $tag->id }}">{{ $tag->name }}</label>
+                                        </div>
+                                    @endforeach
+                                    @error('tags')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
 
                             {{-- postImages --}}
                             <div class="row mb-3">
-                                <label for="postImages" class="col-md-4 col-form-label text-md-end">{{ __('Foto') }}</label>
+                                <label for="postImages" class="col-md-4 col-form-label text-md-end">{{ __('Post Foto') }}</label>
                                 <div class="col-md-6">
                                     <div class="input-group mb-3">
                                         <div>
-                                            {{-- @if (auth()->user()->postImages)
-                                                <img src="{{ Storage::url(auth()->user()->photo) }}" class="img-fluid mb-3 rounded">
-                                            @endif --}}
                                             <input
                                                 name="postImages"
                                                 class="form-control @error('postImages') is-invalid @enderror"
@@ -76,7 +125,7 @@
                                                 id="formFile"
                                                 onchange="loadFile(event)"
                                             >
-                                            <img id="profile" class="mt-3" width="200">
+                                            <img id="profile" src="{{ asset('storage/postImages/' . $post->postImages) }}" class="mt-3" width="200">
                                         </div>
                                     </div>
                                     @error('postImages')

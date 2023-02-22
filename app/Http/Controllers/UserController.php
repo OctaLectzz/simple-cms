@@ -30,9 +30,9 @@ class UserController extends Controller
             })
             ->addColumn('images', function ($user) {
                 if ($user->images) {
-                        return ' <img src="' . asset('storage/images/' . $user->images) . '" class="img-circle elevation-2" alt="User Image" width="50" height="50"> ';
+                        return ' <img src="' . asset('storage/images/' . $user->images) . '" class="img-circle elevation-2" alt="User Image" width="50" height="50"  style="border: 3px white solid"> ';
                 } else {
-                        return '<img src="' . asset('vendor/admin-lte/img/user-profile-default.jpg') . '" class="img-circle elevation-2" alt="User Image" width="50" height="50"> ';
+                        return '<img src="' . asset('vendor/admin-lte/img/user-profile-default.jpg') . '" class="img-circle elevation-2" alt="User Image" width="50" height="50"  style="border: 3px white solid"> ';
                 }
             })
             ->editColumn('status', function ($user) {

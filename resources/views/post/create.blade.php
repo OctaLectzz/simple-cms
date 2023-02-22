@@ -8,7 +8,7 @@
 
 
                 <div class="card">
-                    <div class="card-header">{{ __('Crate Post') }}</div>
+                    <div class="card-header">{{ __('Create Post') }}</div>
                     <div class="card-body">
 
                         <form action="{{ route('post.input') }}" method="POST" enctype="multipart/form-data">
@@ -43,7 +43,7 @@
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
-                                    @enderror
+                                @enderror
                                 <div class="col-md-6">
                                     <input
                                         id="content"
@@ -55,6 +55,56 @@
                                         autofocus
                                     >
                                     <textarea id="summernote" input="content" name="content"></textarea>
+                                </div>
+                            </div>
+
+                            {{-- Category --}}
+                            <div class="row mb-3">
+                                <label for="category" class="col-md-4 col-form-label text-md-end">{{ __('Category') }}</label>
+                                <div class="col-md-6">
+                                    @foreach ($categories as $category)
+                                        <div class="btn-group form-check-inline" role="group" aria-label="Basic checkbox toggle button group">
+                                            <input 
+                                                type="checkbox" 
+                                                name="categories[]" 
+                                                class="btn-check" 
+                                                id="categories_{{ $category->id }}" 
+                                                value="{{ old('category', $category->id) }}"
+                                                autocomplete="off" 
+                                            >
+                                            <label class="btn btn-sm btn-outline-dark" for="categories_{{ $category->id }}">{{ $category->name }}</label>
+                                        </div>
+                                    @endforeach
+                                    @error('categories')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            {{-- Tag --}}
+                            <div class="row mb-3">
+                                <label for="tag" class="col-md-4 col-form-label text-md-end">{{ __('Tags') }}</label>
+                                <div class="col-md-6">
+                                    @foreach ($tags as $tag)
+                                        <div class="form-check form-check-inline">
+                                            <input 
+                                                class="form-check-input" 
+                                                type="checkbox" 
+                                                name="tags[]" 
+                                                id="tag_{{ $tag->id }}" 
+                                                value="{{ $tag->id }}" 
+                                                name="tag"
+                                            >
+                                            <label class="form-check-label" for="tag_{{ $tag->id }}">{{ $tag->name }}</label>
+                                        </div>
+                                    @endforeach
+                                    @error('tags')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
 

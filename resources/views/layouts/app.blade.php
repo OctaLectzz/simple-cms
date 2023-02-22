@@ -31,8 +31,8 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
         {{-- My CSS --}}
-        <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/home.css">
+        <link rel="stylesheet" href="css/navbar.css">
 
         <!-- Scripts -->
         @vite(['resources/sass/app.scss', 'resources/js/app.js'])
