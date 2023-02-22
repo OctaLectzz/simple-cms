@@ -118,6 +118,7 @@ class PostController extends Controller
                 'tags' => 'required'
             ]);
             $data['created_by'] = auth()->user()->name;
+
         
         // Request postImages //
         if ($request->hasFile('postImages')) {

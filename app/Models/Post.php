@@ -15,12 +15,10 @@ class Post extends Model
         'id'
     ];
 
-
     protected $attributes =[
         'created_by' => '',
         'postImages' => '',
     ];
-
 
     protected $hidden = [
         'created_at',

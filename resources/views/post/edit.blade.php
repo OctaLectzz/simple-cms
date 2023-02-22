@@ -46,7 +46,6 @@
                                         class="form-control @error('slug') is-invalid @enderror"
                                         name="slug"
                                         value="{{ old('slug', $post->slug) }}"
-                                        autocomplete="off"
                                         readonly
                                     >
                                     @error('slug')
