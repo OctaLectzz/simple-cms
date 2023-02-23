@@ -32,7 +32,7 @@ class PostController extends Controller
                     <div class="d-flex">
                         <form onsubmit="destroy(event)" action="' . route('post.destroy', $post->id) . '" method="POST">
                         <input type="hidden" name="_token" value="'. @csrf_token() .'" enctype="multipart/form-data">
-                        <a href="' . route('post.edit', $post->id) . '" class="btn btn-sm btn-warning rounded"><i class="fa fa-edit"></i></a>
+                        <a href="' . route('post.edit', $post->id                                                              ) . '" class="btn btn-sm btn-warning rounded"><i class="fa fa-edit"></i></a>
                         <input type="hidden" name="_method" value="DELETE">
                             <button class="btn btn-sm btn-danger mr-2">
                                 <i class="fa fa-trash"></i>
@@ -72,6 +72,7 @@ class PostController extends Controller
         // Validate Request //
         $data = $request->validate(
             [
+                'is_pinned' => 'boolean',
                 'title' => 'required|string',
                 'slug' => 'required|unique:posts',
                 'content' => 'required',
@@ -83,9 +84,11 @@ class PostController extends Controller
 
         
         // Request postImages //
-        $newPostImages = $request->postImages->getClientOriginalName();
-        $request->postImages->storeAs('postImages', $newPostImages);
-        $data['postImages'] = $newPostImages;
+        if ($request->hasFile('postImages')) {
+            $newPostImages = $request->postImages->getClientOriginalName();
+            $request->postImages->storeAs('postImages', $newPostImages);
+            $data['postImages'] = $newPostImages;
+        }
 
         $post = Post::create($data);
         $post->category()->attach($request->categories);
@@ -111,11 +114,12 @@ class PostController extends Controller
         // Validate Request Data //
         $data = $request->validate(
             [
+                'is_pinned' => 'boolean',
                 'title' => 'required|string',
-                'slug' => 'required|unique:posts',
                 'content' => 'required',
                 'categories' => 'required',
-                'tags' => 'required'
+                'tags' => 'required',
+                'postImages' => 'image|file|max:2048'
             ]);
             $data['created_by'] = auth()->user()->name;
 

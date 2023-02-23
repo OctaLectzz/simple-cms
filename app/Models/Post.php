@@ -27,7 +27,6 @@ class Post extends Model
 
 
 
-
     public function category()
     {
         return $this->belongsToMany(Category::class, "post_category", "post_id", "category_id");
@@ -39,7 +38,6 @@ class Post extends Model
 
 
 
-
     public function sluggable(): array
     {
         return [
@@ -47,5 +45,32 @@ class Post extends Model
                 'source' => 'title'
             ]
         ];
+    }
+
+
+
+    public function scopeFilter($query, array $filters)
+    {
+        // Category Search //
+        $query->when($filters['search'] ?? false, function($query, $search) {
+            return $query->where(function($query) use ($search) {
+                $query->where('title', 'like', '%' . $search . '%')
+                      ->orWhere('content', 'like', '%' . $search . '%');
+            });
+        });
+
+        $query->when($filters['category'] ?? false, function($query, $category) {
+            return $query->whereHas('category', function($query) use ($category) {
+                $query->where('slug', $category);
+            });
+        });
+
+
+        // User Search //
+        $query->when($filters['user'] ?? false, fn($query, $user) =>
+            $query->whereHas('user', fn($query)=>
+                $query->where('username', $user)
+            )
+        );
     }
 }

@@ -25,4 +25,4 @@ function slugify(text) {
     title.addEventListener('input', function() {
         const slugValue = slugify(title.value);
         slug.value = slugValue;
-    });
+    });                               

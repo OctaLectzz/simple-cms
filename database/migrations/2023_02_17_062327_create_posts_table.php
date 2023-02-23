@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->boolean('is_pinned')->default(false);
             $table->string('postImages');
             $table->string('title');
             $table->string('slug')->unique();

@@ -1,57 +1,108 @@
-<!doctype html>
-<html lang="en" class="h-100">
-  <head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.108.0">
-
-    <title>Octa Project | Welcome</title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/cover/">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    {{-- Bootstrap Icons --}}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-
-    {{-- My CSS --}}
-    <link rel="stylesheet" href="css/cover.css">
-
-  </head>
+@extends('auth.app')
 
 
-  <body class="d-flex h-100 text-center text-light bg-dark">
-    <div class="container d-flex w-100 h-100 p-3 mx-auto flex-column">
+@section('content')
 
-      {{-- Navbar --}}
-      <header class="mb-auto">
-        <div>
-          <h3 class="float-md-start mb-0">Octa Project</h3>
-          <nav class="nav nav-masthead justify-content-center float-md-end">
-            <a class="nav-link fw-bold py-1 px-0" href="/login">Login</a>
-            <a class="nav-link fw-bold py-1 px-0" href="/register">Register</a>
-          </nav>
-        </div>
-      </header>
+<div class="container">
 
-      {{-- Content --}}
-      <main class="px-3">
-        <h1>WELCOME</h1>
-        <p class="lead">Sebelum Memuat Konten-konten. Mohon Login terlebih dahulu!</p>
-        <p class="lead">
-          <a href="/register" class="btn btn-lg btn-outline-light fw-bold border-white">Get Started</a>
-        </p>
-      </main>
+  {{-- Title --}}
+  <h1 class="mb-3 text-center">{{ $title }}</h1>
+  {{-- Title --}}
 
-      {{-- Footer --}}
-      <footer class="mt-auto text-white-50">
-        <p>By <a href="https://instagram.com/octalectzz" class="text-white text-decoration-none">@octalectzz</a></p>
-      </footer>
-
+  {{-- Search --}}
+  <div class="row justify-content-center mb-3">
+    <div class="col-md-6">
+        <form action="/">
+          @if (request('category'))
+          <input type="hidden" name="category" value="{{ request('category') }}">
+          @endif
+          @if (request('author'))
+          <input type="hidden" name="author" value="{{ request('author') }}">
+          @endif
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search..." name="search" value="{{ request('search') }}">
+            <button class="btn btn-dark" type="submit">Search</button>
+          </div>
+        </form>
     </div>
-  </body>
-</html>
+  </div>
+  {{-- Search --}}
+
+  {{-- Pinned Post --}}
+  <div id="carouselExampleCaptions" class="carousel slide mb-3" data-bs-ride="carousel">
+
+    <div class="carousel-indicators">
+      @foreach($posts as $index => $post)
+        @if ($post->is_pinned === 1) 
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $index }}" class="{{ $index == 0 ? 'active' : '' }}" aria-label="Slide {{ $index + 1 }}"></button>
+        @endif
+      @endforeach
+    </div>
+
+    <div class="carousel-inner">
+      @foreach ($posts as $index => $post)
+        @if ($post->is_pinned === 1) 
+          <a href="{{ route('post.show', $post->slug) }}">
+            <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                <img src="{{ asset('storage/postImages/' . $post->postImages) }}" class="d-block w-100" alt="..." height="500" style="filter: brightness(60%)">
+              <div class="carousel-caption d-none d-md-block">
+                <h5>{{ $post->title }}</h5>
+                <p>{{ Str::limit(strip_tags($post->content), 70, '...') }}</p>
+                @foreach($post->category as $category)
+                    <p class="btn btn-sm btn-outline-warning text-light">{{ $category->name }}</p>
+                @endforeach
+              </div>
+            </div>
+          </a>
+        @endif
+      @endforeach
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+    
+  </div>
+  {{-- Pinned Post --}}
+
+  {{-- More Posts --}}
+  <div class="container">
+    <div class="row">
+      @foreach ($posts as $post)
+        @if ($post->is_pinned === 0) 
+          <div class="col-md-4 mb-3">
+            <div class="card">
+              @if ($post->postImages)
+                <img src="{{ asset('storage/postImages/' . $post->postImages) }}" class="card-img-top" alt="">
+              @endif
+              <div class="card-body">
+                @foreach ($post->category as $category)
+                  <a href="">
+                    <p class="btn btn-sm btn-outline-primary">{{ $category->name }}</p>
+                  </a>
+                @endforeach
+                <h5 class="card-title">{{ Str::limit($post->title, 35, '..') }}</h5>
+                <p>
+                  <small class="text-muted">
+                    By. <a href="" class="text-decoration-none me-2">{{ $post->created_by }}</a> ◉ {{ $post->created_at->diffForHumans() }}
+                  </small>
+                </p>
+                <p class="card-text">{{ Str::limit(strip_tags($post->content), 80, '...') }}</p>
+                <a href="{{ route('post.show', $post->slug) }}" class="btn btn-outline-dark">Read More</a>
+              </div>
+            </div>
+          </div>
+        @endif
+      @endforeach
+    </div>
+  </div>
+  {{-- More Posts --}}
+
+</div>
+
+@endsection

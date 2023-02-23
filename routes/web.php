@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MyProfileController;
 use App\Http\Controllers\AllUsersController;
@@ -28,9 +29,9 @@ use App\Http\Controllers\PostController;
 
 
 // First //
-Route::get('/', function () {
-    return view('welcome');
-})->middleware('guest');
+Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
+Route::get('/posts/{post:slug}', [WelcomeController::class, 'show'])->name('post.show');
+
 
 
 // Home //

@@ -48,6 +48,13 @@
                     </div>
                 </a>
 
+                {{-- Halaman Utama --}}
+                <a class="dropdown-item" href="{{ route('welcome') }}">
+                    {{ __('Home') }}
+                </a>
+
+                <hr class="dropdown-divider">
+
                 {{-- Edit Profile --}}
                 <a class="dropdown-item" href="{{ route('my.profile.index') }}">
                     {{ __('Edit Profile') }}

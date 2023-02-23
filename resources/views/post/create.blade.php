@@ -10,11 +10,25 @@
                 <div class="card">
                     <div class="card-header">{{ __('Create Post') }}</div>
                     <div class="card-body">
-
+                        
                         <form action="{{ route('post.input') }}" method="POST" enctype="multipart/form-data">
                             @method('put')
                             @csrf
                             
+                            
+                        {{-- ispinned  --}} 
+                        <div class="row mb-3"> 
+                            <label for="is_pinned" 
+                                class="col-md-4 col-form-label text-md-end">{{ __('Pin') }}</label> 
+
+                            <div class="col-md-6"> 
+                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group"> 
+                                    <input type="radio" class="btn-check" name="is_pinned" id="is_pinned1" value="1" autocomplete="off"> 
+                                    <label class="btn btn-outline-success me-2" for="is_pinned1">Pinned</label> 
+                                </div> 
+                            </div>
+                        </div>
+
                             {{-- Title --}}
                             <div class="row mb-3">
                                 <label for="title" class="col-md-4 col-form-label text-md-end">{{ __('Title') }}</label>
