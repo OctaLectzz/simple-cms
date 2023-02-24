@@ -4,6 +4,7 @@
 
 @push('styles')
 <link rel="stylesheet" href="{{ asset('vendor/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('vendor/toastr/toastr.min.css') }}">
 @endpush
 
 
@@ -15,35 +16,22 @@
     <div class="row justify-content-center">
         <div class="col">
 
-
             <div class="card">
-
-                {{-- Alert --}}
-                @if (session()->has('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
-                    <button  type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                @endif
-
-                {{-- Table --}}
                 <div class="card-body">
                     <table class="table">
                         <thead class="table table-dark table-hover">
                             <tr>
                                 <th>No</th>
+                                <th>Pin</th>
                                 <th>Title</th>
-                                <th>Slug</th>
-                                <th>Content</th>
+                                <th>slug</th>
                                 <th>Created By</th>
                                 <th width="10%" class="text-center">Action</th>
                             </tr>
                         </thead>
                     </table>
                 </div>
-
             </div>
-
 
         </div>
     </div>
@@ -58,25 +46,37 @@
 @push('scripts')
     <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('vendor/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('vendor/toastr/toastr.min.js') }}"></script>
     <script>
         let userDatatable;
+            $(document).ready(function () {
+                userDatatable = $('table').DataTable({
 
-        $(document).ready(function () {
-            userDatatable = $('table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('post.list') }}",
-                order: [],
-                columns: [
-                    { data: 'DT_RowIndex', sortable: false, searchable: false },
-                    { data: 'title' },
-                    { data: 'slug' },
-                    { data: 'content' },
-                    { data: 'created_by' },
-                    { data: 'action', sortable: false },
-                ],
+                    dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+                        "<'row'<'col-sm-12'<'table-responsive'tr>>>" +
+                        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+
+                    processing: true,
+                    serverSide: true,
+                    ajax: "{{ route('post.list') }}",
+                    order: [],
+                    columns: [
+                        { data: 'DT_RowIndex', sortable: false, searchable: false },
+                        { data: 'is_pinned', sortable: false, searchable: false },
+                        { data: 'title' },
+                        { data: 'slug' },
+                        { data: 'created_by' },
+                        { data: 'action', sortable: false },
+                    ],
+
+                });
             });
-        });
+
+
+        const successMessage = "{{ session()->get('success') }}";
+            if (successMessage) {
+                toastr.success(successMessage)
+            }
     </script>
     <script src="{{ asset('js/delete.js') }}"></script>
 @endpush

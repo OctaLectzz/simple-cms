@@ -3,6 +3,7 @@
 
 @push('styles')
 <link rel="stylesheet" href="{{ asset('vendor/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('vendor/toastr/toastr.min.css') }}">
 @endpush
 
 
@@ -14,15 +15,6 @@
         <div class="col">
 
             <div class="card">
-                {{-- Alert --}}
-                @if (session()->has('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
-                    <button  type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                @endif
-
-                {{-- Table --}}
                 <div class="card-body">
                     <table class="table">
                         <thead class="table table-dark table-hover">
@@ -52,25 +44,36 @@
 @push('scripts')
     <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('vendor/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('vendor/toastr/toastr.min.js') }}"></script>
     <script>
         let userDatatable;
+            $(document).ready(function () {
+                userDatatable = $('table').DataTable({
+                    dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+                        "<'row'<'col-sm-12'<'table-responsive'tr>>>" +
+                        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
 
-        $(document).ready(function () {
-            userDatatable = $('table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('user.list') }}",
-                order: [],
-                columns: [
-                    { data: 'DT_RowIndex', sortable: false, searchable: false },
-                    { data: 'images', sortable: false, searchable: false },
-                    { data: 'name' },
-                    { data: 'email' },
-                    { data: 'status' },
-                    { data: 'action', sortable: false },
-                ],
+                    processing: true,
+                    serverSide: true,
+                    ajax: "{{ route('user.list') }}",
+                    order: [],
+                    columns: [
+                        { data: 'DT_RowIndex', sortable: false, searchable: false },
+                        { data: 'images', sortable: false, searchable: false },
+                        { data: 'name' },
+                        { data: 'email' },
+                        { data: 'status' },
+                        { data: 'action', sortable: false },
+                    ],
+                    
+                });
             });
-        });
+
+
+        const successMessage = "{{ session()->get('success') }}";
+            if (successMessage) {
+                toastr.success(successMessage)
+            }
     </script>
     <script src="{{ asset('js/delete.js') }}"></script>
 @endpush

@@ -149,7 +149,8 @@ class DatabaseSeeder extends Seeder
 
 
         // Post Create //
-        // Post::factory(20)->create();
+        Post::factory(100)->create();
+        Post::factory(10)->pinned()->create();
 
 
 

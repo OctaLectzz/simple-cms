@@ -16,7 +16,7 @@
                             @csrf
                             
                             
-                        {{-- ispinned  --}} 
+                        {{-- Pinned  --}} 
                         <div class="row mb-3"> 
                             <label for="is_pinned" 
                                 class="col-md-4 col-form-label text-md-end">{{ __('Pin') }}</label> 
@@ -99,7 +99,7 @@
                             <div class="row mb-3">
                                 <label for="category" class="col-md-4 col-form-label text-md-end">{{ __('Category') }}</label>
                                 <div class="col-md-6">
-                                    @foreach ($categories as $category)
+                                    @forelse ($categories as $category)
                                         <div class="btn-group form-check-inline" role="group" aria-label="Basic checkbox toggle button group">
                                             <input 
                                                 type="checkbox" 
@@ -111,7 +111,9 @@
                                             >
                                             <label class="btn btn-sm btn-outline-dark" for="categories_{{ $category->id }}">{{ $category->name }}</label>
                                         </div>
-                                    @endforeach
+                                    @empty
+                                        <p>Belum ada Category, Silahkan buat Category terlebih dahulu!</p>
+                                    @endforelse
                                     @error('categories')
                                         <p class="text-danger d-flex fs-6 fw-bold">{{ $message }}</p>
                                     @enderror
@@ -122,7 +124,7 @@
                             <div class="row mb-3">
                                 <label for="tag" class="col-md-4 col-form-label text-md-end">{{ __('Tags') }}</label>
                                 <div class="col-md-6">
-                                    @foreach ($tags as $tag)
+                                    @forelse ($tags as $tag)
                                         <div class="form-check form-check-inline">
                                             <input 
                                                 class="form-check-input" 
@@ -134,7 +136,9 @@
                                             >
                                             <label class="form-check-label" for="tag_{{ $tag->id }}">{{ $tag->name }}</label>
                                         </div>
-                                    @endforeach
+                                    @empty
+                                        <p>Belum ada Tag, Silahkan buat Tag terlebih dahulu!</p>
+                                    @endforelse
                                     @error('tags')
                                         <p class="text-danger d-flex fs-6 fw-bold">{{ $message }}</p>
                                     @enderror

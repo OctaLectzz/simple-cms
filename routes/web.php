@@ -30,7 +30,7 @@ use App\Http\Controllers\MyProfileController;
 
 
 
-// First //
+// welcome //
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 Route::get('/posts/{post:slug}', [WelcomeController::class, 'show'])->name('post.show');
 

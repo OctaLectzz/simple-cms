@@ -130,7 +130,7 @@
                                                 type="checkbox" 
                                                 name="tags[]" 
                                                 id="tag_{{ $tag->id }}" 
-                                                value="{{ $tag->id }}" 
+                                                value="{{ old('tag',$tag->id ) }}" 
                                                 name="tag" 
                                                 {{ in_array($tag->id, $post->tag->pluck('id')->toArray()) ? 'checked' : '' }}
                                             >

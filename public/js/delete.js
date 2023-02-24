@@ -17,8 +17,11 @@ function destroy(event) {
             userDatatable.ajax.reload();
             $('#delete-modal').modal('hide');
             confirmButton.html("Delete", false).prop("disabled", false);
+            console.log('jalan')
+            toastr.success(res.success);
         }).fail(function (err) {
             confirmButton.html("Delete", false).prop("disabled", false);
+            toastr.error(res.responseJSON.message);
         });
     })
 

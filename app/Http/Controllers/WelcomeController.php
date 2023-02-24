@@ -13,24 +13,9 @@ class WelcomeController extends Controller
 {
     public function index()
     {
-        $title = '';
-        if(request('category')) {
-            $category = Category::firstWhere('name', request('category'));
-            $title = ' in ' . $category->name;
-        }
-        if(request('user')) {
-            $user = User::firstWhere('user', request('user'));
-            $title = ' by ' . $user->name;
-        }
-
-
-        $posts = Post::all();
-        // $posts = Post::paginate(6)->withQueryString();
-
-
-        return view('welcome', compact('posts'), [
-            'title' => '',
-            "posts"  => Post::latest()
+        return view('welcome', [
+            'posts' => Post::latest()->where('is_pinned', false)->paginate(6)->WithQueryString(),
+            'pinnedPost' => Post::latest()->where('is_pinned', true)->get()
         ]);
     }
 

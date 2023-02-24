@@ -28,6 +28,13 @@ class PostController extends Controller
 
         return datatables()
             ->eloquent($posts)
+            ->addColumn('is_pinned', function($post) {
+                if ($post->is_pinned == 0) {
+                    return '';
+                } else {
+                    return '<i class="bi bi-pin-angle-fill"></i>';
+                }
+            })
             ->addColumn('action', function ($post) {
                 return '
                     <div class="d-flex">
@@ -150,10 +157,9 @@ class PostController extends Controller
 
         $post->category()->detach();
         $post->tag()->detach();
-
         $post->delete();
 
-        return redirect()->back()->with('success', 'Post has been Deleted!');;
+        return response()->json(['succes' => 'Post has been Deleted!']);
     }
 
 
