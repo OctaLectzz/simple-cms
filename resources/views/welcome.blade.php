@@ -6,11 +6,11 @@
 <div class="container">
 
   {{-- Title --}}
-  <h1 class="mb-3 text-center">{{ $title }}</h1>
+  <h1 class="mb-3 text-center">Posts</h1>
   {{-- Title --}}
 
   {{-- Search --}}
-  <div class="row justify-content-center mb-3">
+  {{-- <div class="row justify-content-center mb-3">
     <div class="col-md-6">
         <form action="/">
           @if (request('category'))
@@ -25,7 +25,7 @@
           </div>
         </form>
     </div>
-  </div>
+  </div> --}}
   {{-- Search --}}
 
   {{-- Pinned Post --}}
@@ -34,7 +34,7 @@
     <div class="carousel-indicators">
       @foreach($posts as $index => $post)
         @if ($post->is_pinned === 1) 
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $index }}" class="{{ $index == 0 ? 'active' : '' }}" aria-label="Slide {{ $index + 1 }}"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $index }}" class="{{ $index == 0 ? 'active' : '' }}"></button>
         @endif
       @endforeach
     </div>
@@ -43,16 +43,20 @@
       @foreach ($posts as $index => $post)
         @if ($post->is_pinned === 1) 
           <a href="{{ route('post.show', $post->slug) }}">
+
             <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
                 <img src="{{ asset('storage/postImages/' . $post->postImages) }}" class="d-block w-100" alt="..." height="500" style="filter: brightness(60%)">
               <div class="carousel-caption d-none d-md-block">
-                <h5>{{ $post->title }}</h5>
+                <h4 class="fw-bold">{{ $post->title }}</h4>
+
                 <p>{{ Str::limit(strip_tags($post->content), 70, '...') }}</p>
+
                 @foreach($post->category as $category)
-                    <p class="btn btn-sm btn-outline-warning text-light">{{ $category->name }}</p>
+                    <p class="d-inline-block mx-1 px-2" style="border: 1px solid; border-radius: 50px;">{{ $category->name }}</p>
                 @endforeach
               </div>
             </div>
+
           </a>
         @endif
       @endforeach
@@ -77,13 +81,13 @@
         @if ($post->is_pinned === 0) 
           <div class="col-md-4 mb-3">
             <div class="card">
-              @if ($post->postImages)
+              <a href="{{ route('post.show', $post->slug) }}">
                 <img src="{{ asset('storage/postImages/' . $post->postImages) }}" class="card-img-top" alt="">
-              @endif
+              </a>
               <div class="card-body">
-                @foreach ($post->category as $category)
-                  <a href="">
-                    <p class="btn btn-sm btn-outline-primary">{{ $category->name }}</p>
+                @foreach ($post->category->take(3) as $category)
+                  <a href="" class="text-decoration-none">
+                    <p class="d-inline-block px-2 text-info" style="border: 1px solid; border-radius: 20%;">{{ $category->name }}</p>
                   </a>
                 @endforeach
                 <h5 class="card-title">{{ Str::limit($post->title, 35, '..') }}</h5>
@@ -102,6 +106,12 @@
     </div>
   </div>
   {{-- More Posts --}}
+
+  {{-- Pagination --}}
+  {{-- <div class="d-flex justify-content-center">
+    {{ $posts->links() }}
+  </div> --}}
+  {{-- Pagination --}}
 
 </div>
 

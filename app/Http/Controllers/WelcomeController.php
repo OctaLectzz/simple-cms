@@ -8,7 +8,6 @@ use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\DB;
 
 class WelcomeController extends Controller
 {
@@ -16,24 +15,22 @@ class WelcomeController extends Controller
     {
         $title = '';
         if(request('category')) {
-            $category = Category::firstWhere('slug', request('category'));
+            $category = Category::firstWhere('name', request('category'));
             $title = ' in ' . $category->name;
         }
-        if(request('tag')) {
-            $tag = Tag::firstWhere('slug', request('tag'));
-            $title = ' in ' . $tag->name;
-        }
         if(request('user')) {
-            $user = User::firstWhere('name', request('user'));
+            $user = User::firstWhere('user', request('user'));
             $title = ' by ' . $user->name;
         }
 
+
         $posts = Post::all();
+        // $posts = Post::paginate(6)->withQueryString();
 
 
         return view('welcome', compact('posts'), [
-            "title" => "Posts" . $title,
-            "posts"  => Post::latest()->filter(request(['search', 'category', 'created_by']))->paginate(7)->withQueryString()
+            'title' => '',
+            "posts"  => Post::latest()
         ]);
     }
 

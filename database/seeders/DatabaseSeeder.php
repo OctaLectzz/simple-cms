@@ -99,7 +99,16 @@ class DatabaseSeeder extends Seeder
             'name' => 'Liburan',
         ]);
         Tag::create([
-            'name' => 'GPS',
+            'name' => 'Belajar',
+        ]);
+        Tag::create([
+            'name' => 'Laravel',
+        ]);
+        Tag::create([
+            'name' => 'Sekolah',
+        ]);
+        Tag::create([
+            'name' => 'Magang',
         ]);
 
 
@@ -127,6 +136,12 @@ class DatabaseSeeder extends Seeder
         ]);
         Category::create([
             'name' => 'Media',
+        ]);
+        Category::create([
+            'name' => 'Pendidikan',
+        ]);
+        Category::create([
+            'name' => 'Hiburan',
         ]);
         Category::create([
             'name' => 'Personal',

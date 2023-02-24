@@ -25,6 +25,10 @@
                                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group"> 
                                     <input type="radio" class="btn-check" name="is_pinned" id="is_pinned1" value="1" autocomplete="off"> 
                                     <label class="btn btn-outline-success me-2" for="is_pinned1">Pinned</label> 
+
+                                    <input type="radio" class="btn-check" name="is_pinned" id="is_pinned2" 
+                                    value="0" autocomplete="off"> 
+                                    <label class="btn btn-outline-danger" for="is_pinned2">No Pin</label>
                                 </div> 
                             </div>
                         </div>

@@ -1,15 +1,17 @@
 <?php
 
+use App\Models\User;
+use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\WelcomeController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\MyProfileController;
-use App\Http\Controllers\AllUsersController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\TagController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\AllUsersController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MyProfileController;
 
 
 
@@ -31,7 +33,6 @@ use App\Http\Controllers\PostController;
 // First //
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 Route::get('/posts/{post:slug}', [WelcomeController::class, 'show'])->name('post.show');
-
 
 
 // Home //

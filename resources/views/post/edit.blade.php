@@ -15,7 +15,7 @@
                             @method('put')
                             @csrf
 
-                            {{-- ispinned  --}} 
+                            {{-- Pinned  --}} 
                             <div class="row mb-3"> 
                                 <label for="is_pinned" 
                                     class="col-md-4 col-form-label text-md-end">{{ __('Pin') }}</label> 
