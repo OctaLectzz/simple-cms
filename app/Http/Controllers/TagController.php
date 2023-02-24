@@ -110,6 +110,6 @@ class TagController extends Controller
     {
         $tag->delete();
 
-        return redirect()->back()->with('success', 'Tag has been Deleted!');;
+        return response()->json(['success' => 'Post has been Deleted!']);
     }
 }

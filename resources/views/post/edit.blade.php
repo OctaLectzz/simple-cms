@@ -147,16 +147,22 @@
                             <div class="row mb-3">
                                 <label for="postImages" class="col-md-4 col-form-label text-md-end">{{ __('Post Foto') }}</label>
                                 <div class="col-md-6">
-                                    <input
-                                        name="postImages"
-                                        class="form-control @error('postImages') is-invalid @enderror"
-                                        value="{{ old('postImages', auth()->user()->postImages) }}"
-                                        type="file"
-                                        accept="postImages/*"
-                                        id="formFile"
-                                        onchange="loadFile(event)"
-                                    >
-                                    <img id="profile" src="{{ asset('storage/postImages/' . $post->postImages) }}" class="mt-3" width="200">
+                                    <div class="input-group">
+                                        <div class="mb-2">
+                                            <input
+                                                name="postImages"
+                                                class="form-control @error('postImages') is-invalid @enderror"
+                                                value="{{ old('postImages', auth()->user()->postImages) }}"
+                                                type="file"
+                                                accept="postImages/*"
+                                                id="formFile"
+                                                onchange="loadFile(event)"
+                                            >
+                                        </div>
+                                        <div class="card p-2 mx-3">
+                                            <img id="profile" src="{{ asset('storage/postImages/' . $post->postImages) }}" class="img-thumbnail" width="150">
+                                        </div>
+                                    </div>
                                     @error('postImages')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

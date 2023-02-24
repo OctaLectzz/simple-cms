@@ -2,19 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tag;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Comment;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 
 class WelcomeController extends Controller
 {
     public function index()
     {
+        $title = '';
+        if(request('category')) {
+            $category = Category::firstWhere('slug', request('category'));
+            $title = ' in ' . $category->name;
+        }
+        if(request('user')) {
+            $user = User::firstWhere('username', request('user'));
+            $title = ' by ' . $user->name;
+        }
+        
         return view('welcome', [
-            'posts' => Post::latest()->where('is_pinned', false)->paginate(6)->WithQueryString(),
+            'title' => 'Posts' . $title,
+            'posts' => Post::latest()->where('is_pinned', false)->filter(request(['search', 'category', 'created_by']))->paginate(6)->WithQueryString(),
             'pinnedPost' => Post::latest()->where('is_pinned', true)->get()
         ]);
     }
@@ -22,7 +32,9 @@ class WelcomeController extends Controller
 
     public function show(Post $post)
     {
-        return view('postshow', [
+        $comments = Comment::all();
+
+        return view('postshow', compact('comments'), [
             'post'  => $post,
             'title' => 'Single Post'
         ]);

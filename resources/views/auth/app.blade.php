@@ -12,6 +12,10 @@
     {{-- My CSS --}}
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/post.css">
+    <link rel="stylesheet" href="css/profile.css">
+
+    <!-- Bootstrap CSS -->
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
 
     {{-- Bootstrap Icons --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
@@ -22,6 +26,9 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
+    @stack('styles')
 </head>
 <body>
     <div id="app">
@@ -34,11 +41,22 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
+                
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    
+                    
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-
                     </ul>
+
+                    <!-- Center Side Of Navbar -->
+                    <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+                          <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" aria-current="page" href="/">Home</a>
+                          <a class="nav-link {{ Request::is('/profile') ? 'active' : '' }}" href="/profile">Profile</a>
+                          <a class="nav-link disabled" href="#">Category</a>
+                        </div>
+                    </div>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
@@ -82,13 +100,16 @@
                                             </div>
                                         </div>
                                     </a>
-                    
+
                                     {{-- Dashboard --}}
-                                    <a class="dropdown-item" href="{{ route('home') }}">
-                                        {{ __('Dashboard') }}
-                                    </a>
+                                    @if (auth()->user()->role != 'Member')
+                                        <a class="dropdown-item" href="{{ route('home') }}">
+                                            {{ __('Dashboard') }}
+                                        </a>
+
+                                        <hr class="dropdown-divider">
+                                    @endif
                     
-                                    <hr class="dropdown-divider">
                     
                                     {{-- Edit Profile --}}
                                     <a class="dropdown-item" href="{{ route('my.profile.index') }}">
@@ -118,5 +139,9 @@
             @yield('content')
         </main>
     </div>
+
+
+    
+    @stack('scripts')
 </body>
 </html>

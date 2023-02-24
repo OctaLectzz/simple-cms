@@ -44,6 +44,7 @@ class DatabaseSeeder extends Seeder
 
         
         // Tag Create //
+        Tag::factory(50)->create();
         Tag::create([
             'name' => 'Web',
         ]);

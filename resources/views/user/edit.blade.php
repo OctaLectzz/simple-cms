@@ -100,23 +100,27 @@
                             <div class="row mb-3">
                                 <label for="images" class="col-md-4 col-form-label text-md-end">{{ __('Foto Profile') }}</label>
                                 <div class="col-md-6">
-                                    <div class="input-group mb-3">
-                                        <div>
+                                    <div class="input-group">
+                                        <div class="card p-2 mb-2 mx-3">
                                             @if ($user->images)
-                                                <img id="profile" src="{{ asset('storage/images/' . $user->images) }}" class="mb-3 img-circle elevation-2" width="50" height="50" style="border: 3px white solid">
+                                                <img id="profile" src="{{ asset('storage/images/' . $user->images) }}" class="img-circle elevation-2" width="50" height="50" style="border: 3px white solid">
                                             @else
-                                                <img id="profile" src="{{ asset('vendor/admin-lte/img/user-profile-default.jpg') }}" class="mb-3 img-circle elevation-2" alt="User Image" width="50" height="50" style="border: 3px white solid">
+                                                <img id="profile" src="{{ asset('vendor/admin-lte/img/user-profile-default.jpg') }}" class="img-circle elevation-2" alt="User Image" width="50" height="50" style="border: 3px white solid">
                                             @endif
+                                        </div>
+                                        <div class="mt-2">
                                             <input
                                                 name="images"
                                                 class="form-control @error('images') is-invalid @enderror"
                                                 value="{{ old('images', auth()->user()->images) }}"
                                                 type="file"
                                                 id="formFile"
-                                                accept="images/*"
+                                                accept="image/*"
                                                 onchange="loadFile(event)"
                                             >
-                                            <small for="formFile" class="form-label">{{ __('Silahkan Upload Foto Anda') }}</small>
+                                            <small for="formFile" class="form-label ms-4">
+                                                Upload Your Profile Photo 
+                                            </small>
                                         </div>
                                     </div>
                                     @error('images')
@@ -134,24 +138,15 @@
                                     class="col-md-4 col-form-label text-md-end"
                                 >{{ __('Status') }}</label>
 
-                                <div class="col-md-6">
-                                    <select
-                                        class="form-control @error('status') is-invalid @enderror"
-                                        aria-label="Default select example"
-                                        name="status"
-                                    >
-                                        <option
-                                            {{ $user->status === "Active" ? 'selected' : '' }}
-                                            value="Active">Active</option>
-                                        <option
-                                            {{ $user->status === "Inactive" ? 'selected' : '' }}
-                                            value="Inactive">Block</option>
-                                    </select>
-                                    @error('status')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                <div class="col-md-6"> 
+                                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group"> 
+                                        <input type="radio" class="btn-check" name="status" id="status1" value="Active" {{ $user->status == 'Active' ? 'checked' : '' }} autocomplete="off"> 
+                                        <label class="btn btn-outline-success me-2" for="status1">Active</label> 
+
+                                        <input type="radio" class="btn-check" name="status" id="status2" 
+                                        value="Blocked" {{ $user->status == 'Blocked' ? 'checked' : '' }} autocomplete="off"> 
+                                        <label class="btn btn-outline-danger" for="status2">Blocked</label>
+                                    </div> 
                                 </div>
                             </div>
 

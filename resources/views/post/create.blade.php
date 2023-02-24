@@ -16,22 +16,22 @@
                             @csrf
                             
                             
-                        {{-- Pinned  --}} 
-                        <div class="row mb-3"> 
-                            <label for="is_pinned" 
-                                class="col-md-4 col-form-label text-md-end">{{ __('Pin') }}</label> 
+                            {{-- Pinned  --}} 
+                            <div class="row mb-3"> 
+                                <label for="is_pinned" 
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Pin') }}</label> 
 
-                            <div class="col-md-6"> 
-                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group"> 
-                                    <input type="radio" class="btn-check" name="is_pinned" id="is_pinned1" value="1" autocomplete="off"> 
-                                    <label class="btn btn-outline-success me-2" for="is_pinned1">Pinned</label> 
+                                <div class="col-md-6"> 
+                                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group"> 
+                                        <input type="radio" class="btn-check" name="is_pinned" id="is_pinned1" value="1" autocomplete="off"> 
+                                        <label class="btn btn-outline-success me-2" for="is_pinned1">Pinned</label> 
 
-                                    <input type="radio" class="btn-check" name="is_pinned" id="is_pinned2" 
-                                    value="0" autocomplete="off"> 
-                                    <label class="btn btn-outline-danger" for="is_pinned2">No Pin</label>
-                                </div> 
+                                        <input type="radio" class="btn-check" name="is_pinned" id="is_pinned2" 
+                                        value="0" autocomplete="off"> 
+                                        <label class="btn btn-outline-danger" for="is_pinned2">No Pin</label>
+                                    </div> 
+                                </div>
                             </div>
-                        </div>
 
                             {{-- Title --}}
                             <div class="row mb-3">
@@ -149,16 +149,23 @@
                             <div class="row mb-3">
                                 <label for="postImages" class="col-md-4 col-form-label text-md-end">{{ __('Foto') }}</label>
                                 <div class="col-md-6">
-                                    <input
-                                        name="postImages"
-                                        class="form-control @error('postImages') is-invalid @enderror"
-                                        value="{{ old('postImages', auth()->user()->postImages) }}"
-                                        type="file"
-                                        accept="postImages/*"
-                                        id="formFile"
-                                        onchange="loadFile(event)"
-                                    >
-                                    <img id="profile" class="mt-3" width="200">
+                                    <div class="input-group">
+                                        <div class="mb-2">
+                                            <input
+                                                name="postImages"
+                                                class="form-control @error('postImages') is-invalid @enderror"
+                                                value="{{ old('postImages', auth()->user()->postImages) }}"
+                                                type="file"
+                                                accept="postImages/*"
+                                                id="formFile"
+                                                onchange="loadFile(event)"
+                                            >
+                                        </div>
+                                    
+                                        <div class="card p-2 mx-3">
+                                            <img id="profile" class="img-thumbnail" width="150">
+                                        </div>
+                                    </div>
                                     @error('postImages')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

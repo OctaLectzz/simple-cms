@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
@@ -54,6 +55,32 @@ class UserController extends Controller
 
 
 
+    public function create() 
+    {
+        return view('user.create');
+    }
+
+    
+    public function store(Request $request, User $user)
+    {
+
+        // Validate Request //
+        $data = $request->validate(
+            [
+                'name' => 'required|string',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:8|confirmed',
+            ]
+        );
+        $data['role'] = 'Admin';
+
+
+        $user = User::create($data);
+
+        return redirect('/user')->with('success', 'User Created Successfully!');
+    }
+
+
     public function edit($id) 
     {
         $user = User::find($id);
@@ -94,8 +121,13 @@ class UserController extends Controller
     
     public function destroy(User $user)
     {
+        $path = public_path('storage/images/' . $user->images);
+        if (File::exists($path)) {
+            File::delete($path);
+        }
+
         $user->delete();
 
-        return redirect()->back()->with('success', 'User has been Deleted!');;
+        return response()->json(['success' => 'Post has been Deleted!']);
     }
 }

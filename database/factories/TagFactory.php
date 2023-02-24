@@ -16,9 +16,9 @@ class TagFactory extends Factory
      */
     public function definition()
     {
-        // return [
-        //     'name' => fake()->name(),
-        //     'created_by' => mt_rand(1,50)
-        // ];
+        return [
+            'name' => $this->faker->unique()->word,
+            'description' => $this->faker->sentence,
+        ];
     }
 }
