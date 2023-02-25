@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Comment;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WelcomeController extends Controller
 {
@@ -39,4 +40,41 @@ class WelcomeController extends Controller
             'title' => 'Single Post'
         ]);
     }
+
+
+    
+    public function update(Request $request, $id)
+    {
+        // Validate Request //
+        $data = $request->validate(
+            [
+                'name' => 'required|string',
+                'email' => 'required|email',
+                'tanggal_lahir' => '',
+                'jenis_kelamin' => 'required',
+                'alamat' => '',
+            ]
+        );
+
+        
+        $user = Auth::user();
+
+        if ($request->hasFile('images')) {
+            $images = $request->file('images');
+            $imagesName = time() . '.' . $images->getClientOriginalExtension();
+            $images->storeAs('public/images', $imagesName);
+            $data['images'] = $imagesName;
+        }
+
+
+        $findUser = User::find($user->id);
+        $findUser->update($data);
+
+        return redirect()->back()->with('success', 'User Updated Successfully!');
+    }
+    
+    
+    
+    
+    
 }

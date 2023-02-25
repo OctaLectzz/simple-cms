@@ -33,10 +33,12 @@ use App\Http\Controllers\CommentController;
 
 // welcome //
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
-Route::get('/profile', function () {
-    return view('profile');
-})->name('profile');
 Route::get('/posts/{post:slug}', [WelcomeController::class, 'show'])->name('post.show');
+Route::get('/profile', function () {
+    $user = auth()->user();
+    return view('profile');
+})->name('profile')->middleware(['auth', 'verified']);
+Route::put('/profile', [WelcomeController::class, 'update'])->name('profile.update');
 
 
 // Home //
