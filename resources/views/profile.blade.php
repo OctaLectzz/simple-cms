@@ -24,17 +24,16 @@
             
             {{-- Header --}}
             <div class="header">
-                @if (auth()->user()->status == 'Active')
-                    <p class="text-white mt-2 mx-3">Status : <b class="text-success fw-bold mt-2">{{ auth()->user()->status }}</b></p>
+                @if ($user->status == 'Active')
+                    <p class="text-white mt-2 mx-3">Status : <b class="text-success fw-bold mt-2">{{ $user->status }}</b></p>
                 @else
-                    <p class="text-white mt-2 mx-3">Status : <b class="text-danger fw-bold mt-2">{{ auth()->user()->status }}</b></p>
+                    <p class="text-white mt-2 mx-3">Status : <b class="text-danger fw-bold mt-2">{{ $user->status }}</b></p>
                 @endif
             </div>
             
             {{-- Profile Edit --}}
-            <div class="mt-5 me-3">
-                {{-- <a href="{{ route('my.profile.index') }}" class="btn btn-large btn-success rounded-5"><i class="bi bi-pencil"></i></a> --}}
-                <a href="#" class="btnn btn btn-large btn-success rounded-5" data-bs-toggle="modal" data-bs-target="#editModal{{ auth()->user()->id }}"><i class="bi bi-pencil"></i></a>
+            <div class="mt-2 position-absolute top-50 end-0">
+                <a href="#" class="btnn btn btn-large btn-success rounded-5" data-bs-toggle="modal" data-bs-target="#editModal{{ $user->id }}"><i class="bi bi-pencil"></i></a>
             </div>
 
             {{-- Profile Photo --}}
@@ -44,11 +43,11 @@
             
             {{-- Profile Detail --}}
             <div class="card-text pb-3">
-                <p class="fs-4 text-center card-text"><small class="text-muted">{{ auth()->user()->role }}</small></p>
-                <h1 class="card-text text-center"><b>{{ auth()->user()->name }}</b></h1>
-                <p class="card-text fs-2 text-center"><small class="text-muted">{{ auth()->user()->email }}</small></p>
-                <p class="card-text fs-4 text-muted mt-5">{{ auth()->user()->tanggal_lahir }} | {{ auth()->user()->jenis_kelamin }}</p>
-                <p class="card-text fs-3">{{ auth()->user()->alamat }}</p>
+                <p class="fs-4 text-center card-text"><small class="text-muted">{{ $user->role }}</small></p>
+                <h1 class="card-text text-center"><b>{{ $user->name }}</b></h1>
+                <p class="card-text fs-2 text-center"><small class="text-muted">{{ $user->email }}</small></p>
+                <p class="card-text fs-4 text-muted mt-5">{{ $user->tanggal_lahir }} | {{ $user->jenis_kelamin }}</p>
+                <p class="card-text fs-3">{{ $user->alamat }}</p>
             </div>
 
         </div>
