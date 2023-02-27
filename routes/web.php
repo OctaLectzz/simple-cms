@@ -40,7 +40,7 @@ Route::get('/posts/{post:slug}', [WelcomeController::class, 'show'])->name('post
 // Profile
 Route::get('/profile', function () {
     $user = auth()->user();
-    return view('profile');
+    return view('profile', compact('user'));
 })->name('profile')->middleware(['auth', 'verified']);
 Route::put('/profile', [WelcomeController::class, 'update'])->name('profile.update');
 Route::put('/profile/{id}', [WelcomeController::class, 'update'])->name('users.update');

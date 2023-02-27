@@ -21,6 +21,7 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
+            'images' => 'user-profile-default.jpg',
             'tanggal_lahir' => date('Y-m-d', rand(1998-2-3, 2008-10-18)),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password

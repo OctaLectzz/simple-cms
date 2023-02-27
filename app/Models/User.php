@@ -17,23 +17,13 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'tanggal_lahir',
-        'role',
-        'jenis_kelamin',
-        'alamat',
-        'status',
-        'email',
-        'password',
-        'id_google',
-        'email_verified_at',
-        'images'
+    protected $guarded = [
+        'id',
     ];
 
     protected $attributes = [
+        'images' => 'user-profile-default.jpg',
         'role' => 'Member',
-        'images' => '',
         'status' => 'Active'
        
     ];

@@ -56,9 +56,9 @@
           <a href="{{ route('post.show', $post->slug) }}">
             {{-- Image --}}
             @if ($post->postImages)
-              <img src="{{ asset('storage/postImages/' . $post->postImages) }}" class="d-block w-100" alt="..." height="500" style="filter: brightness(60%)">
+              <img src="{{ asset('storage/postImages/' . $post->postImages) }}" class="d-block w-100 h-100" alt="..." style="filter: brightness(60%)">
             @else
-              <img src="https://source.unsplash.com/1120x500" class="d-block w-100" alt="..." height="500" style="filter: brightness(60%)">
+              <img src="https://source.unsplash.com/1120x500" class="d-block w-100 h-100" alt="..." style="filter: brightness(60%)">
             @endif
           </a>
 

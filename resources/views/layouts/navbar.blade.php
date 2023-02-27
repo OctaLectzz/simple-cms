@@ -35,11 +35,7 @@
                     <div class="card m-2 pt-2">
                         <div class="justify-content-center d-flex mb-2">
                             <div class="image">
-                                @if (auth()->user()->images)
-                                    <img src="{{ asset('storage/images/' . Auth::user()->images) }}" class="img-circle elevation-2" alt="User Image" width="40" height="40">
-                                @else
-                                    <img src="{{ asset('vendor/admin-lte/img/user-profile-default.jpg') }}" class="img-circle elevation-2" alt="User Image" width="40" height="40">
-                                @endif
+                                <img src="{{ asset('storage/images/' . Auth::user()->images) }}" class="img-circle elevation-2" alt="User Image" width="40" height="40">
                             </div>
                         </div>
                         <div class="info px-2">

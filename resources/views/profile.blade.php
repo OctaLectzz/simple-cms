@@ -32,18 +32,14 @@
             </div>
             
             {{-- Profile Edit --}}
-            <div class="mt-3 me-3">
+            <div class="mt-5 me-3">
                 {{-- <a href="{{ route('my.profile.index') }}" class="btn btn-large btn-success rounded-5"><i class="bi bi-pencil"></i></a> --}}
                 <a href="#" class="btnn btn btn-large btn-success rounded-5" data-bs-toggle="modal" data-bs-target="#editModal{{ auth()->user()->id }}"><i class="bi bi-pencil"></i></a>
             </div>
 
             {{-- Profile Photo --}}
             <div class="profile d-flex justify-content-center">
-                @if (auth()->user()->images)
-                    <img src="{{ asset('storage/images/' . auth()->user()->images) }}" class="rounded rounded-circle shadow" alt="User Image" width="200" height="200" style="border: 3px white solid">
-                @else
-                    <img src="{{ asset('vendor/admin-lte/img/user-profile-default.jpg') }}" class="rounded rounded-circle shadow" alt="User Image" width="200" height="200" style="border: 3px white solid">
-                @endif
+                <img src="{{ asset('storage/images/' . $user->images) }}" class="rounded rounded-circle shadow" alt="User Image" width="200" height="200" style="border: 3px white solid">
             </div>
             
             {{-- Profile Detail --}}

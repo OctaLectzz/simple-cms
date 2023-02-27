@@ -31,7 +31,7 @@ class CommentController extends Controller
 
     public function index()
     {
-        $comments = Comment::all();
+        $comments = Comment::latest()->get();
 
         return view('postshow', ['comments' => $comments]);
     }

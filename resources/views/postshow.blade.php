@@ -75,19 +75,20 @@
                                     <div class="fw-bold">{{ $comment->created_at->diffForHumans() }}</div>
                                     {{-- Dropdown --}}
                                     <div class="dropdown">
-                                        <button class="btn btn-default dropdown-toggle-no-arrow" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="bi bi-three-dots-vertical"></i>
-                                        </button>
                                         @if(auth()->check() && auth()->user()->id == $comment->user_id)
+                                            <button class="btn btn-default dropdown-toggle-no-arrow" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                            </button>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                 <li>
-                                                    <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editCommentModal{{ $comment['id'] }}">Edit Comment</button></li>
+                                                    <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editCommentModal{{ $comment['id'] }}"><i class="bi bi-pencil me-1"></i> Edit Comment</button></li>
                                                 </li>
+                                                <hr class="dropdown-divider">
                                                 <li>
                                                     <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" class="d-inline">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="dropdown-item">Delete Comment</button>
+                                                        <button type="submit" class="dropdown-item"><i class="bi bi-trash me-1"></i> Delete Comment</button>
                                                     </form>
                                                 </li>
                                             </ul>
@@ -99,9 +100,9 @@
                                 <div class="row">
                                     {{-- Profile Photo --}}
                                     <div class="col-md-2">
-                                        <img src="{{ $comment->images }}" alt="User Avatar" class="rounded-circle img-thumbnail">
+                                        <img src="{{ $comment->images }}" alt="User Avatar" class="rounded rounded-circle p-1 mb-2" width="70" height="70" style="border: 1px rgb(155, 155, 155) solid">
                                     </div>
-                                    <div class="col-md-10">
+                                    <div class="col-md-10 mt-2">
                                         {{-- Name --}}
                                         <h5 class="card-title fw-bold">{{ $comment->user->name }}</h5>
                                         {{-- Content --}}

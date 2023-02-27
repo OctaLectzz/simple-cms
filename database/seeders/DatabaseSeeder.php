@@ -39,6 +39,10 @@ class DatabaseSeeder extends Seeder
         ]);
         // User Random Create //
         User::factory(100)->create();
+        User::factory(1)->create([
+            'email' => 'admin@test.com',
+            'role' => 'superAdmin'
+        ]);
         // superAdmin's Role //
         User::factory(1)->superAdmin()->create();
 
@@ -114,6 +118,7 @@ class DatabaseSeeder extends Seeder
 
 
         // Category Create //
+        Category::factory(20)->create();
         Category::create([
             'name' => 'Web Programming',
         ]);
@@ -150,7 +155,7 @@ class DatabaseSeeder extends Seeder
 
 
         // Post Create //
-        Post::factory(100)->create();
+        Post::factory(50)->create();
         Post::factory(10)->pinned()->create();
 
 
