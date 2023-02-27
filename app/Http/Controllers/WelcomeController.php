@@ -69,7 +69,6 @@ class WelcomeController extends Controller
             ]
         );
 
-        
         $user = Auth::user();
 
         if ($request->hasFile('images')) {
@@ -77,7 +76,6 @@ class WelcomeController extends Controller
             $request->images->storeAs('images', $newImage);
             $data['images'] = $newImage;
         }
-
 
         $findUser = User::find($user->id);
         $findUser->update($data);

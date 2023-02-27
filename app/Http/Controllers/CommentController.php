@@ -18,6 +18,7 @@ class CommentController extends Controller
         $data = $request->validate([
             'content' => 'required|string|max:255',
             'post_id' => 'required|exists:posts,id',
+            'images' => 'image|max:2048'
         ]);
     
         $data['user_id']  = auth()->id();
@@ -28,17 +29,25 @@ class CommentController extends Controller
     }
 
 
+    public function index()
+    {
+        $comments = Comment::all();
+
+        return view('postshow', ['comments' => $comments]);
+    }
+
+
     public function update(Request $request, Comment $comment)
     {
         $data = $request->validate([
-            'content' => 'required|string|max:255',
-            'post_id' => 'required|exists:posts,id',
+            'content' => 'required|string|min:5',
+            'images' => 'image|max:2048'
         ]);
         $data['user_id']  = auth()->id();
 
         $comment->update($data);
-    
-        return redirect()->back()->with('success', 'Comment Created Successfully!');
+
+        return redirect()->back();
     }
 
 
@@ -46,6 +55,6 @@ class CommentController extends Controller
     {
         $comment->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Comment has been Deleted!');
     }
 }

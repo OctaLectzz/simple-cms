@@ -5,8 +5,15 @@
 .card-img-top {
     transition: all 0.3 ease;
 }
+.card-hover {
+    transition: all 0.3 ease;
+}
 
 .card-img-top:hover {
     transform: scale(1.01);
     filter: brightness(80%);
+}
+.card-hover:hover {
+    transform: scale(1.006);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
 }

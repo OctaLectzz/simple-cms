@@ -23,4 +23,9 @@ class Comment extends Model
     {
         return $this->belongsTo(Post::class);
     }
+
+    public function getImagesAttribute()
+    {
+        return $this->user ? asset('storage/images/' . $this->user->images) : null;
+    }
 }

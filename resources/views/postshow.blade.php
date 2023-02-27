@@ -53,14 +53,14 @@
                             <input type="hidden" name="post_id" value="{{ $post->id }}">
                             <div class="mb-3">
                                 <label for="content" class="form-label">Add comment</label>
-                                <textarea name="content" id="content" cols="30" rows="2" class="form-control"></textarea>
+                                <textarea name="content" id="content" class="form-control"></textarea>
                             </div>
                             <button type="submit" class="btn btn-dark">Submit</button>
                         </form>
                     </div>
                 </div>
             @else
-                <div class="alert alert-warning mb-5">
+                <div class="alert alert-danger mb-5">
                     Anda harus <a href="{{ route('login') }}" class="text-decoration-none">Login</a> terlebih dahulu untuk dapat mengomentari.
                 </div>
             @endif
@@ -68,34 +68,49 @@
             <div class="row mb-5">
                 <div class="col-md-12">
                     @forelse($post->comments as $comment)
-                        <hr style="margin-top: -16px">
-                            {{-- Dropdown Comment --}}
-                            @if(auth()->check() && auth()->user()->id == $comment->user_id)
-                                <div class="d-flex justify-content-end">
-                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle-no-arrow" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="bi bi-three-dots-vertical"></i>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal{{ auth()->user()->id }}">Edit Comment</a>
-                                            @include('includes.modal-editcomment')
-                                        </li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li>
-                                            <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="dropdown-item">Delete</button>
-                                            </form>
-                                        </li>
-                                    </ul>
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    {{-- Created At --}}
+                                    <div class="fw-bold">{{ $comment->created_at->diffForHumans() }}</div>
+                                    {{-- Dropdown --}}
+                                    <div class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle-no-arrow" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                        @if(auth()->check() && auth()->user()->id == $comment->user_id)
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <li>
+                                                    <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editCommentModal{{ $comment['id'] }}">Edit Comment</button></li>
+                                                </li>
+                                                <li>
+                                                    <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" class="d-inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="dropdown-item">Delete Comment</button>
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        @endif
+                                    </div>
                                 </div>
-                            @endif
-                            {{-- User --}}
-                                <small class="text-muted mx-2">{{ $comment->user->name }}</small> <small class="text-muted"><small> ◉ {{ $post->created_at->diffForHumans() }}</small></small>
-                            {{-- Content --}}
-                            <p class="card-text">{{ $comment->content }}</p>
-                        <hr>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    {{-- Profile Photo --}}
+                                    <div class="col-md-2">
+                                        <img src="{{ $comment->images }}" alt="User Avatar" class="rounded-circle img-thumbnail">
+                                    </div>
+                                    <div class="col-md-10">
+                                        {{-- Name --}}
+                                        <h5 class="card-title fw-bold">{{ $comment->user->name }}</h5>
+                                        {{-- Content --}}
+                                        <p class="card-text">{{ $comment->content }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @include('includes.modal-editcomment')
                     @empty
                         <div class="alert alert-secondary">
                             No Comments yet.
@@ -121,12 +136,20 @@
 
 @push('scripts')
     <script>
-        $(document).ready(function() {
-            // Ambil tombol edit dan tambahkan event listener
-            $('a[data-bs-toggle="modal"]').on('click', function() {
-                // Ambil id user dari data-bs-target
-                let target = $(this).data('bs-target');
-                let id = target.split('#editModal')[1];
+        var editCommentForm = $('form[action^="' + editCommentUrl + '"]');
+
+        editCommentForm.on('submit', function (event) {
+            event.preventDefault();
+            var commentId = editCommentForm.data('comment-id');
+            var commentContent = $('#editContent' + commentId).val();
+
+            $.ajax({
+                url: editCommentUrl + '/' + commentId,
+                method: 'PUT',
+                data: {
+                    content: commentContent,
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
             });
         });
 
@@ -136,6 +159,7 @@
                 toastr.success(successMessage)
             }
     </script>
+
     <script src="{{ asset('vendor/toastr/toastr.min.js') }}"></script>
     <script src="{{ asset('js/delete.js') }}"></script>
     <script src="{{ asset('js/submit.js') }}"></script>

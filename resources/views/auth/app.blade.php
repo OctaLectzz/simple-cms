@@ -7,7 +7,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Octa Project</title>
+    <link rel="shortcut icon" href="{{ asset('img/Logo.png') }}">
 
     {{-- My CSS --}}
     <link rel="stylesheet" href="css/navbar.css">
@@ -27,6 +28,9 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
+    {{-- Admin LTE --}}
+    <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
+
     <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
     @stack('styles')
 </head>
@@ -35,7 +39,9 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm sticky-top">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    <img src="{{ asset('img/Logo.png') }}" alt="Logo" width="30" class="mb-1">
+                    {{-- {{ config('app.name', 'Laravel') }} --}}
+                    Octa Project
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -65,7 +71,7 @@
                             @if (Route::has('login'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
+                                </li> 
                             @endif
 
                             @if (Route::has('register'))

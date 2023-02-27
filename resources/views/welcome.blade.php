@@ -108,7 +108,7 @@
       </h1><hr>
       @foreach ($posts as $post)
         <div class="col-md-4 mb-3">
-          <div class="card">
+          <div class="card card-hover">
 
             {{-- Image --}}
             <a href="{{ route('post.show', $post->slug) }}">

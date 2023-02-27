@@ -31,10 +31,12 @@ use App\Http\Controllers\CommentController;
 
 
 
-// welcome //
-// Home
+// -----welcome----- //
+
+// Home //
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 Route::get('/posts/{post:slug}', [WelcomeController::class, 'show'])->name('post.show');
+
 // Profile
 Route::get('/profile', function () {
     $user = auth()->user();
@@ -43,23 +45,31 @@ Route::get('/profile', function () {
 Route::put('/profile', [WelcomeController::class, 'update'])->name('profile.update');
 Route::put('/profile/{id}', [WelcomeController::class, 'update'])->name('users.update');
 
+// Comment //
+Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
+Route::delete('/posts/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+
+// -----welcome----- //
+
+
+
+
+// -----Dashboard----- //
 
 // Home //
 Auth::routes(['verify' =>true]);
 Route::get('/home', [HomeController::class, 'index'])->middleware('userStatus', 'Admin')->name('home');
 
-
-// Profile //
+// Edit Profile //
 Route::prefix('my-profile')->middleware(['auth', 'verified'])->group(function() {
     Route::get('/', [MyProfileController::class, 'index'])->name('my.profile.index');
     Route::put('/', [MyProfileController::class, 'update'])->name('my.profile.update');
 });
 
-
 // All Users //
 Route::get('users', [AllUsersController::class, 'index'])->middleware('auth')->name('users');
 Route::delete('/users/{id}', [AllUsersController::class, 'destroy']);
-
 
 // User //
 Route::prefix('user')->middleware(['auth', 'verified', 'superAdmin'])->group(function() {
@@ -74,7 +84,6 @@ Route::prefix('user')->middleware(['auth', 'verified', 'superAdmin'])->group(fun
     });
 });
 
-
 // Tag //
 Route::prefix('tag')->middleware(['auth', 'verified', 'Admin'])->group(function() {
     Route::controller(TagController::class)->group(function () {
@@ -88,7 +97,6 @@ Route::prefix('tag')->middleware(['auth', 'verified', 'Admin'])->group(function(
     });
 });
 
-
 // Category //
 Route::prefix('category')->middleware(['auth', 'verified', 'Admin'])->group(function() {
     Route::controller(CategoryController::class)->group(function () {
@@ -101,7 +109,6 @@ Route::prefix('category')->middleware(['auth', 'verified', 'Admin'])->group(func
         Route::delete('/{category}', 'destroy')->name('category.destroy');
     });
 });
-
 
 // Post //
 Route::get('/post/checkSlug', [PostController::class, 'checkSlug'])->middleware('auth');
@@ -117,8 +124,4 @@ Route::prefix('post')->middleware(['auth', 'verified', 'Admin'])->group(function
     });
 });
 
-
-// Comment //
-Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
-Route::put('/posts/{comment}', 'CommentController@update')->name('comments.update');
-Route::delete('/posts/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+// -----Dashboard----- //

@@ -12,6 +12,7 @@
 
         {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
         <title>Octa Project Bootcamp</title>
+        <link rel="shortcut icon" href="{{ asset('img/Logo.png') }}">
 
         {{-- Summernote --}}
         <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
