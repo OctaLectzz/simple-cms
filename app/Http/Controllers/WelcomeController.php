@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
 use App\Models\User;
-use App\Models\Comment;
+use App\Models\Post;
+use App\Models\Tag;
 use App\Models\Category;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,32 +14,44 @@ class WelcomeController extends Controller
 {
     public function index()
     {
-        $title = '';
+        $categoriesName = null;
+        $tagsName = null;
+        $userName = null;
         if(request('category')) {
-            $category = Category::firstWhere('slug', request('category'));
-            $title = ' in ' . $category->name;
+            $category = Category::firstWhere('name', request('category'));
+            if ($category) {
+                $categoriesName = $category->name;
+            }
+        }
+        if(request('tag')) {
+            $tag = Tag::firstWhere('name', request('tag'));
+            if ($tag) {
+                $tagsName = $tag->name;
+            }
         }
         if(request('user')) {
-            $user = User::firstWhere('username', request('user'));
-            $title = ' by ' . $user->name;
+            $user = User::firstWhere('name', request('user'));
+            if ($user) {
+                $userName = $user->name;
+            }
         }
+
         
         return view('welcome', [
-            'title' => 'Posts' . $title,
-            'posts' => Post::latest()->where('is_pinned', false)->filter(request(['search', 'category', 'created_by']))->paginate(6)->WithQueryString(),
-            'pinnedPost' => Post::latest()->where('is_pinned', true)->get()
+            'categoriesName' => $categoriesName,
+            'tagsName' => $tagsName,
+            'userName' => $userName,
+            'posts' => Post::latest()->where('is_pinned', false)->filter(request(['tag', 'category', 'user']))->paginate(6)->WithQueryString(),
+            'pinnedPost' => Post::latest()->where('is_pinned', true)->filter(request(['tag', 'category', 'user']))->get()
         ]);
     }
 
 
     public function show(Post $post)
     {
-        $comments = Comment::all();
+        $comments = $post->comments()->latest()->get();
 
-        return view('postshow', compact('comments'), [
-            'post'  => $post,
-            'title' => 'Single Post'
-        ]);
+        return view('postshow', compact('post', 'comments'));
     }
 
 
@@ -60,10 +73,9 @@ class WelcomeController extends Controller
         $user = Auth::user();
 
         if ($request->hasFile('images')) {
-            $images = $request->file('images');
-            $imagesName = time() . '.' . $images->getClientOriginalExtension();
-            $images->storeAs('public/images', $imagesName);
-            $data['images'] = $imagesName;
+            $newImage = $request->images->getClientOriginalName();
+            $request->images->storeAs('images', $newImage);
+            $data['images'] = $newImage;
         }
 
 

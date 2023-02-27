@@ -6,7 +6,17 @@
 <div class="container">
 
   {{-- Title --}}
-  <h1 class="mb-3 text-center">{{ $title }}</h1>
+  <h1 class="text-center fw-bold">WELCOME TO THE BLOG PAGE</h1>
+  <p class="mb-5 text-center fs-4">
+    All Posts 
+    @if ($categoriesName)
+      in Category "{{ $categoriesName }}"
+    @elseif ($tagsName)
+      in Tag "{{ $tagsName }}"
+    @else
+      Page
+    @endif
+  </p>
   {{-- Title --}}
 
   
@@ -61,7 +71,7 @@
 
             {{-- Category --}}
             @foreach($post->category as $category)
-              <a href="/postscategory={{ $category->id }}" class="text-decoration-none">
+              <a href="{{ route('welcome', ['category' => $category->name]) }}" class="text-decoration-none">
                 <p class="d-inline-block mx-1 p-1 px-2 text-light" style="border: 1px solid; border-radius: 30px;">{{ $category->name }}</p>
               </a>
             @endforeach
@@ -87,6 +97,15 @@
   {{-- More Posts --}}
   <div class="container">
     <div class="row mb-5">
+      <h1 class="mt-3">
+        @if ($categoriesName)
+          Posts in Category "{{ $categoriesName }}"
+        @elseif ($tagsName)
+          Posts in Tag "{{ $tagsName }}"
+        @else
+          All Posts
+        @endif
+      </h1><hr>
       @foreach ($posts as $post)
         <div class="col-md-4 mb-3">
           <div class="card">
@@ -103,7 +122,7 @@
             <div class="card-body">
               {{-- Category --}}
               @foreach ($post->category->take(3) as $category)
-                <a href="" class="text-decoration-none">
+                <a href="{{ route('welcome', ['category' => $category->name]) }}" class="text-decoration-none">
                   <p class="d-inline-block px-2 text-info" style="border: 1px solid; border-radius: 20%;">{{ $category->name }}</p>
                 </a>
               @endforeach
@@ -122,7 +141,7 @@
               <p class="card-text">{{ Str::limit(strip_tags($post->content), 80, '...') }}</p>
 
               {{-- Read More --}}
-              <a href="{{ route('post.show', $post->slug) }}" class="btn btn-outline-dark">Read More</a>
+              <a href="{{ route('post.show', $post->slug) }}" class="btn btn-outline-dark mt-4">Read More</a>
             </div>
           </div>
         </div>

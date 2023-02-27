@@ -1,7 +1,7 @@
 <div class="modal fade" id="editModal{{ auth()->user()->id }}" tabindex="-1" aria-labelledby="editModal{{ auth()->user()->id }}Label" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-        <form method="POST" action="{{ route('users.update', auth()->user()->id) }}">
+        <form method="POST" action="{{ route('users.update', auth()->user()->id) }}" enctype="multipart/form-data">
           @csrf
           @method('PUT')
           <div class="modal-header">
@@ -29,7 +29,7 @@
                 </div>
             </div>
 
-            {{-- Name --}}
+            {{-- Email --}}
             <div class="row mb-3">
                 <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email') }}</label>
                 <div class="col-md-6">

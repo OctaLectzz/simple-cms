@@ -52,8 +52,8 @@
                     <!-- Center Side Of Navbar -->
                     <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
                         <div class="navbar-nav">
-                          <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" aria-current="page" href="/">Home</a>
-                          <a class="nav-link {{ Request::is('profile') ? 'active' : '' }}" href="/profile">Profile</a>
+                          <a class="nav-link {{ Request::is('/*', 'posts*') ? 'active' : '' }}" aria-current="page" href="/">Home</a>
+                          <a class="nav-link {{ Request::is('profile*') ? 'active' : '' }}" href="/profile">Profile</a>
                           <a class="nav-link disabled" href="#">Category</a>
                         </div>
                     </div>

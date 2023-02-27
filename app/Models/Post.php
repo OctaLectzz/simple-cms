@@ -26,17 +26,21 @@ class Post extends Model
         // Category //
         $query->when($filters['category'] ?? false, function($query, $category) {
             return $query->whereHas('category', function($query) use ($category) {
-                $query->where('id', $category);
+                $query->where('name', $category);
             });
         });
-
-
-        // User Search //
-        // $query->when($filters['created_by'] ?? false, fn($query, $created_by) =>
-        //     $query->whereHas('created_by', fn($query)=>
-        //         $query->where('id', $created_by)
-        //     )
-        // );
+        // Tag //
+        $query->when(isset($filters['tag']), function ($query) use ($filters) { 
+            $query->whereHas('tag', function ($query) use ($filters) { 
+                $query->where('name', $filters['tag']); 
+            }); 
+        });
+        // User //
+        $query->when($filters['user'] ?? false, fn($query, $user) =>
+            $query->whereHas('user', fn($query)=>
+                $query->where('name', $user)
+            )
+        );
     }
 
 
