@@ -9,7 +9,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        return view('category.index');
+        return view('dashboard.category.index');
     }
 
 
@@ -49,7 +49,7 @@ class CategoryController extends Controller
 
     public function create()
     {
-        return view('category.create');
+        return view('dashboard.category.create');
     }
 
 
@@ -71,14 +71,14 @@ class CategoryController extends Controller
 
         $category = Category::create($data);
 
-        return redirect('/category')->with('success', 'category Created Successfully!');
+        return redirect('/dashboard/category')->with('success', 'category Created Successfully!');
     }
 
 
     public function edit($id) 
     {
         $category = category::find($id);
-        return view('category.edit', compact('category'));
+        return view('dashboard.category.edit', compact('category'));
     }
 
     
@@ -102,7 +102,7 @@ class CategoryController extends Controller
         $findcategory = Category::find($category->id);
         $findcategory->update($data);
 
-        return redirect('/category')->with('success', 'Category Updated Successfully!');
+        return redirect('/dashboard/category')->with('success', 'Category Updated Successfully!');
     }
 
     

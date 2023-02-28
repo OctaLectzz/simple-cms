@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('dashboard.layouts.app')
 
 @section('content')
 
@@ -8,10 +8,10 @@
 
 
                 <div class="card">
-                    <div class="card-header">{{ __('Edit Category') }}</div>
+                    <div class="card-header">{{ __('Create Category') }}</div>
                     <div class="card-body">
 
-                        <form action="" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('category.input') }}" method="POST" enctype="multipart/form-data">
                             @method('put')
                             @csrf
                             
@@ -24,7 +24,7 @@
                                         type="text"
                                         class="form-control @error('name') is-invalid @enderror"
                                         name="name"
-                                        value="{{ $category->name }}"
+                                        value="{{ old('name') }}"
                                         autocomplete="off"
                                         autofocus
                                     >
@@ -44,11 +44,11 @@
                                         class="form-control @error('description') is-invalid @enderror"
                                         name="description"
                                         id="floatingTextarea2 description" 
-                                        value="{{ old('description', $category->description) }}"
+                                        value="{{ old('description') }}"
                                         placeholder="Leave a Description here" 
                                         style="height: 100px"
                                         autocomplete="off"
-                                    >{{ old('description', $category->description) }}</textarea>
+                                    ></textarea>
                                     @error('description')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -61,7 +61,7 @@
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-dark">
-                                        {{ __('Update') }}
+                                        {{ __('Create') }}
                                     </button>
                                 </div>
                             </div>

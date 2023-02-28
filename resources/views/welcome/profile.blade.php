@@ -1,4 +1,4 @@
-@extends('auth.app')
+@extends('welcome.layouts.app')
 
 
 @push('styles')
@@ -128,6 +128,7 @@
             }
     </script>
     <script src="{{ asset('js/preview.js') }}"></script>
+    <script src="{{ asset('js/submit.js') }}"></script>
     <script src="{{ asset('vendor/toastr/toastr.min.js') }}"></script>
 @endpush
 

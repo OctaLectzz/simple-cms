@@ -1,4 +1,4 @@
-@extends('auth.app')
+@extends('welcome.layouts.app')
 
 
 @section('content')
@@ -128,7 +128,9 @@
               @endforeach
 
               {{-- Title --}}
-              <h5 class="card-title">{{ Str::limit($post->title, 35, '..') }}</h5>
+              <a href="{{ route('post.show', $post->slug) }}" class="text-dark text-decoration-none">
+                <h5 class="card-title">{{ Str::limit($post->title, 35, '..') }}</h5>
+              </a>
 
               {{-- Created By & Created At --}}
               <p>
@@ -152,10 +154,12 @@
 
 
   {{-- Pagination --}}
-  @if ($post->is_pinned === 0) 
-    <div class="d-flex justify-content-center">
-      {{ $posts->links() }}
-    </div>
+  @if ($post->is_pinned === 0)
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-end">
+        {{ $posts->links() }}
+      </ul>
+    </nav>
   @endif
   {{-- Pagination --}}
 

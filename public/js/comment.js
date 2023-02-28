@@ -38,7 +38,7 @@ $(document).ready(function() {
 // Submit Comment
 $(document).ready(function () {
     $("form").submit(function () {
-        $('#comment-create')
+        $('#comment-button')
             .html('<div class="spinner-border spinner-border-sm" role="status"></div> Loading...')
             .attr("disabled", true);
     });

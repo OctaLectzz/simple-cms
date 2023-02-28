@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('dashboard.layouts.app')
 
 @section('content')
 
@@ -8,10 +8,10 @@
 
 
                 <div class="card">
-                    <div class="card-header">{{ __('Create Category') }}</div>
+                    <div class="card-header">{{ __('Create Tag') }}</div>
                     <div class="card-body">
 
-                        <form action="{{ route('category.input') }}" method="POST" enctype="multipart/form-data">
+                        <form  onsubmit="submit(event)" action="{{ route('tag.input') }}" method="POST" enctype="multipart/form-data">
                             @method('put')
                             @csrf
                             
@@ -60,7 +60,7 @@
                             {{-- Save --}}
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-dark">
+                                    <button id="confirm" type="submit" class="btn btn-dark">
                                         {{ __('Create') }}
                                     </button>
                                 </div>

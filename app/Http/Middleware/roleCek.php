@@ -19,7 +19,7 @@ class roleCek
     {
 
         if(Auth::user()->role != 'superAdmin'){
-            return redirect('/home');
+            return redirect('/dashboard/home');
         }
 
         return $next($request);

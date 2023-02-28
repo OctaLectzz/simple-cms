@@ -9,7 +9,7 @@ class CommentController extends Controller
 {
     public function show(Comment $comment)
     {
-        return view('postshow', compact('comment'));
+        return view('welcome.postshow', compact('comment'));
     }
 
 
@@ -33,14 +33,14 @@ class CommentController extends Controller
     {
         $comments = Comment::latest()->get();
 
-        return view('postshow', ['comments' => $comments]);
+        return view('welcome.postshow', ['comments' => $comments]);
     }
 
 
     public function update(Request $request, Comment $comment)
     {
         $data = $request->validate([
-            'content' => 'required|string|min:5',
+            'content' => 'required|string|max:255',
             'images' => 'image|max:2048'
         ]);
         $data['user_id']  = auth()->id();

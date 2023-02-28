@@ -40,7 +40,7 @@ Route::get('/posts/{post:slug}', [WelcomeController::class, 'show'])->name('post
 // Profile
 Route::get('/profile', function () {
     $user = auth()->user();
-    return view('profile', compact('user'));
+    return view('welcome.profile', compact('user'));
 })->name('profile')->middleware(['auth', 'verified']);
 Route::put('/profile', [WelcomeController::class, 'update'])->name('profile.update');
 Route::put('/profile/{id}', [WelcomeController::class, 'update'])->name('users.update');
@@ -72,7 +72,7 @@ Route::get('users', [AllUsersController::class, 'index'])->middleware('auth')->n
 Route::delete('/users/{id}', [AllUsersController::class, 'destroy']);
 
 // User //
-Route::prefix('user')->middleware(['auth', 'verified', 'superAdmin'])->group(function() {
+Route::prefix('dashboard/user')->middleware(['auth', 'verified', 'superAdmin'])->group(function() {
     Route::controller(UserController::class)->group(function () {
         Route::get('/',  'index')->name('user.index');
         Route::get('/list',  'list')->name('user.list');
@@ -85,7 +85,7 @@ Route::prefix('user')->middleware(['auth', 'verified', 'superAdmin'])->group(fun
 });
 
 // Tag //
-Route::prefix('tag')->middleware(['auth', 'verified', 'Admin'])->group(function() {
+Route::prefix('dashboard/tag')->middleware(['auth', 'verified', 'Admin'])->group(function() {
     Route::controller(TagController::class)->group(function () {
         Route::get('/',  'index')->name('tag.index');
         Route::get('/tag',  'list')->name('tag.list');
@@ -98,7 +98,7 @@ Route::prefix('tag')->middleware(['auth', 'verified', 'Admin'])->group(function(
 });
 
 // Category //
-Route::prefix('category')->middleware(['auth', 'verified', 'Admin'])->group(function() {
+Route::prefix('dashboard/category')->middleware(['auth', 'verified', 'Admin'])->group(function() {
     Route::controller(CategoryController::class)->group(function () {
         Route::get('/',  'index')->name('category.index');
         Route::get('/category',  'list')->name('category.list');
@@ -112,7 +112,7 @@ Route::prefix('category')->middleware(['auth', 'verified', 'Admin'])->group(func
 
 // Post //
 Route::get('/post/checkSlug', [PostController::class, 'checkSlug'])->middleware('auth');
-Route::prefix('post')->middleware(['auth', 'verified', 'Admin'])->group(function() {
+Route::prefix('dashboard/post')->middleware(['auth', 'verified', 'Admin'])->group(function() {
     Route::controller(PostController::class)->group(function () {
         Route::get('/',  'index')->name('post.index');
         Route::get('/post',  'list')->name('post.list');

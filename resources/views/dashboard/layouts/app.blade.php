@@ -23,6 +23,7 @@
 
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+        {{-- Summernote --}}
 
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -32,8 +33,8 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
         {{-- My CSS --}}
-        <link rel="stylesheet" href="css/home.css">
-        <link rel="stylesheet" href="css/navbar.css">
+        <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
 
         <!-- Scripts -->
         @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -49,8 +50,14 @@
     <body class="sidebar-mini layout-fixed">
 
         <div class="wrapper">
-            @include('layouts.navbar')
-            @include('layouts.sidebar')
+
+            {{-- Navbar --}}
+            @include('dashboard.layouts.navbar')
+
+            {{-- Sidebar --}}
+            @include('dashboard.layouts.sidebar')
+
+            {{-- Content --}}
             <div class="content-wrapper">
                 <section class="content-header">
                     <div class="container-fluid">
@@ -58,29 +65,14 @@
                     </div>
                 </section>
             </div>
+
         </div>
 
 
         
         <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('vendor/admin-lte/adminlte.min.js') }}"></script>
-        <script>
-            //* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
-            var dropdown = document.getElementsByClassName("dropdown-btn");
-            var i;
-
-            for (i = 0; i < dropdown.length; i++) {
-            dropdown[i].addEventListener("click", function() {
-                this.classList.toggle("active");
-                var dropdownContent = this.nextElementSibling;
-                if (dropdownContent.style.display === "block") {
-                dropdownContent.style.display = "none";
-                } else {
-                dropdownContent.style.display = "block";
-                }
-            });
-            }
-        </script>
+        <script src="{{ asset('js/dropdown.js') }}"></script>
         @stack('scripts')
 
     </body>

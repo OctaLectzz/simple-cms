@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('dashboard.layouts.app')
 
 
 
@@ -18,17 +18,19 @@
 
             <div class="card">
                 <div class="card-body">
-                    <table class="table">
-                        <thead class="table table-dark table-hover">
-                            <tr>
-                                <th>No</th>
-                                <th>Nama</th>
-                                <th>Description</th>
-                                <th>Created By</th>
-                                <th width="10%" class="text-center">Action</th>
-                            </tr>
-                        </thead>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="table table-dark table-hover">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Description</th>
+                                    <th>Created By</th>
+                                    <th width="10%" class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -50,14 +52,13 @@
         let userDatatable;
             $(document).ready(function () {
                 userDatatable = $('table').DataTable({
-
                     dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
                         "<'row'<'col-sm-12'<'table-responsive'tr>>>" +
                         "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
 
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ route('tag.list') }}",
+                    ajax: "{{ route('category.list') }}",
                     order: [],
                     columns: [
                         { data: 'DT_RowIndex', sortable: false, searchable: false },

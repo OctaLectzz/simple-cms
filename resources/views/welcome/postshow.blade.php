@@ -1,4 +1,4 @@
-@extends('auth.app')
+@extends('welcome.layouts.app')
 
 
 @push('styles')
@@ -9,6 +9,9 @@
 @section('content')
 
 <div class="container">
+
+
+    {{-- Post Show --}}
     <div class="row justify-content-center mb-5">
         <div class="col-md-8">
 
@@ -42,8 +45,16 @@
             {{-- Back to Posts --}}
             <a href="{{ route('welcome') }}" class="btn btn-dark d-inline-block mt-3 mb-5"><i class="bi bi-arrow-bar-left"></i> Back to Posts</a><br>
 
-            {{-- Comment --}}
+        </div>
+    </div>
+    {{-- Post Show --}}
+
+
+    {{-- Comment --}}
+    <div class="row justify-content-center mb-3">
+        <div class="col-md-8">
             <h1>Comments</h1><hr>
+
             {{-- Form Comment --}}
             @if (auth()->check())
                 <div class="card my-3 mb-5">
@@ -53,9 +64,9 @@
                             <input type="hidden" name="post_id" value="{{ $post->id }}">
                             <div class="mb-3">
                                 <label for="content" class="form-label">Add comment</label>
-                                <textarea name="content" id="content" class="form-control"></textarea>
+                                <textarea name="content" id="content" class="form-control" required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-dark" id="comment-create">Submit</button>
+                            <button type="submit" class="btn btn-dark" id="comment-button">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -64,6 +75,7 @@
                     Anda harus <a href="{{ route('login') }}" class="text-decoration-none">Login</a> terlebih dahulu untuk dapat mengomentari.
                 </div>
             @endif
+
             {{-- All Comments --}}
             <div class="row mb-5">
                 <div class="col-md-12">
@@ -81,7 +93,7 @@
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                 <li>
-                                                    <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editCommentModal{{ $comment['id'] }}"><i class="bi bi-pencil me-1"></i> Edit Comment</button></li>
+                                                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editCommentModal{{ $comment['id'] }}"><i class="bi bi-pencil me-1"></i> Edit Comment</button>
                                                 </li>
                                                 <hr class="dropdown-divider">
                                                 <li>
@@ -92,11 +104,11 @@
                                                     </form>
                                                 </li>
                                             </ul>
-                                            @endif
-                                        </div>
+                                        @endif
                                     </div>
                                 </div>
-                                <div class="card-body">
+                            </div>
+                            <div class="card-body">
                                 <div class="row">
                                     {{-- Profile Photo --}}
                                     <div class="col-md-2">
@@ -121,18 +133,91 @@
                 </div>
             </div>
 
-            {{-- Tag --}}
+        </div>
+    </div>
+    {{-- Comment --}}
+
+
+    {{-- Tag --}}
+    <div class="row justify-content-center mb-xl-5">
+        <div class="col-md-8">
             @foreach ($post->tag as $tag)
                 <a href="{{ route('welcome', ['tag' => $tag->name]) }}" class="text-decoration-none">
                 <p class="d-inline me-1">#{{ $tag->name }}</p>
                 </a>
-            @endforeach 
-
+            @endforeach
         </div>
     </div>
+    {{-- Tag --}}
+        
+    
+    {{-- More Posts --}}
+    <div class="row">
+        <h1 class="fw-bold">More Posts</h1><hr>
+    </div>
+    <div class="row justify-content-center">
+
+        <div class="col-md-5 me-5">
+            <div class="row">
+                @foreach ($pinnedPosts as $post)
+                    <div class="col-md-4">
+                        <a href="{{ route('post.show', $post->slug) }}" class="text-decoration-none text-dark">
+                            @if ($post->postImages)
+                                <img src="{{ asset('storage/postImages/' . $post->postImages) }}" class="w-100 mb-3 img-fluid card-img-top" alt="...">
+                            @else
+                                <img src="https://source.unsplash.com/400x300" class="w-100 mb-3 img-fluid card-img-top" alt="...">
+                            @endif
+                        </a>
+                    </div>
+                    <div class="col-md-8">
+                        <a href="{{ route('post.show', $post->slug) }}" class="text-decoration-none text-dark">
+                            <h3 class="fw-bold">{{ Str::limit($post->title, 20, '...') }}</h3>
+                        </a>
+                        <p>
+                            <small class="text-muted">By. <a href="" class="text-decoration-none me-2">{{ $post->created_by }}</a> ◉ {{ $post->created_at->diffForHumans() }}</small>
+                        </p>
+                        <a href="{{ route('post.show', $post->slug) }}" class="text-decoration-none text-dark">
+                            <p>{{ Str::limit(strip_tags($post->content), 80, '...') }}</p>
+                        </a>
+                    </div>
+                    <hr>
+                @endforeach
+            </div>
+        </div>
+        
+        <div class="col-md-5">
+            <div class="row">
+                @foreach ($posts as $post)
+                    <div class="col-md-4">
+                        <a href="{{ route('post.show', $post->slug) }}" class="text-decoration-none text-dark">
+                            @if ($post->postImages)
+                                <img src="{{ asset('storage/postImages/' . $post->postImages) }}" class="w-100 mb-3 img-fluid card-img-top" alt="...">
+                            @else
+                                <img src="https://source.unsplash.com/400x300" class="w-100 mb-3 img-fluid card-img-top" alt="...">
+                            @endif
+                        </a>
+                    </div>
+                    <div class="col-md-8">
+                        <a href="{{ route('post.show', $post->slug) }}" class="text-decoration-none text-dark">
+                            <h3 class="fw-bold">{{ Str::limit($post->title, 20, '...') }}</h3>
+                        </a>
+                        <p>
+                            <small class="text-muted">By. <a href="" class="text-decoration-none me-2">{{ $post->created_by }}</a> ◉ {{ $post->created_at->diffForHumans() }}</small>
+                        </p>
+                        <a href="{{ route('post.show', $post->slug) }}" class="text-decoration-none text-dark">
+                            <p>{{ Str::limit(strip_tags($post->content), 80, '...') }}</p>
+                        </a>
+                    </div>
+                    <hr>
+                @endforeach
+            </div>
+        </div>
+
+    </div>
+    {{-- More Posts --}}
+
+
 </div>
-
-
 
 
 

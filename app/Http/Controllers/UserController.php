@@ -47,14 +47,14 @@ class UserController extends Controller
 
     public function index()
     {
-        return view('user.index');
+        return view('dashboard.user.index');
     }
 
 
 
     public function create() 
     {
-        return view('user.create');
+        return view('dashboard.user.create');
     }
 
     
@@ -75,14 +75,14 @@ class UserController extends Controller
 
         $user = User::create($data);
 
-        return redirect('/user')->with('success', 'User Created Successfully!');
+        return redirect('/dashboard/user')->with('success', 'User Created Successfully!');
     }
 
 
     public function edit($id) 
     {
         $user = User::find($id);
-        return view('user.edit', compact('user'));
+        return view('dashboard.user.edit', compact('user'));
     }
 
     
@@ -115,16 +115,12 @@ class UserController extends Controller
         $findUser = User::find($user->id);
         $findUser->update($data);
 
-        return redirect('/user')->with('success', 'User Updated Successfully!');
+        return redirect('/dashboard/user')->with('success', 'User Updated Successfully!');
     }
 
     
     public function destroy(User $user)
     {
-        $path = public_path('storage/images/' . $user->images);
-        if (File::exists($path)) {
-            File::delete($path);
-        }
 
         $user->delete();
 

@@ -14,7 +14,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        return view('post.index');
+        return view('dashboard.post.index');
     }
 
 
@@ -68,7 +68,7 @@ class PostController extends Controller
 
     public function create()
     {
-        return view('post.create', [
+        return view('dashboard.post.create', [
             'categories' => Category::all(),
             'tags' => Tag::all()
         ]);
@@ -102,14 +102,14 @@ class PostController extends Controller
         $post->category()->attach($request->categories);
         $post->tag()->attach($request->tags);
 
-        return redirect('/post')->with('success', 'Post Created Successfully!');
+        return redirect('/dashboard/post')->with('success', 'Post Created Successfully!');
     }
 
 
     public function edit($id)
     {
         $post = Post::find($id);
-        return view('post.edit', compact('post'), [
+        return view('dashboard.post.edit', compact('post'), [
             'post' => $post,
             'categories' => Category::all(),
             'tags' => Tag::all()
@@ -144,7 +144,7 @@ class PostController extends Controller
         $post->tag()->sync($request->tags);
         $post->update($data);
 
-        return redirect('/post')->with('success', 'Post Updated Successfully!');
+        return redirect('/dashboard/post')->with('success', 'Post Updated Successfully!');
     }
 
 

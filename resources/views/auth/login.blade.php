@@ -86,6 +86,7 @@
 
 @push('scripts')    
     <script src="{{ asset('js/submit.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js" integrity="sha512-pyJx0j0pVcU6PCmDzVZukJmZm+Pw2m35Umkh6UuE6KjVXUc1FKdUDV7BBgRpZoyTZV7QgfDaHeghJ7Qllmr2WQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 @endpush
 
 

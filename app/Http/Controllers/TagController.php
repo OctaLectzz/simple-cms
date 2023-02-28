@@ -9,7 +9,7 @@ class TagController extends Controller
 {
     public function index()
     {
-        return view('tag.index');
+        return view('dashboard.tag.index');
     }
 
 
@@ -49,7 +49,7 @@ class TagController extends Controller
 
     public function create()
     {
-        return view('tag.create');
+        return view('dashboard.tag.create');
     }
 
 
@@ -71,14 +71,14 @@ class TagController extends Controller
 
         $tag = Tag::create($data);
 
-        return redirect('/tag')->with('success', 'Tag Created Successfully!');
+        return redirect('/dashboard/tag')->with('success', 'Tag Created Successfully!');
     }
 
 
     public function edit($id) 
     {
         $tag = Tag::find($id);
-        return view('tag.edit', compact('tag'));
+        return view('dashboard.tag.edit', compact('tag'));
     }
 
     
@@ -102,7 +102,7 @@ class TagController extends Controller
         $findTag = Tag::find($tag->id);
         $findTag->update($data);
 
-        return redirect('/tag')->with('success', 'Tag Updated Successfully!');
+        return redirect('/dashboard/tag')->with('success', 'Tag Updated Successfully!');
     }
 
     
