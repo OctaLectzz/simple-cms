@@ -40,7 +40,7 @@ Route::get('/posts/{post:slug}', [WelcomeController::class, 'show'])->name('post
 // Profile
 Route::get('/profile', function () {
     $user = auth()->user();
-    return view('welcome.profile', compact('user'));
+    return view('profile', compact('user'));
 })->name('profile')->middleware(['auth', 'verified']);
 Route::put('/profile', [WelcomeController::class, 'update'])->name('profile.update');
 Route::put('/profile/{id}', [WelcomeController::class, 'update'])->name('users.update');
@@ -59,7 +59,7 @@ Route::delete('/posts/{comment}', [CommentController::class, 'destroy'])->name('
 
 // Home //
 Auth::routes(['verify' =>true]);
-Route::get('/home', [HomeController::class, 'index'])->middleware('userStatus', 'Admin')->name('home');
+Route::get('/dashboard', [HomeController::class, 'index'])->middleware('userStatus', 'Admin')->name('home');
 
 // Edit Profile //
 Route::prefix('my-profile')->middleware(['auth', 'verified'])->group(function() {

@@ -9,7 +9,7 @@ class CommentController extends Controller
 {
     public function show(Comment $comment)
     {
-        return view('welcome.postshow', compact('comment'));
+        return view('postshow', compact('comment'));
     }
 
 
@@ -33,7 +33,7 @@ class CommentController extends Controller
     {
         $comments = Comment::latest()->get();
 
-        return view('welcome.postshow', ['comments' => $comments]);
+        return view('postshow', ['comments' => $comments]);
     }
 
 

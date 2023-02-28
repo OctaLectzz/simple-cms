@@ -37,7 +37,7 @@ class WelcomeController extends Controller
         }
 
         
-        return view('welcome.index', [
+        return view('welcome', [
             'categoriesName' => $categoriesName,
             'tagsName' => $tagsName,
             'userName' => $userName,
@@ -51,7 +51,7 @@ class WelcomeController extends Controller
     {
         $comments = $post->comments()->latest()->get();
 
-        return view('welcome.postshow', compact('post', 'comments'), [
+        return view('postshow', compact('post', 'comments'), [
             'posts' => Post::inRandomOrder()->where('is_pinned', false)->limit(5)->get(),
             'pinnedPosts' => Post::inRandomOrder()->where('is_pinned', true)->limit(5)->get()
         ]);

@@ -1,4 +1,4 @@
-@extends('welcome.layouts.app')
+@extends('layouts.app')
 
 
 @push('styles')
@@ -23,9 +23,9 @@
 
             {{-- Image --}}
             @if ($post->postImages)
-                <img src="{{ asset('storage/postImages/' . $post->postImages) }}" class="-block w-100 mb-3 img-fluid" alt="...">
+                <img src="{{ asset('storage/postImages/' . $post->postImages) }}" class="card-img-top w-100 mb-3 img-fluid" alt="...">
             @else
-                <img src="https://source.unsplash.com/1120x500" class="-block w-100 mb-3 img-fluid" alt="...">
+                <img src="https://source.unsplash.com/1120x500" class="card-img-top w-100 mb-3 img-fluid" alt="...">
             @endif
 
             {{-- Category --}}

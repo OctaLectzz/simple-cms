@@ -27,7 +27,7 @@
 
                {{-- Home --}}
                <li class="nav-item">
-                    <a href="{{ route('home') }}" class="nav-link {{ Request::is('home') ? 'active' : '' }}">
+                    <a href="{{ route('home') }}" class="nav-link {{ Request::is('dashboard', 'my-profile') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-home"></i>
                         <p>
                             Home

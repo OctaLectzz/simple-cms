@@ -38,7 +38,7 @@
     <div id="app">
 
         {{-- Navbar --}}
-        @include('welcome.layouts.navbar')
+        @include('layouts.navbar')
 
         {{-- Content --}}
         <main class="py-4">
@@ -46,7 +46,7 @@
         </main>
 
         {{-- Footer --}}
-        @include('welcome.layouts.footer')
+        @include('layouts.footer')
 
     </div>
       
