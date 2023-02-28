@@ -2,7 +2,7 @@
 
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('vendor/toastr/toastr.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/toastr/toastr.min.css') }}">
 @endpush
 
 
@@ -55,7 +55,7 @@
                                 <label for="content" class="form-label">Add comment</label>
                                 <textarea name="content" id="content" class="form-control"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-dark">Submit</button>
+                            <button type="submit" class="btn btn-dark" id="comment-create">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -85,18 +85,18 @@
                                                 </li>
                                                 <hr class="dropdown-divider">
                                                 <li>
-                                                    <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" class="d-inline">
+                                                    <form onsubmit="destroy(event)" action="{{ route('comments.destroy', $comment->id) }}" method="POST" class="d-inline">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="dropdown-item"><i class="bi bi-trash me-1"></i> Delete Comment</button>
                                                     </form>
                                                 </li>
                                             </ul>
-                                        @endif
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card-body">
+                                <div class="card-body">
                                 <div class="row">
                                     {{-- Profile Photo --}}
                                     <div class="col-md-2">
@@ -111,6 +111,7 @@
                                 </div>
                             </div>
                         </div>
+                        @include('includes.modal-delete')
                         @include('includes.modal-editcomment')
                     @empty
                         <div class="alert alert-secondary">
@@ -132,38 +133,18 @@
 </div>
 
 
-@include('includes.modal-delete')
+
 
 
 @push('scripts')
     <script>
-        var editCommentForm = $('form[action^="' + editCommentUrl + '"]');
-
-        editCommentForm.on('submit', function (event) {
-            event.preventDefault();
-            var commentId = editCommentForm.data('comment-id');
-            var commentContent = $('#editContent' + commentId).val();
-
-            $.ajax({
-                url: editCommentUrl + '/' + commentId,
-                method: 'PUT',
-                data: {
-                    content: commentContent,
-                    _token: $('meta[name="csrf-token"]').attr('content')
-                },
-            });
-        });
-
-
         const successMessage = "{{ session()->get('success') }}";
             if (successMessage) {
                 toastr.success(successMessage)
             }
     </script>
-
     <script src="{{ asset('vendor/toastr/toastr.min.js') }}"></script>
-    <script src="{{ asset('js/delete.js') }}"></script>
-    <script src="{{ asset('js/submit.js') }}"></script>
+    <script src="{{ asset('js/comment.js') }}"></script>
 @endpush
 
 

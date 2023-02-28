@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -68,6 +69,7 @@ class UserController extends Controller
                 'password' => 'required|string|min:8|confirmed',
             ]
         );
+        $data['password'] = Hash::make($data['password']);
         $data['role'] = 'Admin';
 
 

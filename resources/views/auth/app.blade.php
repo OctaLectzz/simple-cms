@@ -148,6 +148,8 @@
 
 
     
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/admin-lte/adminlte.min.js') }}"></script>
     @stack('scripts')
 </body>
 </html>

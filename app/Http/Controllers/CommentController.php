@@ -47,7 +47,7 @@ class CommentController extends Controller
 
         $comment->update($data);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Comment Updated Successfully');
     }
 
 
@@ -55,6 +55,8 @@ class CommentController extends Controller
     {
         $comment->delete();
 
-        return redirect()->back()->with('success', 'Comment has been Deleted!');
+        return response()->json([
+            'success' => 'Comment Deleted Successfully'
+        ]);
     }
 }

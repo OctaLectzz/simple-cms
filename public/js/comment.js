@@ -1,9 +1,45 @@
+// Delete Comment
+function destroy(event) {
+    event.preventDefault();
+
+    $('#delete-modal').modal('show');
+
+    $("#confirm-delete").on("click", function() {
+        const confirmButton = $(this);
+        confirmButton
+            .html('<div class="spinner-border spinner-border-sm" role="status"></div> Loading...')
+            .prop("disabled", true);
+
+        $.ajax({
+            url: event.target.action,
+            type: event.target.method,
+            data: $(event.target).serialize()
+        }).done(function (res) {
+            $('#delete-modal').modal('hide');
+            confirmButton.html("Delete", false).prop("disabled", false);
+            toastr.success(res.success);
+            location.reload();
+        }).fail(function (err) {
+            confirmButton.html("Delete", false).prop("disabled", false);
+            toastr.error(res.responseJSON.message);
+        });
+    })
+}
+
 $(document).ready(function() {
-    $('.btn-edit-comment').on('click', function() {
-        let commentId = $(this).data('comment-id');
-        let commentContent = $(this).siblings('p').text();
-        $('#editCommentForm').attr('action', '/comments/' + commentId);
-        $('#editCommentContent').val(commentContent);
-        $('#editCommentModal').modal('show');
+    $(".close-modal").click(function() {
+        $('#delete-modal').modal('hide');
+    })
+})
+
+
+
+
+// Submit Comment
+$(document).ready(function () {
+    $("form").submit(function () {
+        $('#comment-create')
+            .html('<div class="spinner-border spinner-border-sm" role="status"></div> Loading...')
+            .attr("disabled", true);
     });
 });

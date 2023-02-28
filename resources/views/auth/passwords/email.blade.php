@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('auth.app')
 
 @section('content')
 <div class="container">
@@ -33,7 +33,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-dark">
                                     {{ __('Send Password Reset Link') }}
                                 </button>
                             </div>
@@ -44,4 +44,11 @@
         </div>
     </div>
 </div>
+
+
+@push('scripts')
+    <script src="{{ asset('js/submit.js') }}"></script>
+@endpush
+
+
 @endsection
