@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->longText('content');
             $table->string('created_by');
+            $table->integer('views')->default(0);
             $table->timestamps();
         });
     }

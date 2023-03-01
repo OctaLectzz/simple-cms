@@ -36,11 +36,11 @@ class Post extends Model
             }); 
         });
         // User //
-        $query->when($filters['user'] ?? false, fn($query, $user) =>
-            $query->whereHas('user', fn($query)=>
-                $query->where('name', $user)
-            )
-        );
+        $query->when(isset($filters['user']), function ($query) use ($filters) { 
+            $query->whereHas('user', function ($query) use ($filters) { 
+                $query->where('id', $filters['user']); 
+            }); 
+        });
     }
 
 
@@ -58,6 +58,11 @@ class Post extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
 

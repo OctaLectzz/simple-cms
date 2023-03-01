@@ -52,17 +52,30 @@
     <div class="carousel-inner">
       @foreach ($pinnedPost as $post)
         <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-        
+          
+          {{-- View --}}
+          <small class="text-light fs-3 m-2 ms-3 position-absolute view">
+            <i class="fa fa-eye"></i> 
+            @if ($post->views >= 1000000)
+              {{ number_format($post->views / 1000000, 1) . 'm' }}
+            @elseif ($post->views >= 1000)
+              {{ number_format($post->views / 1000, 1) . 'k' }}
+            @else
+              {{ $post->views }}
+            @endif  
+          </small>
+          
           <a href="{{ route('post.show', $post->slug) }}">
             {{-- Image --}}
             @if ($post->postImages)
-              <img src="{{ asset('storage/postImages/' . $post->postImages) }}" class="d-block w-100 h-100" alt="..." style="filter: brightness(60%)">
+              <img src="{{ asset('storage/postImages/' . $post->postImages) }}" class="d-block w-100 h-100" alt="{{ $post->postImages }}" style="filter: brightness(60%)">
             @else
-              <img src="https://source.unsplash.com/1120x500" class="d-block w-100 h-100" alt="..." style="filter: brightness(60%)">
+              <img src="https://source.unsplash.com/1120x500" class="d-block w-100 h-100" alt="Unsplash" style="filter: brightness(60%)">
             @endif
           </a>
-
+          
           <div class="carousel-caption d-none d-md-block">
+
             {{-- Title --}}
             <h4 class="fw-bold">{{ $post->title }}</h4>
 
@@ -113,9 +126,9 @@
             {{-- Image --}}
             <a href="{{ route('post.show', $post->slug) }}">
               @if ($post->postImages)
-                <img src="{{ asset('storage/postImages/' . $post->postImages) }}" class="card-img-top" alt="">
+                <img src="{{ asset('storage/postImages/' . $post->postImages) }}" class="card-img-top" alt="{{ $post->postImages }}">
               @else
-                <img src="https://source.unsplash.com/500x300" class="card-img-top" alt="">
+                <img src="https://source.unsplash.com/500x300" class="card-img-top" alt="Unsplash">
               @endif
             </a>
 
@@ -126,6 +139,18 @@
                   <p class="d-inline-block px-2 text-info" style="border: 1px solid; border-radius: 20%;">{{ $category->name }}</p>
                 </a>
               @endforeach
+
+              {{-- View --}}
+              <small class="text-muted float-end">
+                @if ($post->views >= 1000000)
+                  {{ number_format($post->views / 1000000, 1) . 'm' }}
+                @elseif ($post->views >= 1000)
+                  {{ number_format($post->views / 1000, 1) . 'k' }}
+                @else
+                  {{ $post->views }}
+                @endif
+                <i class="fa fa-eye"></i>
+              </small>
 
               {{-- Title --}}
               <a href="{{ route('post.show', $post->slug) }}" class="text-dark text-decoration-none">

@@ -26,7 +26,8 @@ class PostFactory extends Factory
                         ->map(fn($p) => "<p>$p</p>")
                         ->implode(''),
             'created_by' => $this->faker->name(),
-            'postImages' => basename(collect(glob(public_path('storage/postImages/*')))->random())
+            'postImages' => basename(collect(glob(public_path('storage/postImages/*')))->random()),
+            'views' => mt_rand(0, 8000000)
         ];
     }
 

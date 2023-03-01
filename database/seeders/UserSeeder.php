@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        // My Profile //
+        // My Profile Create //
         User::create([
             'images'            => 'Benedetta Profile.jpg',
             'name'              => 'Octavyan Putra Ramadhan',
@@ -31,9 +31,7 @@ class UserSeeder extends Seeder
         // User Random Create //
         User::factory(100)->create();
 
-        // SuperAdmin Role //
-        User::factory(1)->superAdmin()->create([
-            'email' => 'admin@test.com',
-        ]);
+        // SuperAdmin Role Create //
+        User::factory(1)->superAdmin()->create();
     }
 }

@@ -1,6 +1,10 @@
 .card {
     overflow: hidden;
 }
+.view {
+    z-index: 10;
+}
+
 
 .card-img-top {
     transition: all 0.4s ease;
@@ -17,6 +21,7 @@
 .card-hover:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
+
 
 .fab {
     transition: all 0.3s ease;

@@ -32,7 +32,7 @@ class PostController extends Controller
                 if ($post->is_pinned == 0) {
                     return '';
                 } else {
-                    return '<i class="bi bi-pin-angle-fill"></i>';
+                    return '<i class="bi bi-pin-angle-fill ms-2"></i>';
                 }
             })
             ->addColumn('action', function ($post) {
@@ -59,6 +59,9 @@ class PostController extends Controller
             // })
             ->editColumn('created_by', function ($post) {
                 return auth()->user()->name;
+            })
+            ->editColumn('views', function ($post) {
+                return '<div class="text-center me-4">'. $post->views .'</div>';
             })
             ->addIndexColumn()
             ->escapeColumns(['action'])

@@ -22,7 +22,8 @@
                         <thead class="table table-dark table-hover">
                             <tr>
                                 <th>No</th>
-                                <th>Pin</th>
+                                <th><i class="fa fa-thumbtack"></i></th>
+                                <th><i class="fa fa-eye"></i></th>
                                 <th>Title</th>
                                 <th>slug</th>
                                 <th>Created By</th>
@@ -63,6 +64,7 @@
                     columns: [
                         { data: 'DT_RowIndex', sortable: false, searchable: false },
                         { data: 'is_pinned', sortable: false, searchable: false },
+                        { data: "views" },
                         { data: 'title' },
                         { data: 'slug' },
                         { data: 'created_by' },

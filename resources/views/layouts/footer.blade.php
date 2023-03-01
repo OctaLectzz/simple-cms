@@ -21,16 +21,6 @@
             data-mdb-ripple-color="dark"
             ><i class="fab fa-twitter"></i
             ></a>
-    
-            <!-- Google -->
-            <a
-            class="btn btn-link btn-floating btn-lg text-dark m-1"
-            href="https://mail.google.com/mail/u/0/#inbox?compose=CllgCJTNHCbJZmxsVhLjNPqHqhSndTFnDWVfKSHqFBSbHNhBvdrPszmLrqZLlkwCFhFSWBdbZlq"
-            role="button"
-            target="_blank"
-            data-mdb-ripple-color="dark"
-            ><i class="fab fa-google"></i
-                ></a>
                 
             <!-- Instagram -->
             <a

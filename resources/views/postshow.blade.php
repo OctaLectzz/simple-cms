@@ -18,14 +18,17 @@
             {{-- Title --}}
             <h1 class="mb-3">{{ $post->title }}</h1>
 
+            {{-- View --}}
+            <small class="text-muted fs-5 float-end m-3">{{ $post->views }} <i class="fa fa-eye"></i></small>
+
             {{-- Created By --}}
             <p>By. <a href="/posts?user={{ $post->created_by }}" class="text-decoration-none">{{ $post->created_by }}</a></p>
 
             {{-- Image --}}
             @if ($post->postImages)
-                <img src="{{ asset('storage/postImages/' . $post->postImages) }}" class="card-img-top w-100 mb-3 img-fluid" alt="...">
+                <img src="{{ asset('storage/postImages/' . $post->postImages) }}" class="card-img-top w-100 mb-3 img-fluid" alt="{{ $post->postImages }}">
             @else
-                <img src="https://source.unsplash.com/1120x500" class="card-img-top w-100 mb-3 img-fluid" alt="...">
+                <img src="https://source.unsplash.com/1120x500" class="card-img-top w-100 mb-3 img-fluid" alt="Unsplash">
             @endif
 
             {{-- Category --}}
@@ -139,7 +142,7 @@
 
 
     {{-- Tag --}}
-    <div class="row justify-content-center mb-xl-5">
+    <div class="row justify-content-center mb-5">
         <div class="col-md-8">
             @foreach ($post->tag as $tag)
                 <a href="{{ route('welcome', ['tag' => $tag->name]) }}" class="text-decoration-none">
@@ -152,14 +155,14 @@
         
     
     {{-- More Posts --}}
-    <div class="row">
+    <div class="row mt-6">
         <h1 class="fw-bold">More Posts</h1><hr>
     </div>
     <div class="row justify-content-center">
 
-        <div class="col-md-5 me-5">
-            <div class="row">
-                @foreach ($pinnedPosts as $post)
+        @foreach ($posts as $post)
+            <div class="col-md-5 m-auto">
+                <div class="row">
                     <div class="col-md-4">
                         <a href="{{ route('post.show', $post->slug) }}" class="text-decoration-none text-dark">
                             @if ($post->postImages)
@@ -181,37 +184,9 @@
                         </a>
                     </div>
                     <hr>
-                @endforeach
+                </div>
             </div>
-        </div>
-        
-        <div class="col-md-5">
-            <div class="row">
-                @foreach ($posts as $post)
-                    <div class="col-md-4">
-                        <a href="{{ route('post.show', $post->slug) }}" class="text-decoration-none text-dark">
-                            @if ($post->postImages)
-                                <img src="{{ asset('storage/postImages/' . $post->postImages) }}" class="w-100 mb-3 img-fluid card-img-top" alt="...">
-                            @else
-                                <img src="https://source.unsplash.com/400x300" class="w-100 mb-3 img-fluid card-img-top" alt="...">
-                            @endif
-                        </a>
-                    </div>
-                    <div class="col-md-8">
-                        <a href="{{ route('post.show', $post->slug) }}" class="text-decoration-none text-dark">
-                            <h3 class="fw-bold">{{ Str::limit($post->title, 20, '...') }}</h3>
-                        </a>
-                        <p>
-                            <small class="text-muted">By. <a href="" class="text-decoration-none me-2">{{ $post->created_by }}</a> ◉ {{ $post->created_at->diffForHumans() }}</small>
-                        </p>
-                        <a href="{{ route('post.show', $post->slug) }}" class="text-decoration-none text-dark">
-                            <p>{{ Str::limit(strip_tags($post->content), 80, '...') }}</p>
-                        </a>
-                    </div>
-                    <hr>
-                @endforeach
-            </div>
-        </div>
+        @endforeach
 
     </div>
     {{-- More Posts --}}

@@ -17,7 +17,7 @@ class AllUsersController extends Controller
      */
     public function index()
     {
-        return view('users.index', [
+        return view('dashboard.oldTableUsers.index', [
             'users' => User::all()
         ]);
     }
@@ -83,16 +83,10 @@ class AllUsersController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        $item = User::findOrFail($id);
-        $path = public_path('storage/public/' . $item->images);
-        if(File::exists($path))
-        {
-            File::delete();
-        }
-        $item->delete();
+        $user->delete();
 
-        return redirect('/users')->with('success', 'User has been Deleted!');
+        return redirect('/dashboard/users')->with('success', 'User has been Deleted!');
     }
 }

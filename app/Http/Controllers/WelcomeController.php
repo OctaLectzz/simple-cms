@@ -38,22 +38,33 @@ class WelcomeController extends Controller
 
         
         return view('welcome', [
+            'user' => auth()->user(),
             'categoriesName' => $categoriesName,
             'tagsName' => $tagsName,
             'userName' => $userName,
-            'posts' => Post::latest()->where('is_pinned', false)->filter(request(['tag', 'category', 'user']))->paginate(6)->WithQueryString(),
-            'pinnedPost' => Post::latest()->where('is_pinned', true)->filter(request(['tag', 'category', 'user']))->get()
+            'posts' => Post::latest()
+                            ->where('is_pinned', false)
+                            ->filter(request(['tag', 'category', 'user']))
+                            ->paginate(6)
+                            ->WithQueryString(),
+            'pinnedPost' => Post::latest()
+                            ->where('is_pinned', true)
+                            ->filter(request(['tag', 'category', 'user']))
+                            ->get()
         ]);
     }
 
 
-    public function show(Post $post)
+    public function show(Request $request, Post $post)
     {
         $comments = $post->comments()->latest()->get();
+        if ($post->slug == $request->route('post.show', $post->slug)) {
+            $post->views++;
+            $post->save();
+        }
 
         return view('postshow', compact('post', 'comments'), [
-            'posts' => Post::inRandomOrder()->where('is_pinned', false)->limit(5)->get(),
-            'pinnedPosts' => Post::inRandomOrder()->where('is_pinned', true)->limit(5)->get()
+            'posts' => Post::inRandomOrder()->limit(10)->get()
         ]);
     }
 
