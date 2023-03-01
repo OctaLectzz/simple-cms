@@ -166,19 +166,33 @@
                     <div class="col-md-4">
                         <a href="{{ route('post.show', $post->slug) }}" class="text-decoration-none text-dark">
                             @if ($post->postImages)
-                                <img src="{{ asset('storage/postImages/' . $post->postImages) }}" class="w-100 mb-3 img-fluid card-img-top" alt="...">
+                                <img src="{{ asset('storage/postImages/' . $post->postImages) }}" class="w-100 mt-3 mb-2 img-fluid card-img-top" alt="...">
                             @else
-                                <img src="https://source.unsplash.com/400x300" class="w-100 mb-3 img-fluid card-img-top" alt="...">
+                                <img src="https://source.unsplash.com/400x300" class="w-100 mt-3 mb-2 img-fluid card-img-top" alt="...">
                             @endif
                         </a>
+
+                        <small class="text-muted">
+                            <i class="fa fa-eye"></i> 
+                            @if ($post->views >= 1000000)
+                            {{ number_format($post->views / 1000000, 1) . 'm' }}
+                            @elseif ($post->views >= 1000)
+                            {{ number_format($post->views / 1000, 1) . 'k' }}
+                            @else
+                            {{ $post->views }}
+                            @endif  
+                        </small>
                     </div>
+
                     <div class="col-md-8">
                         <a href="{{ route('post.show', $post->slug) }}" class="text-decoration-none text-dark">
                             <h3 class="fw-bold">{{ Str::limit($post->title, 20, '...') }}</h3>
                         </a>
+
                         <p>
                             <small class="text-muted">By. <a href="" class="text-decoration-none me-2">{{ $post->created_by }}</a> ◉ {{ $post->created_at->diffForHumans() }}</small>
                         </p>
+
                         <a href="{{ route('post.show', $post->slug) }}" class="text-decoration-none text-dark">
                             <p>{{ Str::limit(strip_tags($post->content), 80, '...') }}</p>
                         </a>

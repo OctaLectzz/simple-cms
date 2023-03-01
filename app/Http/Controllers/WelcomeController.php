@@ -70,7 +70,7 @@ class WelcomeController extends Controller
 
 
     
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         // Validate Request //
         $data = $request->validate(
