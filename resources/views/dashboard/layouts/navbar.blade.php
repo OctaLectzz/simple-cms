@@ -1,4 +1,4 @@
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+<nav class="main-header navbar navbar-expand navbar-white navbar-light shadow-sm">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
@@ -24,6 +24,7 @@
         <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false" v-pre>
+                <img src="{{ asset('storage/images/' . auth()->user()->images) }}" alt="{{ auth()->user()->images }}" class="rounded rounded-circle mb-sm-1" width="30" style="border: 1px rgb(150, 150, 150) solid">
                 {{ Auth::user()->name }}
             </a>
 
@@ -35,7 +36,7 @@
                     <div class="card m-2 pt-2">
                         <div class="justify-content-center d-flex mb-2">
                             <div class="image">
-                                <img src="{{ asset('storage/images/' . Auth::user()->images) }}" class="img-circle elevation-2" alt="User Image" width="40" height="40">
+                                <img src="{{ asset('storage/images/' . auth()->user()->images) }}" class="img-circle elevation-2" alt="User Image" width="40" height="40">
                             </div>
                         </div>
                         <div class="info px-2">

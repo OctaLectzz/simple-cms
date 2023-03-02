@@ -43,3 +43,19 @@ $(document).ready(function () {
             .attr("disabled", true);
     });
 });
+
+
+$('#add-comment').submit(function(event) {
+    // Menghentikan submit form standar
+    event.preventDefault();
+  
+    // Mengirim permintaan AJAX
+    $.ajax({
+        url: $(this).attr('action'),
+        method: $(this).attr('method'),
+        data: $(this).serialize(),
+        success: function(response) {
+            location.reload();
+        }
+    });
+});

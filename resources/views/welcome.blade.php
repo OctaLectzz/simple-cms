@@ -119,6 +119,7 @@
           All Posts
         @endif
       </h1><hr>
+
       @foreach ($posts as $post)
         <div class="col-md-4 mb-3">
           <div class="card card-hover">
@@ -153,7 +154,7 @@
               </small>
 
               {{-- Title --}}
-              <a href="{{ route('post.show', $post->slug) }}" class="text-dark text-decoration-none">
+              <a href="{{ route('post.show', $post->slug) }}" class="text-decoration-none text-dark">
                 <h5 class="card-title">{{ Str::limit($post->title, 35, '..') }}</h5>
               </a>
 
@@ -170,9 +171,11 @@
               {{-- Read More --}}
               <a href="{{ route('post.show', $post->slug) }}" class="btn btn-outline-dark mt-4">Read More</a>
             </div>
+
           </div>
         </div>
       @endforeach
+
     </div>
   </div>
   {{-- More Posts --}}
@@ -181,7 +184,7 @@
   {{-- Pagination --}}
   @if ($post->is_pinned === 0)
     <nav aria-label="Page navigation example">
-      <ul class="pagination justify-content-end">
+      <ul class="pagination pagination-dark justify-content-end">
         {{ $posts->links() }}
       </ul>
     </nav>

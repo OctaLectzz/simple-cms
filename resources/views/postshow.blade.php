@@ -62,7 +62,7 @@
             @if (auth()->check())
                 <div class="card my-3 mb-5">
                     <div class="card-body">
-                        <form action="{{ route('comments.store') }}" method="POST">
+                        <form id="add-comment" action="{{ route('comments.store') }}" method="POST">
                             @csrf
                             <input type="hidden" name="post_id" value="{{ $post->id }}">
                             <div class="mb-3">
@@ -175,18 +175,18 @@
                         <small class="text-muted">
                             <i class="fa fa-eye"></i> 
                             @if ($post->views >= 1000000)
-                            {{ number_format($post->views / 1000000, 1) . 'm' }}
+                                {{ number_format($post->views / 1000000, 1) . 'm' }}
                             @elseif ($post->views >= 1000)
-                            {{ number_format($post->views / 1000, 1) . 'k' }}
+                                {{ number_format($post->views / 1000, 1) . 'k' }}
                             @else
-                            {{ $post->views }}
+                                {{ $post->views }}
                             @endif  
                         </small>
                     </div>
 
                     <div class="col-md-8">
                         <a href="{{ route('post.show', $post->slug) }}" class="text-decoration-none text-dark">
-                            <h3 class="fw-bold">{{ Str::limit($post->title, 20, '...') }}</h3>
+                            <h3 class="fw-bold card-title">{{ Str::limit($post->title, 20, '...') }}</h3>
                         </a>
 
                         <p>
@@ -194,7 +194,7 @@
                         </p>
 
                         <a href="{{ route('post.show', $post->slug) }}" class="text-decoration-none text-dark">
-                            <p>{{ Str::limit(strip_tags($post->content), 80, '...') }}</p>
+                            <p class="card-title">{{ Str::limit(strip_tags($post->content), 80, '...') }}</p>
                         </a>
                     </div>
                     <hr>

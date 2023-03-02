@@ -1,18 +1,17 @@
 <?php
 
-use App\Models\User;
-use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController;
+use Illuminate\Support\Facades\Request;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\AllUsersController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MyProfileController;
-use App\Http\Controllers\CommentController;
 
 
 
@@ -31,13 +30,13 @@ use App\Http\Controllers\CommentController;
 
 
 
-// -----welcome----- //
+// -----Welcome----- //
 
 // Home //
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 Route::get('/posts/{post:slug}', [WelcomeController::class, 'show'])->name('post.show');
 
-// Profile
+// Profile //
 Route::get('/profile', function () {
     $user = auth()->user();
     return view('profile', compact('user'));
@@ -50,7 +49,7 @@ Route::post('/comments', [CommentController::class, 'store'])->name('comments.st
 Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
 Route::delete('/posts/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
-// -----welcome----- //
+// -----Welcome----- //
 
 
 
@@ -129,3 +128,9 @@ Route::prefix('dashboard')->middleware(['auth', 'verified', 'Admin', 'userStatus
 });
 
 // -----Dashboard----- //
+
+
+Route::post('/dark-mode', function(Request $request) {
+    session(['dark-mode' => $request->input('darkMode')]);
+    return response()->json(['status' => 'success']);
+});

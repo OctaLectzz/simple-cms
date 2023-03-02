@@ -86,8 +86,7 @@
                                         type="text"
                                         class="form-control @error('alamat') is-invalid @enderror"
                                         name="alamat"
-                                        >{{ $user->alamat }}
-                                    </textarea>
+                                    >{{ $user->alamat }}</textarea>
                                     @error('alamat')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

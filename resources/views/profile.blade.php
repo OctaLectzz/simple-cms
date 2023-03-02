@@ -32,8 +32,8 @@
             </div>
             
             {{-- Profile Edit --}}
-            <div class="mt-2 position-absolute top-50 end-0">
-                <a href="#" class="btnn btn btn-large btn-success rounded-5" data-bs-toggle="modal" data-bs-target="#editModal{{ $user->id }}"><i class="bi bi-pencil"></i></a>
+            <div class="mt-2 d-flex justify-content-end btnn">
+                <a href="#" class="btn btn-large btn-success rounded-5" data-bs-toggle="modal" data-bs-target="#editModal{{ $user->id }}"><i class="bi bi-pencil"></i></a>
             </div>
 
             {{-- Profile Photo --}}

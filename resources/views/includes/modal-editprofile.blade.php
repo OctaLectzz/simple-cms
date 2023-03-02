@@ -100,8 +100,7 @@
                         type="text"
                         class="form-control @error('alamat') is-invalid @enderror"
                         name="alamat"
-                        >{{ auth()->user()->alamat }}
-                    </textarea>
+                    >{{ auth()->user()->alamat }}</textarea>
                     @error('alamat')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -115,11 +114,11 @@
                 <label for="images" class="col-md-4 col-form-label text-md-end">{{ __('Foto Profile') }}</label>
                 <div class="col-md-6">
                     <div class="input-group">
-                        <div class="card p-2 mb-2 mx-3">
+                        <div class="card p-1 mb-2 mx-3">
                             @if (auth()->user()->images)
-                                <img id="profile" src="{{ asset('storage/images/' . auth()->user()->images) }}" class="img-circle elevation-2" width="50" height="50" style="border: 3px white solid">
+                                <img id="profile" src="{{ asset('storage/images/' . auth()->user()->images) }}" class="rounded rounded-circle" width="50" height="50" style="border: 3px white solid">
                             @else
-                                <img id="profile" src="{{ asset('vendor/admin-lte/img/user-profile-default.jpg') }}" class="img-circle elevation-2" alt="User Image" width="50" height="50" style="border: 3px white solid">
+                                <img id="profile" src="{{ asset('vendor/admin-lte/img/user-profile-default.jpg') }}" class="rounded rounded-circle" alt="User Image" width="50" height="50">
                             @endif
                         </div>
                         <div class="mt-2">

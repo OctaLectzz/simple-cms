@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/post.css') }}">
     <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/darkmode.css') }}">
 
     <!-- Bootstrap CSS -->
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
@@ -34,7 +35,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
     @stack('styles')
 </head>
-<body>
+<body id="theme" class="@if (session('dark-mode')) dark-mode @endif">
     <div id="app">
 
         {{-- Navbar --}}
@@ -52,7 +53,7 @@
       
       
       
-      
+      <script src="{{ asset('js/darkmode.js') }}"></script>
       <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
       <script src="{{ asset('vendor/admin-lte/adminlte.min.js') }}"></script>
     @stack('scripts')

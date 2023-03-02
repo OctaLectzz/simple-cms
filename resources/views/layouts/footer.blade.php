@@ -1,4 +1,4 @@
-<footer class="text-center text-white" style="background-color: #f1f1f1;">
+<footer class="text-center text-white" style="background-color: rgba(12, 12, 12, 0.562)">
     <div class="container pt-4">
         <section class="mb-4">
 
@@ -56,7 +56,7 @@
     </div>
 
     <!-- Copyright -->
-    <div class="text-center text-secondary p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    <div class="text-center text-secondary p-3" style="background-color: rgb(58, 58, 58)">
         &copy; 2023 Copyright:
         <a class="text-secondary text-decoration-none" href="https://octavyan-portfolio.netlify.app/" target="_blank">OctaLectzz</a>
     </div>

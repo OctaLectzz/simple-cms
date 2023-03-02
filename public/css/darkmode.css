@@ -1,0 +1,56 @@
+/* Dark mode */
+.dark-mode body {
+  background-color: black;
+  color: #f1f1f1;
+}
+
+
+/* Card */
+.dark-mode .card {
+  background-color: #000;
+  border: 1px #2e2e2e solid;
+  color: #f1f1f1;
+}
+
+
+.dark-mode .button {
+  color: white;
+}
+
+
+/* Dark mode pagination */
+.dark-mode .pagination .page-item .page-link {
+  color: #f1f1f1;
+  background-color: #000000;
+  border-color: #444;
+}
+.dark-mode .pagination .page-item.active .page-link {
+  background-color: #aaaaaa;
+  color: #000;
+}
+.dark-mode .pagination .page-item.disabled .page-link {
+  color: #777;
+}
+
+
+/* Buttons in dark mode */
+.dark-mode .btn-outline-dark {
+  background-color: #080808;
+  color: white;
+  border-color: #fff;
+}
+.dark-mode .btn-dark {
+  background-color: #080808;
+  color: white;
+  border-color: #fff;
+}
+
+
+/* Post Dark mode */
+.dark-mode .card-title {
+  color: #fff;
+}
+.dark-mode textarea {
+  background-color: #2e2e2e;
+  color: #f1f1f1;
+}
