@@ -130,6 +130,8 @@ Route::prefix('dashboard')->middleware(['auth', 'verified', 'Admin', 'userStatus
 // -----Dashboard----- //
 
 
+
+
 Route::post('/dark-mode', function(Request $request) {
     session(['dark-mode' => $request->input('darkMode')]);
     return response()->json(['status' => 'success']);

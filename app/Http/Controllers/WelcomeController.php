@@ -14,6 +14,7 @@ class WelcomeController extends Controller
 {
     public function index()
     {
+        // Short
         $categoriesName = null;
         $tagsName = null;
         $userName = null;
@@ -36,28 +37,31 @@ class WelcomeController extends Controller
             }
         }
 
+        // View
+        $posts      = Post::latest()
+                        ->where('is_pinned', false)
+                        ->filter(request(['tag', 'category', 'user']))
+                        ->paginate(6)
+                        ->WithQueryString();
+        $pinnedPost = Post::latest()
+                        ->where('is_pinned', true)
+                        ->filter(request(['tag', 'category', 'user']))
+                        ->get();
+
         
-        return view('welcome', [
+        return view('welcome', compact('posts', 'pinnedPost'), [
             'user' => auth()->user(),
             'categoriesName' => $categoriesName,
             'tagsName' => $tagsName,
-            'userName' => $userName,
-            'posts' => Post::latest()
-                            ->where('is_pinned', false)
-                            ->filter(request(['tag', 'category', 'user']))
-                            ->paginate(6)
-                            ->WithQueryString(),
-            'pinnedPost' => Post::latest()
-                            ->where('is_pinned', true)
-                            ->filter(request(['tag', 'category', 'user']))
-                            ->get()
+            'userName' => $userName
         ]);
     }
 
 
     public function show(Request $request, Post $post)
     {
-        $comments = $post->comments()->latest()->get();
+        $comments = Comment::latest()->get();
+
         if ($post->slug == $request->route('post.show', $post->slug)) {
             $post->views++;
             $post->save();

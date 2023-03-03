@@ -38,13 +38,13 @@
             <ul class="navbar-nav d-flex">
                 @guest
                     @if (Route::has('login'))
-                        <li class="nav-item">
+                        <li class="nav-item ms-5">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li> 
                     @endif
 
                     @if (Route::has('register'))
-                        <li class="nav-item">
+                        <li class="nav-item ms-2">
                             <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
                     @endif

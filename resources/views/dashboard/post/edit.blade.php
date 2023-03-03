@@ -22,11 +22,11 @@
 
                                 <div class="col-md-6"> 
                                     <div class="btn-group" role="group" aria-label="Basic radio toggle button group"> 
-                                        <input type="radio" class="btn-check" name="is_pinned" id="is_pinned1" value="1" {{ $post->is_pinned == 1 ? 'checked' : '' }} autocomplete="off"> 
+                                        <input type="radio" class="btn-check" name="is_pinned" id="is_pinned1" value="1" {{ old('is_pinned', $post->is_pinned) == 1 ? 'checked' : '' }} {{ $post->is_pinned == 1 ? 'checked' : '' }} autocomplete="off"> 
                                         <label class="btn btn-outline-success me-2" for="is_pinned1">Pinned</label> 
 
                                         <input type="radio" class="btn-check" name="is_pinned" id="is_pinned2" 
-                                        value="0" {{ $post->is_pinned == 0 ? 'checked' : '' }} autocomplete="off"> 
+                                        value="0" {{ old('is_pinned', $post->is_pinned) == 0 ? 'checked' : '' }} {{ $post->is_pinned == 0 ? 'checked' : '' }} autocomplete="off"> 
                                         <label class="btn btn-outline-danger" for="is_pinned2">No Pin</label>
                                     </div> 
                                 </div>
@@ -106,7 +106,7 @@
                                                 name="categories[]" 
                                                 class="btn-check" 
                                                 id="categories_{{ $category->id }}" 
-                                                value="{{ old('category', $category->id) }}" 
+                                                value="{{ old('category', $post->category) }}" 
                                                 {{ in_array($category->id, $post->category->pluck('id')->toArray()) ? 'checked' : '' }}
                                                 autocomplete="off" 
                                             >
@@ -130,7 +130,7 @@
                                                 type="checkbox" 
                                                 name="tags[]" 
                                                 id="tag_{{ $tag->id }}" 
-                                                value="{{ old('tag',$tag->id ) }}" 
+                                                value="{{ old('tag', $tag->id ) }}" 
                                                 name="tag" 
                                                 {{ in_array($tag->id, $post->tag->pluck('id')->toArray()) ? 'checked' : '' }}
                                             >
@@ -152,7 +152,7 @@
                                             <input
                                                 name="postImages"
                                                 class="form-control @error('postImages') is-invalid @enderror"
-                                                value="{{ old('postImages', auth()->user()->postImages) }}"
+                                                value="{{ old('postImages', $post->postImages) }}"
                                                 type="file"
                                                 accept="postImages/*"
                                                 id="formFile"

@@ -24,7 +24,7 @@
                                         type="text"
                                         class="form-control @error('name') is-invalid @enderror"
                                         name="name"
-                                        value="{{ $tag->name }}"
+                                        value="{{ old('name', $tag->name) }}"
                                         autocomplete="off"
                                         autofocus
                                     >

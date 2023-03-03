@@ -24,7 +24,7 @@
                                         type="text"
                                         class="form-control @error('name') is-invalid @enderror"
                                         name="name"
-                                        value="{{ $user->name }}"
+                                        value="{{ old('name', $user->name) }}"
                                     >
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
@@ -43,7 +43,7 @@
                                         type="date"
                                         class="form-control @error('tanggal_lahir') is-invalid @enderror"
                                         name="tanggal_lahir"
-                                        value="{{ $user->tanggal_lahir }}"
+                                        value="{{ old('tanggal_lahir', $user->tanggal_lahir) }}"
                                     >
                                     @error('tanggal_lahir')
                                         <span class="invalid-feedback" role="alert">
@@ -86,7 +86,7 @@
                                         type="text"
                                         class="form-control @error('alamat') is-invalid @enderror"
                                         name="alamat"
-                                    >{{ $user->alamat }}</textarea>
+                                    >{{ old('alamat', $user->alamat) }}</textarea>
                                     @error('alamat')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

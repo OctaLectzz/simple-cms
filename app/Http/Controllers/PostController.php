@@ -40,9 +40,9 @@ class PostController extends Controller
                     <div class="d-flex">
                         <form onsubmit="destroy(event)" action="' . route('post.destroy', $post->id) . '" method="POST">
                         <input type="hidden" name="_token" value="'. @csrf_token() .'" enctype="multipart/form-data">
-                        <a href="' . route('post.edit', $post->id) . '" class="btn btn-sm btn-warning rounded"><i class="fa fa-edit"></i></a>
+                        <a href="' . route('post.edit', $post->id) . '" class="btn btn-sm btn-warning rounded mb-1"><i class="fa fa-edit"></i></a>
                         <input type="hidden" name="_method" value="DELETE">
-                            <button class="btn btn-sm btn-danger mr-2">
+                            <button class="btn btn-sm btn-danger mr-2 mb-1">
                                 <i class="fa fa-trash"></i>
                             </button>
                             </td>
@@ -69,9 +69,9 @@ class PostController extends Controller
     }
 
 
-    public function create()
+    public function create(Post $post)
     {
-        return view('dashboard.post.create', [
+        return view('dashboard.post.create', compact('post'), [
             'categories' => Category::all(),
             'tags' => Tag::all()
         ]);
@@ -153,10 +153,10 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        $path = public_path('storage/postImages' . $post->postImages);
-        if (File::exists($path)) {
-            File::delete($path);
-        }
+        // $path = public_path('storage/postImages' . $post->postImages);
+        // if (File::exists($path)) {
+        //     File::delete($path);
+        // }
 
         $post->category()->detach();
         $post->tag()->detach();

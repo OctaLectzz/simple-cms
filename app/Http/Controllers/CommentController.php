@@ -7,12 +7,6 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    public function show(Comment $comment)
-    {
-        return view('postshow', compact('comment'));
-    }
-
-
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -26,14 +20,6 @@ class CommentController extends Controller
         $comment = Comment::create($data);
     
         return redirect()->back()->with('success', 'Comment Created Successfully!');
-    }
-
-
-    public function index()
-    {
-        $comments = Comment::latest()->get();
-
-        return view('postshow', ['comments' => $comments]);
     }
 
 

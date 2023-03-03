@@ -28,9 +28,9 @@ class CategoryController extends Controller
                     <div class="d-flex">
                         <form onsubmit="destroy(event)" action="' . route('category.destroy', $category->id) . '" method="POST">
                         <input type="hidden" name="_token" value="'. @csrf_token() .'" enctype="multipart/form-data">
-                        <a href="' . route('category.edit', $category->id) . '" class="btn btn-sm btn-warning rounded"><i class="fa fa-edit"></i></a>
+                        <a href="' . route('category.edit', $category->id) . '" class="btn btn-sm btn-warning rounded mb-1"><i class="fa fa-edit"></i></a>
                         <input type="hidden" name="_method" value="DELETE">
-                            <button class="btn btn-sm btn-danger mr-2">
+                            <button class="btn btn-sm btn-danger mr-2 mb-1">
                                 <i class="fa fa-trash"></i>
                             </button>
                             </td>
