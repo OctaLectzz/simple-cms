@@ -19,7 +19,17 @@
             <h1 class="mb-3">{{ $post->title }}</h1>
 
             {{-- View --}}
-            <small class="text-muted fs-5 float-end m-3">{{ $post->views }} <i class="fa fa-eye"></i></small>
+            <small class="text-muted fs-5 float-end m-3">
+                <i class="fa fa-eye"></i> 
+                @if ($post->views >= 1000000)
+                  {{ number_format($post->views / 1000000, 2) . 'm' }}
+                @elseif ($post->views >= 1000)
+                  {{ number_format($post->views / 1000, 2) . 'k' }}
+                @else
+                  {{ number_format($post->views) }}
+                @endif  
+            </small>
+              
 
             {{-- Created By --}}
             <p>By. <a href="/posts?user={{ $post->created_by }}" class="text-decoration-none">{{ $post->created_by }}</a></p>

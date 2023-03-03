@@ -23,6 +23,7 @@
                                 <th>Foto Profil</th>
                                 <th>Nama</th>
                                 <th>Email</th>
+                                <th>Role</th>
                                 <th class="text-center">Status</th>
                                 <th width="10%" class="text-center">Aksi</th>
                             </tr>
@@ -62,6 +63,7 @@
                         { data: 'images', sortable: false, searchable: false },
                         { data: 'name' },
                         { data: 'email' },
+                        { data: 'role' },
                         { data: 'status' },
                         { data: 'action', sortable: false },
                     ],

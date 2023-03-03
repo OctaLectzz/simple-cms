@@ -17,7 +17,7 @@ class StatusUser
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->status != 'Active')
+        if(Auth::user()->status == 'Blocked')
         {
             Auth::logout();
             return redirect('/login')->with('warning', 'Akun anda telah diblokir!!!');

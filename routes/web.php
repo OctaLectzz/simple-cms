@@ -32,22 +32,27 @@ use App\Http\Controllers\MyProfileController;
 
 // -----Welcome----- //
 
+
 // Home //
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 Route::get('/posts/{post:slug}', [WelcomeController::class, 'show'])->name('post.show');
 
-// Profile //
-Route::get('/profile', function () {
-    $user = auth()->user();
-    return view('profile', compact('user'));
-})->name('profile')->middleware(['auth', 'verified']);
-Route::put('/profile', [WelcomeController::class, 'update'])->name('profile.update');
-Route::put('/profile/{id}', [WelcomeController::class, 'update'])->name('users.update');
+Route::middleware('auth', 'verified', 'userStatus')->group(function() {
 
-// Comment //
-Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
-Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
-Route::delete('/posts/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+    // Profile //
+    Route::get('/profile', function () {
+        $user = auth()->user();
+        return view('profile', compact('user'));
+    })->name('profile');
+    Route::put('/profile', [WelcomeController::class, 'update'])->name('profile.update');
+    Route::put('/profile/{id}', [WelcomeController::class, 'update'])->name('users.update');
+
+    // Comment //
+    Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
+    Route::delete('/posts/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+
+});
 
 // -----Welcome----- //
 

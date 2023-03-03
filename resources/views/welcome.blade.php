@@ -41,69 +41,71 @@
 
 
   {{-- Pinned Post --}}
-  <div id="carouselExampleCaptions" class="carousel slide mb-4" data-bs-ride="carousel">
+  @if (!($categoriesName) && !($tagsName))
+    <div id="carouselExampleCaptions" class="carousel slide mb-4" data-bs-ride="carousel">
 
-    <div class="carousel-indicators">
-      @foreach($pinnedPost as $index => $post)
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $index }}" class="{{ $index == 0 ? 'active' : '' }}"></button>
-      @endforeach
-    </div>
+      <div class="carousel-indicators">
+        @foreach($pinnedPost as $index => $post)
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $index }}" class="{{ $index == 0 ? 'active' : '' }}"></button>
+        @endforeach
+      </div>
 
-    <div class="carousel-inner">
-      @foreach ($pinnedPost as $post)
-        <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-          
-          {{-- View --}}
-          <small class="text-light fs-3 m-2 ms-3 position-absolute view">
-            <i class="fa fa-eye"></i> 
-            @if ($post->views >= 1000000)
-              {{ number_format($post->views / 1000000, 1) . 'm' }}
-            @elseif ($post->views >= 1000)
-              {{ number_format($post->views / 1000, 1) . 'k' }}
-            @else
-              {{ $post->views }}
-            @endif  
-          </small>
-          
-          <a href="{{ route('post.show', $post->slug) }}">
-            {{-- Image --}}
-            @if ($post->postImages)
-              <img src="{{ asset('storage/postImages/' . $post->postImages) }}" class="img-fluid w-100 h-300" alt="{{ $post->postImages }}" style="filter: brightness(60%)">
-            @else
-              <img src="https://source.unsplash.com/1120x500" class="img-fluid w-100 h-300" alt="Unsplash" style="filter: brightness(60%)">
-            @endif
-          </a>
-          
-          <div class="carousel-caption d-none d-md-block">
+      <div class="carousel-inner">
+        @foreach ($pinnedPost as $post)
+          <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+            
+            {{-- View --}}
+            <small class="text-light fs-3 m-2 ms-3 position-absolute view">
+              <i class="fa fa-eye"></i> 
+              @if ($post->views >= 1000000)
+                {{ number_format($post->views / 1000000, 2) . 'm' }}
+              @elseif ($post->views >= 1000)
+                {{ number_format($post->views / 1000, 2) . 'k' }}
+              @else
+                {{ $post->views }}
+              @endif  
+            </small>
+            
+            <a href="{{ route('post.show', $post->slug) }}">
+              {{-- Image --}}
+              @if ($post->postImages)
+                <img src="{{ asset('storage/postImages/' . $post->postImages) }}" class="img-fluid w-100 h-300" alt="{{ $post->postImages }}" style="filter: brightness(60%)">
+              @else
+                <img src="https://source.unsplash.com/1120x500" class="img-fluid w-100 h-300" alt="Unsplash" style="filter: brightness(60%)">
+              @endif
+            </a>
+            
+            <div class="carousel-caption d-none d-md-block">
 
-            {{-- Title --}}
-            <h4 class="fw-bold">{{ $post->title }}</h4>
+              {{-- Title --}}
+              <h4 class="fw-bold">{{ $post->title }}</h4>
 
-            {{-- Content --}}
-            <p>{{ Str::limit(strip_tags($post->content), 70, '...') }}</p>
+              {{-- Content --}}
+              <p>{{ Str::limit(strip_tags($post->content), 70, '...') }}</p>
 
-            {{-- Category --}}
-            @foreach($post->category as $category)
-              <a href="{{ route('welcome', ['category' => $category->name]) }}" class="text-decoration-none">
-                <p class="d-inline-block mx-1 p-1 px-2 text-light" style="border: 1px solid; border-radius: 30px;">{{ $category->name }}</p>
-              </a>
-            @endforeach
-          </div>
-  
-        </div>
-      @endforeach
-    </div>
-
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
+              {{-- Category --}}
+              @foreach($post->category as $category)
+                <a href="{{ route('welcome', ['category' => $category->name]) }}" class="text-decoration-none">
+                  <p class="d-inline-block mx-1 p-1 px-2 text-light" style="border: 1px solid; border-radius: 30px;">{{ $category->name }}</p>
+                </a>
+              @endforeach
+            </div>
     
-  </div>
+          </div>
+        @endforeach
+      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+      
+    </div>
+  @endif
   {{-- Pinned Post --}}
 
 
@@ -144,9 +146,9 @@
               {{-- View --}}
               <small class="text-muted float-end">
                 @if ($post->views >= 1000000)
-                  {{ number_format($post->views / 1000000, 1) . 'm' }}
+                  {{ number_format($post->views / 1000000, 2) . 'm' }}
                 @elseif ($post->views >= 1000)
-                  {{ number_format($post->views / 1000, 1) . 'k' }}
+                  {{ number_format($post->views / 1000, 2) . 'k' }}
                 @else
                   {{ $post->views }}
                 @endif
