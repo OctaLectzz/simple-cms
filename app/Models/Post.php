@@ -45,6 +45,14 @@ class Post extends Model
 
 
 
+    // Like
+    public function isLikedBy(User $user)
+    {
+        return $this->likes->contains('user_id', $user->id);
+    }
+
+
+    // Relationship
     public function category()
     {
         return $this->belongsToMany(Category::class, "post_category", "post_id", "category_id");
@@ -65,8 +73,14 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
 
 
+
+    // Slug
     public function sluggable(): array
     {
         return [

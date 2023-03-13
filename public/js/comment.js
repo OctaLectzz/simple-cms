@@ -44,6 +44,14 @@ $(document).ready(function () {
     });
 });
 
+// Submit Like
+$(document).ready(function () {
+    $("form").submit(function () {
+        $('#like-button')
+            .attr("disabled", true);
+    });
+});
+
 
 $('#add-comment').submit(function(event) {
     // Menghentikan submit form standar

@@ -12,6 +12,7 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\AllUsersController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MyProfileController;
+use App\Http\Controllers\LikeController;
 
 
 
@@ -32,7 +33,6 @@ use App\Http\Controllers\MyProfileController;
 
 // -----Welcome----- //
 
-
 // Home //
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 Route::get('/posts/{post:slug}', [WelcomeController::class, 'show'])->name('post.show');
@@ -51,6 +51,10 @@ Route::middleware('auth', 'verified', 'userStatus')->group(function() {
     Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
     Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
     Route::delete('/posts/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+
+    // Likes //
+    Route::post('/posts/{post:slug}/like', [LikeController::class, 'like'])->name('posts.like');
+    Route::delete('/posts/{post:slug}/like', [LikeController::class, 'unlike'])->name('posts.unlike');
 
 });
 
@@ -136,7 +140,7 @@ Route::prefix('dashboard')->middleware(['auth', 'verified', 'Admin', 'userStatus
 
 
 
-
+// Dark Mode //
 Route::post('/dark-mode', function(Request $request) {
     session(['dark-mode' => $request->input('darkMode')]);
     return response()->json(['status' => 'success']);

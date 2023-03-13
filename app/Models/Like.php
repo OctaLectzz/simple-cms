@@ -5,13 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Comment extends Model
+class Like extends Model
 {
     use HasFactory;
 
-
     protected $guarded = ['id'];
-
 
 
     public function user()
@@ -24,13 +22,4 @@ class Comment extends Model
         return $this->belongsTo(Post::class);
     }
 
-    public function getImagesAttribute()
-    {
-        return $this->user ? asset('storage/images/' . $this->user->images) : null;
-    }
-
-    public function replies()
-    {
-        return $this->hasMany(Comment::class, 'parent_id');
-    }
 }
