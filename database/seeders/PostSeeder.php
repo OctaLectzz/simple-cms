@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Post;
 use App\Models\Tag;
+use App\Models\Like;
+use App\Models\Post;
 use App\Models\Category;
+use App\Models\PostSave;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -40,5 +42,15 @@ class PostSeeder extends Seeder
                 $tags->random(rand(10, 40))->pluck('id')->toArray()
             );
         });
-    }
+
+        // Liked Posts
+        Like::factory()
+            ->count(5000)
+            ->create();
+
+        // Saved Posts
+        PostSave::factory()
+            ->count(200)
+            ->create();
+        }
 }

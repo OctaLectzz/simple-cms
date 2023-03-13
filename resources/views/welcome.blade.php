@@ -172,6 +172,27 @@
 
               {{-- Read More --}}
               <a href="{{ route('post.show', $post->slug) }}" class="btn btn-outline-dark mt-4">Read More</a>
+
+              {{-- Like --}}
+              <div class="float-end mt-4">
+                @if (auth()->check() && $post->likes->where('user_id', auth()->id())->count() > 0)
+                  <form action="{{ route('posts.unlike', $post->id) }}" method="post" id="unlike-form">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" class="btn btn-lg fa fa-heart text-danger" id="like-button">
+                        <span id="like-count" class="text-dark">{{ $post->likes->count() }}</span>
+                    </button>
+                  </form>
+                @else
+                  <form action="{{ route('posts.like', $post->id) }}" method="post" id="like-form">
+                    @csrf
+                    <button type="submit" class="btn btn-lg fa fa-heart" id="like-button">
+                        <span id="like-count" class="">{{ $post->likes->count() }}</span>
+                    </button>
+                  </form>
+                @endif
+              </div>
+              
             </div>
 
           </div>

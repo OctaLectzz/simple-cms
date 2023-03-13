@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tag;
+use App\Models\Like;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\PostSave;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
@@ -166,9 +169,64 @@ class PostController extends Controller
     }
 
 
+    // Slug
     public function checkSlug(Request $request)
     {
         $slug = SlugService::createSlug(Post::class, 'slug', $request->title);
         return response()->json(['slug' => $slug]);
+    }
+
+
+    // Like
+    public function like($id)
+    {
+        $post = Post::findOrFail($id);
+        $like = $post->likes()->create([
+            'user_id' => auth()->id(),
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function unlike($id)
+    {
+        $like = Like::where([
+            'user_id' => auth()->id(),
+            'post_id' => $id,
+        ])->firstOrFail();
+
+        $like->delete();
+
+        return redirect()->back();
+    }
+
+
+    // Save //
+    public function save(Request $request, $id)
+    {
+        $post = Post::findOrFail($id);
+        $user = Auth::user();
+
+        $postSave = new PostSave([
+            'user_id' => $user->id,
+            'post_id' => $post->id,
+        ]);
+        $postSave->save();
+
+        $message = 'Post saved successfully.';
+
+        return redirect()->back()->with('message', $message);
+    }
+
+    public function unsave($id)
+    {
+        $save = PostSave::where([
+            'user_id' => auth()->id(),
+            'post_id' => $id,
+        ])->firstOrFail();
+
+        $save->delete();
+
+        return redirect()->back()->with('message', 'Post unsaved successfully.');
     }
 }

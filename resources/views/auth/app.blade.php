@@ -64,6 +64,7 @@
                           <a class="nav-link {{ Request::is('/*', 'posts*') ? 'active' : '' }}" aria-current="page" href="/">Home</a>
                           <a class="nav-link {{ Request::is('profile*') ? 'active' : '' }}" href="/profile">Profile</a>
                           <a class="nav-link disabled" href="#">Category</a>
+                          <a class="nav-link disabled" href="#">contact</a>
                         </div>
                     </div>
 
@@ -125,6 +126,13 @@
                                         {{ __('Edit Profile') }}
                                     </a>
                     
+                                    <hr class="dropdown-divider">
+
+                                    {{-- Bookmark --}}
+                                    <a class="dropdown-item" href="{{ route('bookmark') }}">
+                                        {{ __('Bookmark') }}
+                                    </a>
+
                                     <hr class="dropdown-divider">
                     
                                     {{-- Logout --}}

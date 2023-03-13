@@ -33,21 +33,28 @@
             {{-- Created By --}}
             <p>By. <a href="/posts?user={{ $post->created_by }}" class="text-decoration-none">{{ $post->created_by }}</a></p>
 
-            {{-- Like --}}
-            <div class="d-flex align-items-center">
-                @if (auth()->check() && $post->likes->where('user_id', auth()->id())->count() > 0)
-                    <form action="{{ route('posts.unlike', $post->id) }}" method="post" id="unlike-form">
-                        @csrf
-                        @method('delete')
-                        <button type="submit" class="btn btn-lg fa fa-heart text-danger" id="like-button"></button>
-                    </form>
-                @else
-                    <form action="{{ route('posts.like', $post->id) }}" method="post" id="like-form">
-                        @csrf
-                        <button type="submit" class="btn btn-lg fa fa-heart" id="like-button"></button>
-                    </form>
+            {{-- Save --}}
+            <div class="mb-2">
+                @if (Auth::check())
+                    @if ($post->savedByUser(Auth::user()))
+                        <form action="{{ route('posts.unsave', $post->id) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-warning" id="like-button">
+                                <i class="fa fa-bookmark"></i> Unsave
+                                <span id="like-count" class="text-dark fw-bold">{{ $post->saves->count() }}</span>
+                            </button>
+                        </form>
+                    @else
+                        <form action="{{ route('posts.save', $post->id) }}" method="post">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-warning" id="like-button">
+                                <i class="fa fa-bookmark"></i> <span class="text-dark">save</span>
+                                <span id="like-count" class="text-dark fw-bold">{{ $post->saves->count() }}</span>
+                            </button>
+                        </form>
                     @endif
-                <p id="like-count" class="mb-0">{{ $post->likes->count() }}</p>
+                @endif
             </div>
             
             {{-- Image --}}
@@ -56,6 +63,26 @@
             @else
                 <img src="https://source.unsplash.com/1120x500" class="card-img-top w-100 mb-3 img-fluid" alt="Unsplash">
             @endif
+
+            {{-- Like --}}
+            <div class="float-end">
+                @if (auth()->check() && $post->likes->where('user_id', auth()->id())->count() > 0)
+                    <form action="{{ route('posts.unlike', $post->id) }}" method="post" id="unlike-form">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="btn btn-lg fa fa-heart text-danger" id="like-button">
+                            <span id="like-count" class="text-dark">{{ $post->likes->count() }}</span>
+                        </button>
+                    </form>
+                @else
+                    <form action="{{ route('posts.like', $post->id) }}" method="post" id="like-form">
+                        @csrf
+                        <button type="submit" class="btn btn-lg fa fa-heart" id="like-button">
+                            <span id="like-count" class="">{{ $post->likes->count() }}</span>
+                        </button>
+                    </form>
+                @endif
+            </div>
 
             {{-- Category --}}
             <div class="d-flex justify-content-center">

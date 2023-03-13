@@ -78,6 +78,16 @@ class Post extends Model
         return $this->hasMany(Like::class);
     }
 
+    public function saves()
+    {
+        return $this->belongsToMany(User::class, 'post_saves', 'post_id', 'user_id')->withTimestamps();
+    }
+
+    public function savedByUser(User $user)
+    {
+        return $this->saves()->where('user_id', $user->id)->exists();
+    }
+
 
 
     // Slug

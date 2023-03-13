@@ -91,6 +91,13 @@
                             </a>
 
                             <hr class="dropdown-divider">
+
+                            {{-- Bookmark --}}
+                            <a class="dropdown-item" href="{{ route('bookmark') }}">
+                                {{ __('Bookmark') }}
+                            </a>
+
+                            <hr class="dropdown-divider">
                             
                             {{-- Logout --}}
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();

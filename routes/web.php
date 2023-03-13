@@ -1,10 +1,13 @@
 <?php
 
+use App\Models\Post;
+use App\Models\PostSave;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Request;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
@@ -12,7 +15,6 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\AllUsersController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MyProfileController;
-use App\Http\Controllers\LikeController;
 
 
 
@@ -52,9 +54,19 @@ Route::middleware('auth', 'verified', 'userStatus')->group(function() {
     Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
     Route::delete('/posts/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
-    // Likes //
-    Route::post('/posts/{post:slug}/like', [LikeController::class, 'like'])->name('posts.like');
-    Route::delete('/posts/{post:slug}/like', [LikeController::class, 'unlike'])->name('posts.unlike');
+    // Like Post //
+    Route::post('/posts/{post:slug}/like', [PostController::class, 'like'])->name('posts.like');
+    Route::delete('/posts/{post:slug}/like', [PostController::class, 'unlike'])->name('posts.unlike');
+
+    // Save Post
+    Route::post('/posts/{post:slug}/save', [PostController::class, 'save'])->name('posts.save');
+    Route::delete('/posts/{post:slug}/unsave', [PostController::class, 'unsave'])->name('posts.unsave');
+    Route::get('/bookmark', function () {
+        $user = auth()->user();
+        $post = Post::all();
+        $savedPosts = PostSave::where('user_id', auth()->id())->get();
+        return view('bookmark', compact('user', 'savedPosts'));
+    })->name('bookmark');
 
 });
 
