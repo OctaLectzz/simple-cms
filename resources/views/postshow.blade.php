@@ -143,7 +143,7 @@
             {{-- All Comments --}}
             <div class="row mb-5">
                 <div class="col-md-12">
-                    @forelse($post->comments as $comment)
+                    @forelse($post->comments()->orderByDesc('created_at')->get() as $comment)
                         <div class="card mb-3">
                             <div class="card-body">
                                 {{-- Dropdown --}}
