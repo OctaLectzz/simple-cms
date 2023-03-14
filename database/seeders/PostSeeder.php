@@ -50,7 +50,7 @@ class PostSeeder extends Seeder
 
         // Saved Posts
         PostSave::factory()
-            ->count(200)
+            ->count(500)
             ->create();
         }
 }

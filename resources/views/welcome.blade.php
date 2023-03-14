@@ -163,12 +163,14 @@
               {{-- Created By & Created At --}}
               <p>
                 <small class="text-muted">
-                  By. <a href="" class="text-decoration-none me-2">{{ $post->created_by }}</a> ◉ {{ $post->created_at->diffForHumans() }}
+                  By. <span class="text-info me-2">{{ $post->created_by }}</span> ◉ {{ $post->created_at->diffForHumans() }}
                 </small>
               </p>
 
               {{-- Content --}}
-              <p class="card-text">{{ Str::limit(strip_tags($post->content), 80, '...') }}</p>
+              <a href="{{ route('post.show', $post->slug) }}" class="text-decoration-none text-dark">
+                <p class="card-text">{{ Str::limit(strip_tags($post->content), 80, '...') }}</p>
+              </a>
 
               {{-- Read More --}}
               <a href="{{ route('post.show', $post->slug) }}" class="btn btn-outline-dark mt-4">Read More</a>
@@ -176,18 +178,18 @@
               {{-- Like --}}
               <div class="float-end mt-4">
                 @if (auth()->check() && $post->likes->where('user_id', auth()->id())->count() > 0)
-                  <form action="{{ route('posts.unlike', $post->id) }}" method="post" id="unlike-form">
+                  <form action="{{ route('posts.unlike', $post->id) }}" method="post" class="add-comment">
                     @csrf
                     @method('delete')
-                    <button type="submit" class="btn btn-lg fa fa-heart text-danger" id="like-button">
-                        <span id="like-count" class="text-dark">{{ $post->likes->count() }}</span>
+                    <button type="submit" class="like-button btn btn-lg fa fa-heart text-danger">
+                        <span class="text-dark">{{ $post->likes->count() }}</span>
                     </button>
                   </form>
                 @else
-                  <form action="{{ route('posts.like', $post->id) }}" method="post" id="like-form">
+                  <form action="{{ route('posts.like', $post->id) }}" method="post" class="add-comment">
                     @csrf
-                    <button type="submit" class="btn btn-lg fa fa-heart" id="like-button">
-                        <span id="like-count" class="">{{ $post->likes->count() }}</span>
+                    <button type="submit" class="like-button btn btn-lg fa fa-heart">
+                        <span class="">{{ $post->likes->count() }}</span>
                     </button>
                   </form>
                 @endif
@@ -215,5 +217,11 @@
   {{-- Pagination --}}
 
 </div>
+
+
+@push('scripts')
+    <script src="{{ asset('js/post.js') }}"></script>
+@endpush
+
 
 @endsection

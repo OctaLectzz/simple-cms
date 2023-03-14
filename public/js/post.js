@@ -53,6 +53,16 @@ $(document).ready(function () {
             .attr("disabled", true);
     });
 });
+// Submit Button in Home
+$(document).ready(function () {
+    $("form").submit(function () {
+        if ($(this).find('.like-button').is(":focus")) {
+            $(this).find('.like-button').attr("disabled", true);
+        } else if ($(this).find('.save-button').is(":focus")) {
+                   $(this).find('.save-button').attr("disabled", true);    
+        }
+    });
+});
 
 
 

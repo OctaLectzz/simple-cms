@@ -29,10 +29,10 @@
                                 <div class="float-end me-2">
                                     @if (Auth::check())
                                         @if ($post->post->savedByUser(Auth::user()))
-                                            <form action="{{ route('posts.unsave', $post->post->id) }}" method="post">
+                                            <form action="{{ route('posts.unsave', $post->post->id) }}" method="post" class="add-comment">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-warning" id="like-button">
+                                                <button type="submit" class="save-button btn btn-warning">
                                                     <i class="fa fa-bookmark"></i>
                                                 </button>
                                             </form>
@@ -65,7 +65,7 @@
 
 
     @push('scripts')
-        <script src="{{ asset('js/comment.js') }}"></script>
+        <script src="{{ asset('js/post.js') }}"></script>
     @endpush
 
 @endsection
