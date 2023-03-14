@@ -61,6 +61,7 @@ class WelcomeController extends Controller
     public function show(Request $request, Post $post)
     {
         $comments = Comment::latest()->get();
+        $url = url("/posts/{$post->slug}");
 
         if ($post->slug == $request->route('post.show', $post->slug)) {
             $post->views++;
@@ -68,7 +69,8 @@ class WelcomeController extends Controller
         }
 
         return view('postshow', compact('post', 'comments'), [
-            'posts' => Post::inRandomOrder()->limit(10)->get()
+            'posts' => Post::inRandomOrder()->limit(10)->get(),
+            'url' => $url
         ]);
     }
 

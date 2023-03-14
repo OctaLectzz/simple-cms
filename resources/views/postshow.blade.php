@@ -19,7 +19,7 @@
             <h1 class="mb-3">{{ $post->title }}</h1>
 
             {{-- View --}}
-            <small class="text-muted fs-5 float-end m-3">
+            <small class="text-muted fs-5 float-end mx-3">
                 <i class="fa fa-eye"></i> 
                 @if ($post->views >= 1000000)
                   {{ number_format($post->views / 1000000, 2) . 'm' }}
@@ -33,28 +33,13 @@
             {{-- Created By --}}
             <p>By. <a href="/posts?user={{ $post->created_by }}" class="text-decoration-none">{{ $post->created_by }}</a></p>
 
-            {{-- Save --}}
-            <div class="mb-2">
-                @if (Auth::check())
-                    @if ($post->savedByUser(Auth::user()))
-                        <form action="{{ route('posts.unsave', $post->id) }}" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-warning" id="like-button">
-                                <i class="fa fa-bookmark"></i> Unsave
-                                <span id="like-count" class="text-dark fw-bold">{{ $post->saves->count() }}</span>
-                            </button>
-                        </form>
-                    @else
-                        <form action="{{ route('posts.save', $post->id) }}" method="post">
-                            @csrf
-                            <button type="submit" class="btn btn-outline-warning" id="like-button">
-                                <i class="fa fa-bookmark"></i> <span class="text-dark">save</span>
-                                <span id="like-count" class="text-dark fw-bold">{{ $post->saves->count() }}</span>
-                            </button>
-                        </form>
-                    @endif
-                @endif
+            {{-- Category --}}
+            <div class="d-flex justify-content-center">
+                @foreach ($post->category as $category)
+                <a href="{{ route('welcome', ['category' => $category->name]) }}" class="text-decoration-none mx-1">
+                    <p class="d-inline-block px-2 text-info" style="border: 1px solid; border-radius: 20%;">{{ $category->name }}</p>
+                </a>
+                @endforeach
             </div>
             
             {{-- Image --}}
@@ -64,8 +49,37 @@
                 <img src="https://source.unsplash.com/1120x500" class="card-img-top w-100 mb-3 img-fluid" alt="Unsplash">
             @endif
 
+            {{-- Share --}}
+            <div class="mb-2 ms-2 float-end">
+                <a href="https://www.facebook.com/sharer/sharer.php?u{{ $url }}" target="_blank" rel="noopener noreferrer" class="btn btn-info"><i class="fa fa-share-square"></i> Share</a>
+            </div>
+            
+            {{-- Save --}}
+            <div class="mb-2 float-end">
+                @if (Auth::check())
+                    @if ($post->savedByUser(Auth::user()))
+                        <form action="{{ route('posts.unsave', $post->id) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-warning" id="save-button">
+                                <i class="fa fa-bookmark"></i> Unsave
+                                {{-- <span id="like-count" class="text-dark fw-bold">{{ $post->saves->count() }}</span> --}}
+                            </button>
+                        </form>
+                    @else
+                        <form action="{{ route('posts.save', $post->id) }}" method="post">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-warning" id="save-button">
+                                <i class="fa fa-bookmark"></i> <span class="text-dark">save</span>
+                                {{-- <span id="like-count" class="text-dark fw-bold">{{ $post->saves->count() }}</span> --}}
+                            </button>
+                        </form>
+                    @endif
+                @endif
+            </div>
+
             {{-- Like --}}
-            <div class="float-end">
+            <div class="mb-2 mt-1">
                 @if (auth()->check() && $post->likes->where('user_id', auth()->id())->count() > 0)
                     <form action="{{ route('posts.unlike', $post->id) }}" method="post" id="unlike-form">
                         @csrf
@@ -82,15 +96,6 @@
                         </button>
                     </form>
                 @endif
-            </div>
-
-            {{-- Category --}}
-            <div class="d-flex justify-content-center">
-                @foreach ($post->category as $category)
-                <a href="{{ route('welcome', ['category' => $category->name]) }}" class="text-decoration-none mx-1">
-                    <p class="d-inline-block px-2 text-info" style="border: 1px solid; border-radius: 20%;">{{ $category->name }}</p>
-                </a>
-                @endforeach
             </div>
 
             {{-- Content --}}
@@ -177,10 +182,11 @@
                                 {{-- Created At --}}
                                 <div class="fw-bold float-end text-muted">{{ $comment->created_at->diffForHumans() }}</div>
 
-                                <button type="button" class="btn btn-sm btn-dark btn-sm rounded-5 mx-3" data-bs-toggle="modal" data-bs-target="#replyModal{{ $comment->id }}">
-                                    Reply
-                                </button>
-                                @if($comment->replies->count())
+                                <div class="comment">
+                                    <button class="btn-reply btn btn-sm btn-dark rounded-3" data-toggle="modal" data-target="#replyModal{{ $comment->id }}" data-bs-toggle="modal" data-bs-target="#replyModal{{ $comment->id }}">Reply</button>
+                                </div>
+
+                                @if(count($comment->replies))
                                     @include('includes.reply-comment')
                                     <hr class="ms-4">
                                 @endif
@@ -281,6 +287,9 @@
 
     <script src="{{ asset('vendor/toastr/toastr.min.js') }}"></script>
     <script src="{{ asset('js/comment.js') }}"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/share.js') }}"></script>
 @endpush
 
 

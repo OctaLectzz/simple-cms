@@ -17,23 +17,7 @@ class CommentController extends Controller
         ]);
         $data['user_id']  = auth()->id();
 
-
-        if ($request->input('parent_id')) {
-            $parentComment = Comment::findOrFail($request->input('parent_id'));
-            $comment = $parentComment->replies()->create([
-                'content' => $request->input('content'),
-                'user_id' => Auth::user()->id,
-                'post_id' => null
-            ]);
-        } else {
-            // $comment = Comment::create($data);
-            $comment = Comment::create([
-                'content' => $request->input('content'),
-                'user_id' => auth()->user()->id,
-                'post_id' => $request->input('post_id')
-            ]);
-        }
-        
+        $comment = Comment::create($data);
     
         return redirect()->back()->with('success', 'Comment Created Successfully!');
     }
@@ -53,6 +37,24 @@ class CommentController extends Controller
     }
 
 
+    public function reply(Request $request, Comment $comment)
+    {
+        $comment = Comment::findOrFail($request->input('comment_id'));
+
+        $request->validate([
+            'content' => 'required',
+        ]);
+
+        $reply = new Comment;
+        $reply->post_id = $request->input('post_id');
+        $reply->content = $request->input('content');
+        $reply->user_id = auth()->user()->id;
+        $comment->replies()->save($reply);
+    
+        return redirect()->back();
+    }
+
+
     public function destroy(Comment $comment)
     {
         $comment->delete();
@@ -61,4 +63,5 @@ class CommentController extends Controller
             'success' => 'Comment Deleted Successfully'
         ]);
     }
+
 }
