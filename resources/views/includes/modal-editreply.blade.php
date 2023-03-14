@@ -1,20 +1,20 @@
-<form action="{{ route('comments.update', ['comment' => $comment->id]) }}" method="POST" data-comment-id="{{ $comment->id }}">
+<form action="{{ route('comments.update', ['comment' => $reply->id]) }}" method="POST" data-comment-id="{{ $reply->id }}">
   @csrf
   @method('PUT')
 
-  <div class="modal fade" id="editCommentModal{{ $comment->id }}" tabindex="-1" aria-labelledby="editCommentModal{{ $comment->id }}Label" aria-hidden="true">
+  <div class="modal fade" id="editCommentModal{{ $reply->id }}" tabindex="-1" aria-labelledby="editCommentModal{{ $reply->id }}Label" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
 
         <div class="modal-header">
-          <h5 class="modal-title" id="editCommentModal{{ $comment->id }}Label">Edit Comment</h5>
+          <h5 class="modal-title" id="editCommentModal{{ $reply->id }}Label">Edit Comment</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
         <div class="modal-body">
           <div class="mb-3">
-            <label for="editContent{{ $comment->id }}" class="form-label">Comment :</label>
-            <textarea name="content" id="editContent{{ $comment->id }}" class="form-control" value="{{ old('content') }}" required>{{ $comment->content }}</textarea>
+            <label for="editContent{{ $reply->id }}" class="form-label">Comment :</label>
+            <textarea name="content" id="editContent{{ $reply->id }}" class="form-control" value="{{ old('content') }}" required>{{ $reply->content }}</textarea>
             @error('content')
               <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>

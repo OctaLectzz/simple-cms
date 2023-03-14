@@ -51,7 +51,8 @@
 
             {{-- Share --}}
             <div class="mb-2 ms-2 float-end">
-                <a href="https://www.facebook.com/sharer/sharer.php?u{{ $url }}" target="_blank" rel="noopener noreferrer" class="btn btn-info"><i class="fa fa-share-square"></i> Share</a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ $url }}" target="_blank" class="btn btn-info"><i class="fa fa-share-square"></i> Share
+                </a>
             </div>
             
             {{-- Save --}}
@@ -182,13 +183,15 @@
                                 {{-- Created At --}}
                                 <div class="fw-bold float-end text-muted">{{ $comment->created_at->diffForHumans() }}</div>
 
-                                <div class="comment">
-                                    <button class="btn-reply btn btn-sm btn-dark rounded-3" data-toggle="modal" data-target="#replyModal{{ $comment->id }}" data-bs-toggle="modal" data-bs-target="#replyModal{{ $comment->id }}">Reply</button>
-                                </div>
+                                @if (auth()->check() && $comment->replies->count() < 2)
+                                    <div class="comment">
+                                        <button class="btn-reply btn btn-sm btn-dark rounded-3" data-toggle="modal" data-target="#replyModal{{ $comment->id }}" data-bs-toggle="modal" data-bs-target="#replyModal{{ $comment->id }}">Reply</button>
+                                    </div>
+                                @endif
 
                                 @if(count($comment->replies))
+                                    <hr>
                                     @include('includes.reply-comment')
-                                    <hr class="ms-4">
                                 @endif
                             </div>
                         </div>
@@ -287,9 +290,6 @@
 
     <script src="{{ asset('vendor/toastr/toastr.min.js') }}"></script>
     <script src="{{ asset('js/comment.js') }}"></script>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
-    <script src="{{ asset('js/share.js') }}"></script>
 @endpush
 
 

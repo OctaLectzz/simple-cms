@@ -103,8 +103,4 @@ class WelcomeController extends Controller
         return redirect()->back()->with('success', 'User Updated Successfully!');
     }
     
-    
-    
-    
-    
 }

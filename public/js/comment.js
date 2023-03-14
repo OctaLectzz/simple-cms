@@ -35,18 +35,10 @@ $(document).ready(function() {
 
 
 
-// Submit Add Comment
+// Submit Comment
 $(document).ready(function () {
     $("form").submit(function () {
         $('#comment-button')
-            .html('<div class="spinner-border spinner-border-sm" role="status"></div> Loading...')
-            .attr("disabled", true);
-    });
-});
-// Submit Edit Comment
-$(document).ready(function () {
-    $("form").submit(function () {
-        $('#edit-button')
             .html('<div class="spinner-border spinner-border-sm" role="status"></div> Loading...')
             .attr("disabled", true);
     });
@@ -70,24 +62,8 @@ $(document).ready(function () {
 
 
 
-// Add Comment
-$('#add-comment').submit(function(event) {
-    // Menghentikan submit form standar
-    event.preventDefault();
-  
-    // Mengirim permintaan AJAX
-    $.ajax({
-        url: $(this).attr('action'),
-        method: $(this).attr('method'),
-        data: $(this).serialize(),
-        success: function(response) {
-            location.reload();
-        }
-    });
-});
 
-// Edit Comment
-$('#edit-comment').submit(function(event) {
+$('#add-comment').submit(function(event) {
     // Menghentikan submit form standar
     event.preventDefault();
   

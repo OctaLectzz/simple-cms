@@ -1,6 +1,6 @@
-@foreach ($comment->replies as $reply)
+@foreach ($comment->replies as $key => $reply)
 
-<div class="row ms-4 mt-2">
+<div class="row mt-2 {{ $key < 2 && $key >= 1 ? 'ms-5' : 'ms-4' }}">
     <div class="col-md-1">
         <img src="{{ $reply->images }}" alt="User Avatar" class="rounded rounded-circle p-1 mb-2" width="40" height="40" style="border: 1px rgb(155, 155, 155) solid">
     </div>
@@ -15,7 +15,7 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <li>
-                            <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editCommentModal{{ $comment['id'] }}"><i class="bi bi-pencil me-1"></i> Edit Comment</button>
+                            <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editCommentModal{{ $reply['id'] }}"><i class="bi bi-pencil me-1"></i> Edit Comment</button>
                         </li>
                         <hr class="dropdown-divider">
                         <li>
@@ -33,13 +33,19 @@
 
             <p class="card-text mb-1">{{ $reply->content }}</p>
 
-            @if (auth()->check())
+            @if (auth()->check() && $key < 2 && $comment->replies->count() < 2)
                 <button class="badge bg-dark" data-toggle="modal" data-target="#replyModal{{ $comment->id }}" data-bs-toggle="modal" data-bs-target="#replyModal{{ $comment->id }}">Reply</button>
             @endif
 
-            <small class="text-muted float-end">{{ $post->created_at->diffForHumans() }}</small>
+            @if (auth()->check() && $key < 2 && $comment->replies->count() < 2)
+                <small class="text-muted float-end">{{ $post->created_at->diffForHumans() }}</small>
+            @else
+                <small class="text-muted d-flex justify-content-end">{{ $post->created_at->diffForHumans() }}</small>
+            @endif
         </div>
     </div>
+
+    @include('includes.modal-editreply')
 
 </div>
 
