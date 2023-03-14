@@ -1,4 +1,4 @@
-<form action="{{ route('comments.reply', ['comment' => $comment->id]) }}" method="POST" data-comment-id="{{ $comment->id }}">
+<form class="add-comment" action="{{ route('comments.reply', ['comment' => $comment->id]) }}" method="POST" data-comment-id="{{ $comment->id }}">
     @csrf
 
     <div class="modal fade" id="replyModal{{ $comment->id }}" tabindex="-1" aria-labelledby="replyModalLabel" aria-hidden="true">
@@ -20,7 +20,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-dark" id="comment-button">Kirim</button>
+                    <button type="submit" class="comment-button btn btn-dark">Kirim</button>
                 </div>
 
             </div>

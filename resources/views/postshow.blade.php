@@ -51,7 +51,7 @@
 
             {{-- Share --}}
             <div class="mb-2 ms-2 float-end">
-                <a href="https://www.facebook.com/sharer/sharer.php?u={{ $url }}" target="_blank" class="btn btn-info"><i class="fa fa-share-square"></i> Share
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ $url }}" target="_blank" class="btn btn-info" id="share-button"><i class="fa fa-share-square"></i>
                 </a>
             </div>
             
@@ -59,7 +59,7 @@
             <div class="mb-2 float-end">
                 @if (Auth::check())
                     @if ($post->savedByUser(Auth::user()))
-                        <form action="{{ route('posts.unsave', $post->id) }}" method="post">
+                        <form action="{{ route('posts.unsave', $post->id) }}" method="post" class="add-comment">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-warning" id="save-button">
@@ -68,10 +68,10 @@
                             </button>
                         </form>
                     @else
-                        <form action="{{ route('posts.save', $post->id) }}" method="post">
+                        <form action="{{ route('posts.save', $post->id) }}" method="post" class="add-comment">
                             @csrf
                             <button type="submit" class="btn btn-outline-warning" id="save-button">
-                                <i class="fa fa-bookmark"></i> <span class="text-dark">save</span>
+                                <i class="fa fa-bookmark"></i> <span class="text-dark">Save</span>
                                 {{-- <span id="like-count" class="text-dark fw-bold">{{ $post->saves->count() }}</span> --}}
                             </button>
                         </form>
@@ -80,20 +80,22 @@
             </div>
 
             {{-- Like --}}
-            <div class="mb-2 mt-1">
+            <div class="mb-2">
                 @if (auth()->check() && $post->likes->where('user_id', auth()->id())->count() > 0)
-                    <form action="{{ route('posts.unlike', $post->id) }}" method="post" id="unlike-form">
+                    <form action="{{ route('posts.unlike', $post->id) }}" method="post" id="unlike-form" class="add-comment">
                         @csrf
                         @method('delete')
-                        <button type="submit" class="btn btn-lg fa fa-heart text-danger" id="like-button">
-                            <span id="like-count" class="text-dark">{{ $post->likes->count() }}</span>
+                        <button type="submit" class="btn text-danger" id="like-button">
+                            <i class="fa fa-heart fs-4"></i>
+                            <span id="like-count" class="text-dark fs-4">{{ $post->likes->count() }}</span>
                         </button>
                     </form>
                 @else
-                    <form action="{{ route('posts.like', $post->id) }}" method="post" id="like-form">
+                    <form action="{{ route('posts.like', $post->id) }}" method="post" id="like-form" class="add-comment">
                         @csrf
-                        <button type="submit" class="btn btn-lg fa fa-heart" id="like-button">
-                            <span id="like-count" class="">{{ $post->likes->count() }}</span>
+                        <button type="submit" class="btn" id="like-button">
+                            <i class="fa fa-heart fs-4"></i>
+                            <span id="like-count" class="fs-4">{{ $post->likes->count() }}</span>
                         </button>
                     </form>
                 @endif
@@ -121,14 +123,14 @@
             @if (auth()->check())
                 <div class="card my-3 mb-5">
                     <div class="card-body">
-                        <form id="add-comment" action="{{ route('comments.store') }}" method="POST">
+                        <form class="add-comment" action="{{ route('comments.store') }}" method="POST">
                             @csrf
                             <input type="hidden" name="post_id" value="{{ $post->id }}">
                             <div class="mb-3">
                                 <label for="content" class="form-label">Add comment</label>
                                 <textarea name="content" id="content" class="form-control" required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-dark" id="comment-button">Submit</button>
+                            <button type="submit" class="comment-button btn btn-dark">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -279,7 +281,6 @@
 </div>
 
 
-
 @push('scripts')
     <script>
         const successMessage = "{{ session()->get('success') }}";
@@ -288,10 +289,16 @@
             }
     </script>
 
-    <script src="{{ asset('vendor/toastr/toastr.min.js') }}"></script>
-    <script src="{{ asset('js/comment.js') }}"></script>
-@endpush
+    <script>
+        function disableButton() {
+            console.log("Tombol submit diklik");
+            document.getElementById("comment-button").disabled = true;
+        }
+    </script>
 
+    <script src="{{ asset('vendor/toastr/toastr.min.js') }}"></script>
+    <script src="{{ asset('js/post.js') }}"></script>
+@endpush
 
 
 @endsection

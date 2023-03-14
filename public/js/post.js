@@ -25,7 +25,6 @@ function destroy(event) {
         });
     })
 }
-
 $(document).ready(function() {
     $(".close-modal").click(function() {
         $('#delete-modal').modal('hide');
@@ -35,27 +34,22 @@ $(document).ready(function() {
 
 
 
-// Submit Comment
+// Submit Button
 $(document).ready(function () {
     $("form").submit(function () {
-        $('#comment-button')
-            .html('<div class="spinner-border spinner-border-sm" role="status"></div> Loading...')
-            .attr("disabled", true);
+        if ($('#like-button').is(":focus")) {
+            $('#like-button').attr("disabled", true);
+        } else if ($('#save-button').is(":focus")) {
+                   $('#save-button').attr("disabled", true);    
+        } else if ($('.comment-button').is(":focus")) {
+                   $('.comment-button').html('<div class="spinner-border spinner-border-sm" role="status"></div> Loading...').attr("disabled", true);
+        }
     });
 });
-
-// Submit Like
+// Submit Share
 $(document).ready(function () {
-    $("form").submit(function () {
-        $('#like-button')
-            .attr("disabled", true);
-    });
-});
-
-// Submit Save
-$(document).ready(function () {
-    $("form").submit(function () {
-        $('#save-button')
+    $("a").submit(function () {
+        $('#share-button')
             .attr("disabled", true);
     });
 });
@@ -63,7 +57,8 @@ $(document).ready(function () {
 
 
 
-$('#add-comment').submit(function(event) {
+// Reload
+$('.add-comment').submit(function(event) {
     // Menghentikan submit form standar
     event.preventDefault();
   

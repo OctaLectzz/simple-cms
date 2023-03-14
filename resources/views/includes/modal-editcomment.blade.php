@@ -1,4 +1,4 @@
-<form action="{{ route('comments.update', ['comment' => $comment->id]) }}" method="POST" data-comment-id="{{ $comment->id }}">
+<form class="add-comment" action="{{ route('comments.update', ['comment' => $comment->id]) }}" method="POST" data-comment-id="{{ $comment->id }}">
   @csrf
   @method('PUT')
 
@@ -25,7 +25,7 @@
         
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-dark" id="comment-button">Save Changes</button>
+          <button type="submit" class="comment-button btn btn-dark">Save Changes</button>
         </div>
 
       </div>

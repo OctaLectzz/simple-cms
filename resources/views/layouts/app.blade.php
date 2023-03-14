@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,6 +36,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
     @stack('styles')
 </head>
+
 <body id="theme" class="@if (session('dark-mode')) dark-mode @endif">
     <div id="app">
 
@@ -58,4 +60,5 @@
       <script src="{{ asset('vendor/admin-lte/adminlte.min.js') }}"></script>
     @stack('scripts')
 </body>
+
 </html>
