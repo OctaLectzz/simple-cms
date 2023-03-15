@@ -145,6 +145,7 @@
                 <div class="col-md-12">
                     @forelse($post->comments()->orderByDesc('created_at')->get() as $comment)
                         <div class="card mb-3">
+
                             <div class="card-body">
                                 {{-- Dropdown --}}
                                 <div class="dropdown float-end">
@@ -167,6 +168,7 @@
                                         </ul>
                                     @endif
                                 </div>
+
                                 <div class="row">
                                     {{-- Profile Photo --}}
                                     <div class="col-md-2">
@@ -185,18 +187,21 @@
                                 {{-- Created At --}}
                                 <div class="fw-bold float-end text-muted">{{ $comment->created_at->diffForHumans() }}</div>
 
-                                @if (auth()->check() && $comment->replies->count() < 2)
+                                {{-- Reply Button --}}
+                                @if (auth()->check())
                                     <div class="comment">
                                         <button class="btn-reply btn btn-sm btn-dark rounded-3" data-toggle="modal" data-target="#replyModal{{ $comment->id }}" data-bs-toggle="modal" data-bs-target="#replyModal{{ $comment->id }}">Reply</button>
                                     </div>
                                 @endif
 
+                                {{-- All Reply Comments --}}
                                 @if(count($comment->replies))
                                     <hr>
                                     @include('includes.reply-comment')
                                 @endif
                             </div>
                         </div>
+
                         @include('includes.modal-delete')
                         @include('includes.modal-editcomment')
                         @include('includes.modal-replycomment')
