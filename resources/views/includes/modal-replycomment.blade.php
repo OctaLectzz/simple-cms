@@ -14,8 +14,8 @@
                     <input type="hidden" name="post_id" value="{{ $post->id }}">
                     <input type="hidden" name="comment_id" value="{{ $comment->id }}">
                     <div class="form-group">
-                        <textarea name="content" id="replyaContent{{ $comment->id }}" class="content form-control" rows="2"  maxlength="255" onkeyup="countCharacters()" required></textarea>
-                        <small class="character-count text-muted fst-italic">255</small>
+                        <textarea name="content" id="replyContent{{ $comment->id }}" class="form-control" rows="2" oninput="limitTextArea(this, 255, {{ $comment->id }})" maxlength="255" required></textarea>
+                        <small class="text-muted fst-italic ms-1" id="replyCharsLeft{{ $comment->id }}">255</small>
                     </div>
                 </div>
 
@@ -29,3 +29,13 @@
     </div>
 
 </form>
+
+
+<script>
+    function limitTextArea(textArea, maxLength, commentId) {
+        if (textArea.value.length > maxLength) {
+            textArea.value = textArea.value.slice(0, maxLength);
+        }
+        document.getElementById("replyCharsLeft" + commentId).innerHTML = maxLength - textArea.value.length;
+    }
+</script>

@@ -14,7 +14,8 @@
         <div class="modal-body">
           <div class="mb-3">
             <label for="editContent{{ $reply2->id }}" class="form-label">Comment :</label>
-            <textarea name="content" id="editContent{{ $reply2->id }}" class="form-control" value="{{ old('content') }}" maxlength="255" required>{{ $reply2->content }}</textarea>
+            <textarea name="content" id="editContent{{ $reply2->id }}" class="form-control" value="{{ old('content') }}" oninput="limitTextArea(this, 255, {{ $reply2->id }})" maxlength="255" required>{{ $reply2->content }}</textarea>
+            <small class="text-muted fst-italic ms-1" id="replyCharsLeft{{ $reply2->id }}">255</small>
             @error('content')
               <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
@@ -33,3 +34,13 @@
   </div>
   
 </form>
+
+
+<script>
+  function limitTextArea(textArea, maxLength, commentId) {
+    if (textArea.value.length > maxLength) {
+        textArea.value = textArea.value.slice(0, maxLength);
+    }
+    document.getElementById("replyCharsLeft" + commentId).innerHTML = maxLength - textArea.value.length;
+  }
+</script>

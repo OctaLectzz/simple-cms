@@ -14,7 +14,7 @@
         <div class="modal-body">
           <div class="mb-3">
             <label for="editContent{{ $comment->id }}" class="form-label">Comment :</label>
-            <textarea name="content" id="editContent{{ $comment->id }}" class="form-control" value="{{ old('content') }}" maxlength="255" required>{{ $comment->content }}</textarea>
+            <textarea name="content" id="editContent{{ $comment->id }}" class="form-control" value="{{ old('content') }}" required>{{ $comment->content }}</textarea>
             @error('content')
               <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
