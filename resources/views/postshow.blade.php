@@ -128,7 +128,8 @@
                             <input type="hidden" name="post_id" value="{{ $post->id }}">
                             <div class="mb-3">
                                 <label for="content" class="form-label">Add comment</label>
-                                <textarea name="content" id="content" class="form-control" required></textarea>
+                                <textarea name="content" id="content" class="content form-control" maxlength="255" onkeyup="countCharacters()" required></textarea>
+                                <small class="character-count text-muted fst-italic">255</small>
                             </div>
                             <button type="submit" class="comment-button btn btn-dark">Submit</button>
                         </form>
@@ -202,7 +203,7 @@
                             </div>
                         </div>
 
-                        @include('includes.modal-delete')
+                        @include('includes.modal-delete') 
                         @include('includes.modal-editcomment')
                         @include('includes.modal-replycomment')
                     @empty
@@ -285,6 +286,8 @@
 
 </div>
 
+@endsection
+
 
 @push('scripts')
     <script>
@@ -295,15 +298,14 @@
     </script>
 
     <script>
-        function disableButton() {
-            console.log("Tombol submit diklik");
-            document.getElementById("comment-button").disabled = true;
+        function countCharacters() {
+            var maxLength = 255;
+            var currentLength = document.querySelector(".content").value.length;
+            var remainingLength = maxLength - currentLength;
+            document.querySelector(".character-count").innerHTML = remainingLength;
         }
     </script>
-
+    
     <script src="{{ asset('vendor/toastr/toastr.min.js') }}"></script>
     <script src="{{ asset('js/post.js') }}"></script>
 @endpush
-
-
-@endsection

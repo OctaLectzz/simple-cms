@@ -42,7 +42,7 @@ class CommentController extends Controller
         $comment = Comment::findOrFail($request->input('comment_id'));
 
         $request->validate([
-            'content' => 'required',
+            'content' => 'required|max:255',
         ]);
 
         $reply = new Comment;
