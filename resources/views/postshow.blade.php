@@ -129,7 +129,7 @@
                             <div class="mb-3">
                                 <label for="content" class="form-label">Add comment</label>
                                 <textarea name="content" id="content" class="content form-control" maxlength="255" onkeyup="countCharacters()" required></textarea>
-                                <small class="character-count text-muted fst-italic">255</small>
+                                <small class="character-count text-muted fst-italic">255</small> <small class="text-muted fst-italic">Character Left</small>
                             </div>
                             <button type="submit" class="comment-button btn btn-dark">Submit</button>
                         </form>
@@ -305,7 +305,7 @@
             document.querySelector(".character-count").innerHTML = remainingLength;
         }
     </script>
-    
+
     <script src="{{ asset('vendor/toastr/toastr.min.js') }}"></script>
     <script src="{{ asset('js/post.js') }}"></script>
 @endpush

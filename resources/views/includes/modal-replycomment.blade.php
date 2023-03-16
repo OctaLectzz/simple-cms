@@ -15,7 +15,7 @@
                     <input type="hidden" name="comment_id" value="{{ $comment->id }}">
                     <div class="form-group">
                         <textarea name="content" id="replyContent{{ $comment->id }}" class="form-control" rows="2" oninput="limitTextArea(this, 255, {{ $comment->id }})" maxlength="255" required></textarea>
-                        <small class="text-muted fst-italic ms-1" id="replyCharsLeft{{ $comment->id }}">255</small>
+                        <small class="text-muted fst-italic ms-1" id="replyCharsLeft{{ $comment->id }}">255</small> <small class="text-muted fst-italic">Character Left</small>
                     </div>
                 </div>
 
