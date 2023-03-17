@@ -43,6 +43,8 @@ $(document).ready(function () {
                    $('#save-button').attr("disabled", true);    
         } else if ($('.comment-button').is(":focus")) {
                    $('.comment-button').html('<div class="spinner-border spinner-border-sm" role="status"></div> Loading...').attr("disabled", true);
+        } else if ($('.add-comment-button').is(":focus")) {
+            $('.add-comment-button').html('<div class="spinner-border spinner-border-sm" role="status"></div> Loading...').attr("disabled", true);
         }
     });
 });

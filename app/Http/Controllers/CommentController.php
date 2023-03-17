@@ -57,6 +57,10 @@ class CommentController extends Controller
 
     public function destroy(Comment $comment)
     {
+        $comment->replies()->update([
+            'parent_id' => null
+        ]);
+
         $comment->delete();
 
         return response()->json([

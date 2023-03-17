@@ -131,7 +131,7 @@
                                 <textarea name="content" id="content" class="content form-control" maxlength="255" onkeyup="countCharacters()" required></textarea>
                                 <small class="character-count text-muted fst-italic">255</small> <small class="text-muted fst-italic">Character Left</small>
                             </div>
-                            <button type="submit" class="comment-button btn btn-dark">Submit</button>
+                            <button type="submit" class="add-comment-button btn btn-dark">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -195,12 +195,13 @@
                                     </div>
                                 @endif
 
-                                {{-- All Reply Comments --}}
+                                {{-- All Replies Comments --}}
                                 @if(count($comment->replies))
                                     <hr>
                                     @include('includes.reply-comment')
                                 @endif
                             </div>
+
                         </div>
 
                         @include('includes.modal-delete') 
