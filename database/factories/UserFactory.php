@@ -42,7 +42,7 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
-    
+
 
     /**
      * Indicate that the model's role should be superAdmin.
